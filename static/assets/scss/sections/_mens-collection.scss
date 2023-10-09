@@ -1,0 +1,146 @@
+/*----- INDEX-10 MENS COLLECTION SECTION STYLES -----*/
+.rev-10-mens-collection {
+    padding: 80px 0;
+    overflow-x: hidden;
+
+    @include md {
+        padding: 60px 0;
+    }
+
+    >.container>.row {
+        --bs-gutter-x: 30px;
+        --bs-gutter-y: 30px;
+
+        @include lg {
+            --bs-gutter-x: 20px;
+            --bs-gutter-y: 20px;
+        }
+    }
+
+    .rev-10-single-product {
+        margin: 0;
+
+        &__txt {
+            padding: 0;
+            text-align: left;
+        }
+
+        &__title {
+            margin-bottom: 9px;
+        }
+
+        &__price {
+            margin-bottom: 5px;
+
+            .prev-price {
+                font-size: 14px;
+                font-family: $openSans;
+                font-weight: 400;
+                color: #a6a6a6;
+            }
+        }
+
+        &__rating {
+            color: #FE9200;
+
+            i {
+                @include lg {
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+}
+
+/*----- INDEX-13 MENS COLLECTION SECTION STYLES -----*/
+.rev-13-mens-collection {
+    padding: 20px 0 80px;
+
+    .rev-13-section-heading {
+        margin-bottom: 0;
+    }
+
+    .nav-tabs {
+        border: none;
+        align-items: flex-end;
+        margin-bottom: 10px;
+        column-gap: 20px;
+    }
+
+    .nav-tabs .nav-item.show .nav-link,
+    .nav-tabs .nav-link.active {
+        border: none;
+        font-family: $openSans;
+        font-size: 20px;
+        font-weight: 600;
+        color: $bg-red-3;
+        text-transform: capitalize;
+
+        @include md {
+            font-size: 18px;
+        }
+
+        @include xs {
+            font-size: 16px;
+        }
+
+        @include xxs {
+            font-size: 14px;
+        }
+    }
+
+    .nav-tabs .nav-link,
+    .nav-tabs .nav-link {
+        border: none;
+        font-family: $openSans;
+        font-size: 15px;
+        font-weight: 400;
+        color: #a6a6a6;
+        padding: 8px 0;
+
+        @include xs {
+            font-size: 14px;
+        }
+
+        @include xxs {
+            font-size: 12px;
+        }
+    }
+
+
+    .rev-13-single-product {
+        border-radius: 8px;
+
+        .single-product {
+            &__img {
+                border-bottom: 0;
+            }
+
+            &__txt {
+                flex-direction: column;
+                align-items: start;
+            }
+
+            &__title {
+                font-family: $josefinSans;
+                color: #191919;
+                font-size: 15px;
+                font-weight: 400;
+
+                @include xxs {
+                    font-size: 11px;
+                }
+            }
+
+            &__price {
+                font-family: $openSans;
+                font-size: 20px;
+                font-weight: 600;
+
+                @include xxs {
+                    font-size: 13px;
+                }
+            }
+        }
+    }
+}

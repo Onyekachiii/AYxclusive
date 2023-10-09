@@ -1,0 +1,206 @@
+.featured-todays {
+    padding: 15px 0 0;
+    overflow-x: hidden;
+
+    >.container>.row {
+        row-gap: 40px;
+    }
+}
+
+.featured-product-area {
+    padding: 20px 25px;
+    background: $white;
+    box-shadow: 0px 1px 30px 0px rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+    font-family: $Heebo;
+
+    @include xl {
+        padding: 20px;
+    }
+
+    @include xs {
+        padding: 15px;
+    }
+
+    .area-heading {
+        .area-heading-btn {
+            font-size: 16px;
+            color: $bg-red;
+            text-align: right;
+        }
+    }
+
+    .feat-products-container {
+        >.row {
+            row-gap: 25px;
+        }
+    }
+
+    .single-feat-product {
+        border: none;
+        overflow: visible;
+
+        .part-txt {
+            padding-bottom: 0 !important;
+            margin-bottom: -11px;
+
+            @include lg {
+                padding: 10px 5px 0 !important;
+            }
+
+            .product-name {
+                font-size: 18px;
+                font-weight: 500;
+                margin-top: -3px !important;
+
+                @include lg {
+                    font-size: 16px;
+                    margin-bottom: 5px;
+                }
+
+                a {
+                    &:hover {
+                        color: $bg-red;
+                    }
+                }
+            }
+
+            .price {
+                font-size: 16px;
+                font-weight: 400;
+                color: $black-2;
+            }
+        }
+    }
+}
+
+/*----- INDEX-6 SPORTS & OUTDOOR STYLES -----*/
+.sports-outdoor {
+    padding: 40px 0 0;
+
+    .panel {
+        border-radius: 8px;
+    }
+}
+
+/*----- INDEX-6 SPORTS & OUTDOOR STYLES -----*/
+.rev-6-products-section {
+    margin-bottom: 40px;
+
+    .panel {
+        text-align: center;
+
+        .panel-header .title {
+            text-align: left;
+        }
+
+        .rev-6-def-btn {
+            border-radius: 30px;
+            border: 1px solid $bg-red;
+            margin-top: 30px;
+        }
+    }
+
+    .rev-6-single-product-card {
+        .part-txt {
+            .price {
+                margin-bottom: 15px;
+            }
+
+            .star {
+                color: #fed42d;
+                justify-content: flex-start;
+            }
+        }
+    }
+}
+
+/*----- INDEX-5 SPORTS & OUTDOOR STYLES -----*/
+.rev-5-featured-todays {
+    padding: 50px 0 0;
+
+    .featured-product-area {
+        .single-feat-product .part-txt .price {
+            font-weight: 500;
+            font-family: $Heebo;
+        }
+
+        .area-heading .area-heading-btn {
+            color: $bg-red-2;
+        }
+    }
+
+    .rev-5-single-product-card {
+        .part-img {
+            min-height: unset;
+            height: 155px;
+            overflow: hidden;
+            border-radius: 5px;
+            position: relative;
+
+            .product-title {
+                a {
+                    font-size: 18px;
+
+                    &:hover {
+                        color: $bg-red-2;
+                    }
+                }
+            }
+
+            &:hover {
+                .product-title {
+                    opacity: 1;
+                    visibility: visible;
+
+                    a {
+                        margin-top: 0;
+                    }
+                }
+            }
+
+            img {
+                min-height: unset;
+                height: 155px;
+                width: 100%;
+                object-fit: cover;
+            }
+        }
+
+        .cart-option ul li a:hover {
+            color: $bg-red-2;
+        }
+
+        .part-txt {
+            padding-bottom: 0;
+            padding-left: 0;
+        }
+    }
+}
+
+.rev-5-single-product-card .cart-option ul li a:hover {
+    color: $bg-red-2;
+}
+
+/*----- INDEX-18 FEAT PRODUCT SECTION STYLES -----*/
+.rev-18-featured-pro-area {
+    .area-heading .area-heading-btn {
+        color: $bg-green-4;
+    }
+
+    .single-feat-product .part-txt .product-name {
+
+        a:hover,
+        a:focus {
+            color: $bg-green-4;
+        }
+    }
+}
+
+
+/*----- INDEX-18 PRODUCTS SECTION STYLES -----*/
+.rev-18-products-section {
+    .panel .rev-6-def-btn {
+        border-color: $bg-green-4;
+    }
+}

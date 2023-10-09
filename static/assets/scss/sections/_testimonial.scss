@@ -1,0 +1,518 @@
+.testimonial {
+    overflow: hidden;
+
+    .review-slider {
+        .slick-list {
+            padding: 20px 10px;
+            margin: -20px;
+        }
+
+        .review-card {
+            border: 1px solid $txt-color-2;
+            padding: 30px 15px;
+            margin: 0 10px;
+            transition: .3s;
+
+            .user {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+                margin-bottom: 13px;
+
+                .part-img {
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 50%;
+                    overflow: hidden;
+                }
+
+                .txt {
+                    width: calc(100% - 75px);
+
+                    h4 {
+                        font-size: 16px;
+                        line-height: 100%;
+                        font-weight: 600;
+                        color: $black-3;
+                        margin-top: -1px;
+                        margin-bottom: 11px;
+                    }
+
+                    span {
+                        display: block;
+                        font-size: 12px;
+                        line-height: 100%;
+                        font-weight: 400;
+                        color: $black-2;
+                    }
+                }
+            }
+
+            .main-txt {
+                p {
+                    font-size: 14px;
+                    line-height: 24px;
+                    color: $black-2;
+                    margin-bottom: 13px;
+                }
+            }
+
+            .star-wrap {
+                display: flex;
+                align-items: center;
+                gap: 15px;
+
+                .star {
+                    display: flex;
+                    gap: 7px;
+                    font-size: 14px;
+                    color: $gold;
+                }
+
+                span {
+                    font-size: 14px;
+                    line-height: 100%;
+                    color: $black;
+                }
+            }
+
+            &:hover {
+                box-shadow: 0px 0px 30px -5px rgba($black-0, 0.1);
+                border-color: transparent;
+            }
+        }
+    }
+}
+
+/*----- INDEX-7 TESTIMONIAL SECTION  -----*/
+.rev-7-testimonial-section {
+    background: url(../images/bg/testimonial-bg.jpg) no-repeat 0 0;
+    background-size: cover;
+    overflow: hidden;
+
+    .testimonial-slider {
+        padding: 0 35px;
+
+        @include lg {
+            padding: 0;
+        }
+    }
+
+    .slick-list {
+        margin: 0 -25px;
+        padding: 115px 10px 80px;
+
+        @include md {
+            padding: 95px 10px 60px;
+        }
+    }
+
+    .single-testimony {
+        background: $white;
+        margin: 0 15px;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+        border-radius: 6px;
+        padding: 30px;
+        padding-top: 0;
+
+        @include xl {
+            padding: 25px;
+            padding-top: 0;
+        }
+
+        @include lg {
+            padding: 20px;
+            padding-top: 0;
+        }
+
+        @include sm {
+            padding: 15px;
+            padding-top: 0;
+        }
+
+        img {
+            margin-top: -35px;
+            margin-bottom: 12px;
+        }
+
+        h6 {
+            font-weight: 500;
+            font-size: 23px;
+            margin-bottom: -2px;
+            position: relative;
+
+            &::after {
+                content: "";
+                position: absolute;
+                right: 0;
+                top: 0;
+                width: 40px;
+                height: 34px;
+                background: url(../images/icons/quotation-icon.png) no-repeat 0 0;
+                background-size: 100%;
+            }
+        }
+
+        span.label {
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin-bottom: -3px;
+        }
+    }
+}
+
+
+
+/*----- INDEX-8 TESTIMONIAL SECTION  -----*/
+.rev-8-testimonial-section {
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+
+    @include sm {
+        padding: 60px 0;
+    }
+
+    >.container>.row {
+        row-gap: 45px;
+    }
+
+    .testimonial-wrapper {
+        padding-left: 30px;
+
+        @include lg {
+            padding-left: 0;
+        }
+    }
+
+    .testimonial-heading {
+        border-bottom: 1px solid #ddd;
+
+        .sub-title {
+            color: $bg-green;
+            font-weight: 600;
+            font-size: 24px;
+            margin-bottom: 5px;
+
+            @include xl {
+                font-size: 22px;
+            }
+
+            @include lg {
+                font-size: 20px;
+            }
+
+            @include xs {
+                font-size: 18px;
+            }
+        }
+
+        h2 {
+            font-size: 40px;
+            font-weight: 600;
+            margin-bottom: 23px;
+
+            @include xl {
+                font-size: 35px;
+            }
+
+            @include lg {
+                font-size: 32px;
+            }
+
+            @include md {
+                br {
+                    display: none;
+                }
+            }
+
+            @include sm {
+                font-size: 28px;
+            }
+
+            @include xxs {
+                font-size: 25px;
+            }
+        }
+    }
+
+    .single-testimony {
+        padding: 30px 5px;
+
+        @include md {
+            padding: 30px 15px;
+        }
+
+        @include md {
+            padding: 15px 10px;
+        }
+
+        .single-testimony-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+
+            @include xxs {
+                flex-direction: column;
+                row-gap: 20px;
+            }
+
+            .reviewer {
+                display: flex;
+                align-items: center;
+
+                @include xs {
+                    flex-direction: column;
+                    row-gap: 15px;
+                }
+
+                @include xxs {
+                    flex-direction: row;
+                }
+
+                img {
+                    width: 100px;
+                    height: 100px;
+                    margin-right: 30px;
+
+                    @include xxs {
+                        margin-right: 15px;
+                    }
+                }
+
+                h5 {
+                    font-size: 24px;
+                    font-weight: 600;
+
+                    @include sm {
+                        font-size: 22px;
+                    }
+
+                    @include xxs {
+                        font-size: 20px;
+                    }
+                }
+
+                span.label {
+                    font-size: 18px;
+                    font-weight: 500;
+                    color: $black-2;
+                }
+            }
+
+            .star {
+                background: $white;
+                box-shadow: 0px 3px 60px 0px rgba(0, 0, 0, 0.11);
+                padding: 15px 25px;
+                border-radius: 30px;
+                display: flex;
+                gap: 10px;
+                color: #ffc107;
+            }
+        }
+
+        .single-testimony-body {
+            padding-right: 60px;
+
+            @include lg {
+                padding-right: 0;
+            }
+
+            p {
+                font-size: 16px;
+                font-weight: 400;
+                color: $black-2;
+                position: relative;
+                padding-left: 35px;
+                display: inline;
+
+                &::before,
+                &::after {
+                    content: "";
+                    position: absolute;
+                    width: 27px;
+                    height: 23px;
+                    background: url(../images/icons/quotation-icon-2.png) no-repeat 0 0;
+                    background-size: 100%;
+                    top: 0;
+                    left: 0;
+                }
+
+                &::after {
+                    top: auto;
+                    left: auto;
+                    bottom: 0;
+                    right: -35px;
+                    transform: scaleX(-1);
+                }
+            }
+        }
+    }
+
+    .testimonial-img {
+        position: relative;
+        width: fit-content;
+        margin: auto;
+
+        img {
+            border-radius: 8px;
+        }
+
+        &::before {
+            position: absolute;
+            content: "";
+            top: -130px;
+            left: 50%;
+            width: 729px;
+            height: 776px;
+            background: url(../images/bg/testimonial-bg.png) no-repeat 0 0;
+            background-size: 100%;
+            z-index: -1;
+            translate: -50%;
+
+            @include xs {
+                width: 710px;
+            }
+
+            @include xxs {
+                width: 600px;
+            }
+        }
+
+        &::after {
+            position: absolute;
+            content: "";
+            top: -70px;
+            left: 56%;
+            width: 527px;
+            height: 527px;
+            background: url(../images/bg/rev-8-testimonial-bg-2.png) no-repeat 0 0;
+            background-size: 100%;
+            z-index: -1;
+
+            @include md {
+                top: -45px;
+            }
+
+            @include xs {
+                display: none;
+            }
+        }
+    }
+}
+
+/*----- INDEX-10 TESTIMONIAL SECTION  -----*/
+.rev-10-testimonial-section {
+    @include md {
+        padding-bottom: 60px;
+    }
+
+    .slick-list {
+        margin: -15px -15px;
+        padding: 15px 0;
+
+        @include xl {
+            margin: -15px -10px;
+        }
+    }
+
+    .rev-10-single-testimony {
+        padding: 35px 40px 28px;
+        background-color: #f6f6f6;
+        margin: 0 15px;
+        text-align: center;
+        border-radius: 8px;
+        transition: 0.4s ease;
+        transition-property: background-color, box-shadow;
+
+        @include xl {
+            padding: 25px 25px 18px;
+            margin: 0 10px;
+        }
+
+        @include sm {
+            padding: 20px 20px 13px;
+        }
+
+
+        &:hover {
+            background-color: #F1F5FF;
+            box-shadow: 0 6px 12px rgba(47, 97, 210, 0.16);
+        }
+
+        img {
+            margin: auto;
+            border-radius: 8px;
+        }
+
+        &-user {
+            &__img {
+                margin-bottom: 15px;
+            }
+
+            &__label {
+                font-style: italic;
+                font-size: 14px;
+                font-family: $rubik;
+                color: #a8a8a8;
+                margin-bottom: 20px;
+            }
+
+            &__name {
+                margin-bottom: 0;
+                font-size: 18px;
+            }
+
+        }
+
+        &__txt {
+            margin-bottom: 0;
+            position: relative;
+
+            &::before {
+                position: absolute;
+                content: "\f10d";
+                left: 0;
+                font-family: "Font Awesome 6 Sharp";
+                font-weight: 600;
+                color: #d8d8d8;
+                top: -25px;
+                font-size: 25px;
+                line-height: 1;
+            }
+        }
+    }
+}
+
+
+/*----- INDEX-11 TESTIMONIAL SECTION  -----*/
+.rev-11-testimonial-section {
+    .rev-11-single-testimony {
+        &:hover {
+            background-color: #F1FFFB;
+            box-shadow: 0 6px 12px rgb(43 74 65 / 16%);
+        }
+    }
+}
+
+/*----- INDEX-12 TESTIMONIAL SECTION  -----*/
+.rev-12-testimonial {
+    overflow-x: hidden;
+
+    .rev-12-single-testimony {
+        background-color: $white;
+
+        &:hover {
+            background-color: $white;
+            box-shadow: 0 8px 16px rgb(130 130 130 / 30%);
+        }
+    }
+
+    .slick-list {
+        padding: 20px 0;
+        margin: -20px -15px;
+    }
+}

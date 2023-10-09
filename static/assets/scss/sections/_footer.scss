@@ -1,0 +1,973 @@
+.footer {
+    background: $bg-color-3;
+
+    &.footer-2 {
+        .main-footer {
+            .footer-subscribe {
+                form {
+                    button {
+                        background: $color-2;
+
+                        &:hover {
+                            color: $color-2;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .main-footer {
+        padding: 120px 0;
+        color: $txt-color;
+
+        .custom-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+
+            .custom-col {
+                width: calc(100% / 5 - 15px);
+            }
+
+            .custom-col-2 {
+                width: calc(60% / 2 - 15px);
+            }
+        }
+
+        .footer-about {
+            .footer-logo {
+                width: 120px;
+                margin-bottom: 25px;
+            }
+
+            p {
+                font-size: 16px;
+                line-height: 26px;
+                margin-top: -1px;
+                margin-bottom: 10px;
+            }
+
+            ul {
+                li {
+                    display: flex;
+                    align-items: center;
+                    gap: 15px;
+                    margin-bottom: 5px;
+
+                    &:last-child {
+                        margin-bottom: -9px;
+                    }
+
+                    .icon {
+                        span {
+                            font-size: 30px;
+                            line-height: 100%;
+                        }
+                    }
+
+                    .txt {
+                        >* {
+                            display: block;
+                            font-size: 16px;
+                            line-height: 28px;
+                            margin-bottom: 0;
+                        }
+
+                        a {
+                            &:hover {
+                                color: $color-1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .footer-title {
+            font-size: 22px;
+            line-height: 100%;
+            font-weight: 500;
+            padding-bottom: 14px;
+            margin-top: -1px;
+            margin-bottom: 40px;
+            position: relative;
+
+            &:after {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 50px;
+                height: 2px;
+                background: $txt-color;
+            }
+        }
+
+        .link-wrap {
+            display: flex;
+            justify-content: space-around;
+            gap: 20px;
+        }
+
+        .footer-link {
+            ul {
+                margin-top: -14px;
+
+                li {
+                    font-size: 16px;
+                    line-height: 40px;
+
+                    &:last-child {
+                        margin-bottom: -15px;
+                    }
+
+                    a {
+                        line-height: 100%;
+
+                        &:hover {
+                            color: $color-1;
+                        }
+                    }
+                }
+            }
+        }
+
+        .footer-gallery {
+            ul {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+
+                li {
+                    a {
+                        position: relative;
+
+                        span {
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            background: rgba($black-0, .5);
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            font-size: 35px;
+                            color: $white;
+                            opacity: 0;
+                            transition: .3s;
+                        }
+
+                        &:hover {
+                            span {
+                                opacity: 1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .footer-subscribe {
+            p {
+                font-size: 16px;
+                line-height: 26px;
+                margin-top: -6px;
+                margin-bottom: 23px;
+            }
+
+            form {
+                display: flex;
+                border: 1px solid $txt-color;
+                margin-bottom: 30px;
+
+                input {
+                    width: 100%;
+                    padding: 0 10px;
+                    font-size: 15px;
+                    color: $white;
+
+                    &::placeholder {
+                        color: #989898;
+                    }
+                }
+
+                button {
+                    height: 40px;
+                    line-height: 40px;
+                    padding: 0 20px;
+                    background: $color-1;
+                    color: $white;
+                    font-size: 20px;
+
+                    &:hover {
+                        background: $white;
+                        color: $color-1;
+                    }
+                }
+            }
+
+            .btn-box {
+                display: flex;
+                gap: 10px;
+
+                a {
+                    height: 40px;
+
+                    img {
+                        max-height: 100%;
+                    }
+                }
+            }
+        }
+    }
+
+    .copyright {
+        border-top: 1px solid rgba($white, .2);
+        padding: 20px 0;
+
+        p {
+            font-size: 16px;
+            line-height: 100%;
+            color: $white-2;
+            margin-bottom: 0;
+        }
+    }
+}
+
+/*---- INDEX-3 FOOTER STYLES ----*/
+.rev-3-footer {
+    .main-footer {
+        .footer-about ul li .txt a:hover {
+            color: $bg-blue-3;
+        }
+
+        .footer-link ul li a:hover {
+            color: $bg-blue-3;
+        }
+
+        .footer-subscribe form button {
+            background-color: $bg-blue-3;
+
+            &:hover {
+                color: $bg-blue-3;
+            }
+        }
+    }
+}
+
+/*---- INDEX-4 FOOTER STYLES ----*/
+.rev-4-footer {
+    .main-footer {
+        .footer-about ul li .txt a:hover {
+            color: $bg-purple;
+        }
+
+        .footer-link ul li a:hover {
+            color: $bg-purple;
+        }
+
+        .footer-subscribe form button {
+            background-color: $bg-purple;
+
+            &:hover {
+                color: $bg-purple;
+            }
+        }
+    }
+}
+
+/*---- INDEX-6 FOOTER STYLES ----*/
+.rev-6-footer {
+    background: #282828;
+
+    .main-footer {
+        padding: 80px 0;
+
+        @include sm {
+            text-align: center;
+        }
+
+        >.container>.row {
+            row-gap: 60px;
+        }
+
+        .footer-about {
+            .footer-logo {
+                @include sm {
+                    margin: auto;
+                    margin-bottom: 25px;
+                }
+            }
+
+            ul {
+                margin-bottom: 25px;
+                font-family: roboto;
+                font-weight: 400;
+
+                li {
+                    margin-bottom: 8px;
+
+                    @include sm {
+                        justify-content: center;
+                    }
+
+                    &:last-child {
+                        margin-bottom: 0px;
+                    }
+
+                    .txt a {
+                        &:hover {
+                            color: $bg-red;
+                        }
+                    }
+                }
+            }
+        }
+
+        .footer-title {
+            padding-bottom: 0;
+            margin-bottom: 48px;
+            font-weight: 600;
+
+            &::after {
+                content: none;
+            }
+        }
+
+        .footer-link {
+            ul li a {
+                font-family: $rubik;
+                font-weight: 400;
+                font-size: 16px;
+                color: #878787;
+
+                &:hover {
+                    color: $bg-red;
+                }
+            }
+        }
+    }
+
+    &-middle {
+        background: #313131;
+        padding: 30px 0;
+
+        >.container>.row {
+            row-gap: 25px;
+        }
+
+        .footer-title {
+            color: $white;
+            font-family: $rubik;
+            font-size: 24px;
+            text-transform: uppercase;
+            margin-bottom: 19px;
+
+            @include sm {
+                text-align: center;
+                font-size: 20px;
+            }
+
+            @include xxs {
+                font-size: 16px;
+            }
+        }
+    }
+
+    .footer-socials {
+        ul {
+            display: flex;
+            gap: 10px;
+
+            @include sm {
+                justify-content: center;
+            }
+        }
+    }
+
+    .footer-subscribe {
+        form {
+            position: relative;
+            border-radius: 5px;
+            overflow: hidden;
+            display: flex;
+
+            @include xxs {
+                flex-direction: column;
+                align-items: center;
+                row-gap: 10px;
+
+                >* {
+                    border-radius: 5px;
+                }
+            }
+
+            >* {
+                flex: auto;
+            }
+
+            input {
+                background: $white;
+                padding: 0 20px;
+                margin-right: -4px;
+                width: 70%;
+                height: 50px;
+
+                @include xs {
+                    width: 100%;
+                }
+            }
+
+            button {
+                background: $bg-red;
+                height: 50px;
+                padding: 0 20px;
+                color: $white;
+                border: 1px solid $bg-red;
+            }
+        }
+    }
+
+    .copyright {
+        border: none;
+
+        .row {
+            row-gap: 20px;
+        }
+    }
+}
+
+/*---- INDEX-5 FOOTER STYLES ----*/
+.rev-5-footer {
+    .main-footer {
+        .footer-about ul li .txt a:hover {
+            color: $bg-red-2;
+        }
+
+        .footer-link ul li a:hover {
+            color: $bg-red-2;
+        }
+
+        .footer-subscribe form button {
+            background-color: $bg-red-2;
+
+            &:hover {
+                color: $bg-red-2;
+            }
+        }
+    }
+}
+
+/*---- INDEX-7 FOOTER STYLES ----*/
+.rev-7-footer {
+    background: url(../images/bg/rev-7-footer-bg.jpg) no-repeat 0 0;
+    background-size: cover;
+
+    .footer-subscribe {
+        padding: 60px 0;
+        border-bottom: 1px solid #707070;
+
+        @include sm {
+            padding: 40px 0;
+        }
+
+        >.row {
+            @include lg {
+                justify-content: center;
+                row-gap: 20px;
+            }
+        }
+
+        .footer-subs-form {
+            position: relative;
+
+            input {
+                width: 100%;
+                height: 50px;
+                background: $white;
+                border-radius: 30px;
+                padding: 0 127px 0 20px;
+
+                @include xxs {
+                    height: 40px;
+                    padding: 0 112px 0 15px;
+                }
+            }
+
+            button {
+                position: absolute;
+                background: $bg-green;
+                right: 0;
+                top: 0;
+                height: 100%;
+                padding: 0 20px;
+                color: $white;
+                border-radius: 0 30px 30px 0;
+
+                @include xxs {
+                    padding: 0 15px;
+                }
+            }
+        }
+    }
+
+    h3 {
+        font-weight: 600;
+        font-size: 30px;
+        color: #ddd;
+        margin-bottom: 0;
+
+        @include lg {
+            text-align: center;
+            font-size: 28px;
+
+
+            &.footer-title {
+                text-align: left;
+            }
+        }
+
+        @include sm {
+            font-size: 25px;
+        }
+    }
+
+    .footer-socials {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 30px;
+        font-weight: 500;
+        font-size: 24px;
+        text-transform: capitalize;
+        font-family: $rubik;
+
+        @include lg {
+            justify-content: center;
+        }
+
+        @include xxs {
+            gap: 10px;
+        }
+
+        ul {
+            display: flex;
+            gap: 10px;
+        }
+
+        .footer-title {
+            font-size: 18px;
+            line-height: 100%;
+        }
+    }
+
+    .main-footer .footer-link ul li a:hover {
+        color: $bg-green;
+    }
+
+    .main-footer .footer-about ul li .txt a:hover {
+        color: $bg-green;
+    }
+
+    .copyright {
+        position: relative;
+        overflow: hidden;
+        border: 0;
+        z-index: 1;
+
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(40deg, $bg-green 35%, #313131 0);
+            z-index: -1;
+
+            @include sm {
+                background: #313131;
+            }
+        }
+
+        &::after {
+            right: 0;
+            background: linear-gradient(-40deg, $bg-green 35%, #313131 0);
+
+            @include sm {
+                background: #313131;
+            }
+        }
+
+        .row {
+            row-gap: 15px;
+        }
+    }
+}
+
+
+/*---- INDEX-8 FOOTER STYLES ----*/
+.rev-8-footer {
+    .main-footer {
+        padding: 90px 0;
+    }
+
+    .rev-8-features {
+        background: transparent;
+        border-bottom: 1px solid #707070;
+
+        .panel {
+            background: transparent;
+
+            .custom-col {
+                border: 0;
+            }
+
+            .single-feature {
+                .part {
+                    &-icon {
+                        span {
+                            color: $white;
+                        }
+                    }
+
+                    &-txt {
+
+                        h4,
+                        p {
+                            color: $white;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/*---- INDEX-9 FOOTER STYLES ----*/
+.rev-9-footer {
+    .main-footer {
+        .footer-subscribe form button {
+            background-color: $bg-red;
+
+            &:hover {
+                color: $bg-red;
+            }
+        }
+    }
+}
+
+/*---- INDEX-10 FOOTER STYLES ----*/
+.rev-10-footer {
+    background-color: #f1f5ff;
+
+    .main-footer {
+        color: #191919;
+        border: solid #a8a8a8;
+        border-width: 1px 0;
+        padding: 80px 0;
+
+        .custom-row {
+            @include lg {
+                gap: 40px 20px !important;
+            }
+
+            @include sm {
+                gap: 40px 0 !important;
+            }
+
+            .custom-col {
+                @include xs {
+                    width: 50% !important;
+                }
+
+                @include xxs {
+                    width: 100% !important;
+                }
+            }
+        }
+
+        .footer-about {
+            ul {
+                gap: 10px;
+
+                li {
+                    margin-bottom: 0 !important;
+
+                    a {
+                        width: 40px;
+                        height: 40px;
+                        line-height: 43px;
+                        border: 1px solid #ddd;
+                        border-radius: 50%;
+                        text-align: center;
+                        font-size: 22px;
+                    }
+
+                    &:last-child {
+                        margin-bottom: 0 !important;
+                    }
+                }
+            }
+
+            p {
+                font-family: $openSans;
+                font-size: 15px;
+                font-weight: 400;
+                margin-bottom: 20px;
+            }
+        }
+
+        .footer-title {
+            padding-bottom: 0;
+            text-transform: capitalize;
+            margin-bottom: 26px;
+            margin-top: 0;
+            font-family: $josefinSans;
+
+            @include lg {
+                font-weight: 600;
+                margin-bottom: 20px;
+            }
+
+            @include md {
+                font-size: 17px !important;
+                margin-bottom: 15px !important;
+            }
+
+            &::after {
+                content: none;
+            }
+        }
+
+        .footer-link ul li a:hover {
+            color: $bg-blue-4;
+        }
+
+        .footer-subscribe {
+            h5 {
+                font-family: $openSans;
+                font-size: 16px;
+                font-weight: 500;
+            }
+
+            form {
+                border: 0;
+                margin-bottom: 15px;
+
+                input {
+                    background-color: $white;
+                    color: $black;
+                    height: 40px;
+                    line-height: 44px;
+                }
+
+                button {
+                    background-color: $bg-blue-4;
+
+                    &:hover {
+                        color: $bg-blue-4;
+                    }
+                }
+
+            }
+
+            .footer-info {
+                font-family: $openSans;
+
+                li {
+                    line-height: 30px;
+                }
+            }
+        }
+    }
+
+    .copyright {
+        p {
+            color: #a8a8a8;
+        }
+    }
+}
+
+/*---- INDEX-11 FOOTER STYLES ----*/
+.rev-11-footer {
+    background-color: #E5FFF7;
+
+    .main-footer {
+        .footer-about {
+            ul li a {
+                &:hover {
+                    color: $bg-green-3;
+                }
+            }
+        }
+
+        .footer-link ul li a:hover {
+            color: $bg-green-3;
+        }
+
+        .footer-subscribe form button {
+            background-color: $bg-green-2;
+
+            &:hover {
+                color: $bg-green-2;
+            }
+        }
+    }
+}
+
+/*---- INDEX-11 FOOTER STYLES ----*/
+.rev-12-footer {
+    background-color: #f2f2f2;
+
+    .main-footer {
+        border-width: 0 0 1px;
+
+        .footer-about ul li a {
+            color: $bg-yellow;
+            line-height: 40px;
+
+            &:hover {
+                color: $black;
+            }
+        }
+
+        .footer-link ul li a:hover {
+            color: $bg-yellow;
+        }
+
+        .footer-subscribe form button {
+            background-color: $bg-yellow;
+            color: $black;
+
+            &:hover {
+                color: $bg-yellow;
+            }
+        }
+    }
+
+    .copyright {
+        p {
+            color: $black;
+        }
+
+        span.colored {
+            color: $bg-yellow;
+        }
+    }
+}
+
+/*---- INDEX-13 FOOTER STYLES ----*/
+.rev-13-footer {
+    background-color: $white;
+
+    .main-footer {
+
+        .footer-about,
+        .footer-link {
+            ul li a:hover {
+                color: $bg-red-3;
+            }
+        }
+
+        .footer-subscribe form button {
+            background-color: $bg-red-3;
+
+            &:hover {
+                color: $bg-red-3;
+            }
+        }
+    }
+}
+
+/*---- INDEX-14 FOOTER STYLES ----*/
+.rev-14-footer {
+    background-color: #f2f2f2;
+
+    .main-footer {
+        border-width: 0 0 1px;
+
+        .footer-about ul li a {
+            &:hover {
+                color: $bg-red-4;
+            }
+        }
+
+        .footer-link {
+            ul li a:hover {
+                color: $bg-red-4;
+            }
+        }
+
+        .footer-subscribe {
+            form button {
+                background-color: $bg-red-4;
+
+                &:hover {
+                    color: $bg-red-4;
+                }
+            }
+        }
+    }
+}
+
+/*---- INDEX-15 FOOTER STYLES ----*/
+.rev-15-footer {
+    .main-footer {
+        .footer-about ul li .txt {
+
+            a:hover,
+            a:focus {
+                color: $bg-orange;
+            }
+        }
+
+        .footer-link ul li {
+
+            a:hover,
+            a:focus {
+                color: $bg-orange;
+            }
+        }
+
+        .footer-subscribe form button {
+            background-color: $bg-orange;
+
+            &:hover,
+            &:focus {
+                color: $bg-orange;
+            }
+        }
+    }
+}
+
+/*---- INDEX-14 FOOTER STYLES ----*/
+.rev-18-footer {
+    .footer-subscribe form button {
+        background-color: $bg-green-4;
+        border-color: $bg-green-4;
+
+    }
+
+    .main-footer {
+        .footer-about ul li .txt {
+
+            a:hover,
+            a:focus {
+                color: $bg-green;
+            }
+
+        }
+
+        .footer-link ul li {
+
+            a:hover,
+            a:focus {
+                color: $bg-green;
+            }
+        }
+    }
+}

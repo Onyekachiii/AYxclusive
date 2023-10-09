@@ -1,0 +1,1381 @@
+body {
+    font-family: $poppins;
+    background: $bg-color;
+    line-height: 1.5;
+
+    &.clear {
+        overflow: hidden;
+    }
+
+    &.home-2 {
+        background: $white;
+    }
+
+    &.inner {
+        background: $white;
+    }
+}
+
+.rev-4-body {
+    background: $white;
+}
+
+.rev-9-body {
+    background: $white;
+}
+
+.rev-10-body {
+    background: $white;
+    font-family: $josefinSans;
+}
+
+.rev-12-body {
+    background-color: $white;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+@media screen and (min-width: 1200px) {
+    .container {
+        width: 100%;
+        max-width: 1530px;
+    }
+}
+
+.d_none {
+    display: none;
+}
+
+input,
+select,
+textarea,
+button {
+    padding: 0;
+    border: 0;
+    outline: none;
+    transition: 0.3s;
+    background: transparent;
+}
+
+input[type=number],
+[type=month] {
+    width: 100% !important;
+    -moz-appearance: textfield;
+
+    &::-webkit-inner-spin-button,
+    &::-webkit-calendar-picker-indicator {
+        display: none;
+        appearance: none;
+        margin: 0;
+    }
+}
+
+a {
+    display: inline-block;
+    color: inherit;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+span {
+    display: inline-block;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.def-btn {
+    height: 50px;
+    line-height: 50px;
+    padding: 0 40px;
+    background: $color-1;
+    color: $white;
+    font-size: 15px;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: 0.3s;
+
+    &.btn-border {
+        border: 1px solid $color-1;
+        line-height: 48px;
+    }
+
+    &:hover,
+    &:focus {
+        background: $white;
+        color: $color-1;
+    }
+}
+
+.btn-success {
+    background: #1bad1b;
+
+    &:hover,
+    &:focus {
+        color: #1bad1b;
+    }
+}
+
+.def-btn-2 {
+    height: 40px;
+    line-height: 38px;
+    padding: 0 30px;
+    background: $white;
+    border: 1px solid $color-1;
+    color: $color-1;
+    font-size: 15px;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: 0.3s;
+
+    &:hover,
+    &:focus {
+        background: $color-1;
+        color: $white;
+    }
+}
+
+.home-2 {
+    .def-btn {
+        background: $color-2;
+
+        &:hover,
+        &:focus {
+            background: $white;
+            color: $color-2;
+        }
+    }
+
+    .def-btn-2 {
+        border-color: $color-2;
+        color: $color-2;
+
+        &:hover,
+        &:focus {
+            background: $color-2;
+            color: $white;
+        }
+    }
+
+    .def-btn-3 {
+        height: 50px;
+        line-height: 50px;
+        padding: 0 40px;
+        background: $white;
+        color: $color-2;
+        font-size: 15px;
+        font-weight: 500;
+        text-transform: uppercase;
+        transition: 0.3s;
+
+        &:hover,
+        &:focus {
+            background: $color-2;
+            color: $white;
+        }
+    }
+
+    .panel {
+        .panel-header {
+            &::after {
+                background: $color-2;
+            }
+
+            .explore-section {
+                color: $color-2;
+            }
+        }
+
+        .nav {
+            button {
+                &.active {
+                    color: $color-2;
+                }
+            }
+        }
+    }
+}
+
+
+
+.py-120 {
+    padding-top: 120px;
+    padding-bottom: 120px;
+}
+
+.pt-120 {
+    padding-top: 120px;
+}
+
+.pb-120 {
+    padding-bottom: 120px;
+}
+
+.py-80 {
+    padding: 80px 0;
+}
+
+.py-60 {
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+.pt-80 {
+    padding-top: 80px;
+}
+
+.pt-60 {
+    padding-top: 60px;
+}
+
+.pb-60 {
+    padding-bottom: 60px;
+}
+
+.pb-80 {
+    padding-bottom: 80px;
+}
+
+.py-25 {
+    padding: 25px 0;
+}
+
+.pt-25 {
+    padding-top: 25px;
+}
+
+.pb-25 {
+    padding-bottom: 25px;
+}
+
+.pt-50 {
+    padding-top: 50px;
+}
+
+.pb-50 {
+    padding-bottom: 50px;
+}
+
+.pt-55 {
+    padding-top: 55px;
+}
+
+.pb-55 {
+    padding-bottom: 55px;
+}
+
+.pb-35 {
+    padding-bottom: 35px;
+}
+
+.pb-md-60 {
+    @include md {
+        padding-bottom: 60px;
+    }
+}
+
+.pb-md-30 {
+    @include md {
+        padding-bottom: 30px;
+    }
+}
+
+.py-md-60 {
+    @include md {
+        padding: 60px 0;
+    }
+}
+
+.pt-md-60 {
+    @include md {
+        padding-top: 60px;
+    }
+}
+
+.w-55 {
+    width: 55%;
+}
+
+.panel {
+    background: $white;
+    padding: 40px 20px;
+
+    &.panel-2 {
+        padding: 60px 20px;
+    }
+
+    &.panel-3 {
+        padding: 0;
+    }
+
+    &.panel-shadow {
+        box-shadow: 0px 0px 30px -5px rgba($black-0, 0.1);
+    }
+
+    .panel-header {
+        position: relative;
+        border-bottom: 1px solid $border-color;
+        padding-bottom: 18px;
+        margin-bottom: 40px;
+
+        &:after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 70px;
+            height: 3px;
+            background: $color-1;
+        }
+
+        .title {
+            font-size: 20px;
+            line-height: 20px;
+            font-weight: 600;
+            text-transform: capitalize;
+            color: $black-3;
+            margin-top: -2px;
+            margin-bottom: 0;
+        }
+
+        .explore-section {
+            font-size: 16px;
+            line-height: 100%;
+            font-weight: 500;
+            color: $color-1;
+        }
+    }
+
+    .nav {
+        justify-content: flex-end;
+        border: 0;
+
+        button {
+            padding: 0 10px;
+            border: 0;
+            margin: 0;
+            font-size: 16px;
+            line-height: 100%;
+            color: $black-2;
+            text-transform: capitalize;
+
+            &:first-child {
+                padding-left: 0;
+            }
+
+            &:last-child {
+                padding-right: 0;
+            }
+
+            &.active {
+                background-color: transparent;
+                color: $color-1;
+            }
+        }
+    }
+}
+
+.heading {
+    &.heading-2 {
+        h2 {
+            &::after {
+                background: $color-2;
+            }
+        }
+    }
+
+    h2 {
+        font-size: 26px;
+        line-height: 100%;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: $black;
+        margin-top: -4px;
+        padding-bottom: 19px;
+        margin-bottom: 40px;
+        position: relative;
+
+        &:after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90px;
+            height: 3px;
+            background: $color-1;
+        }
+    }
+}
+
+.nice-select {
+    &::after {
+        width: 8px;
+        height: 8px;
+        border-width: 1px;
+        border-color: $black;
+    }
+}
+
+.rounded {
+    border-radius: 4px !important;
+}
+
+.text-success {
+    color: #1bad1b !important;
+}
+
+.month-picker {
+    display: inline-block;
+    position: absolute;
+    z-index: 9999;
+    background: $bg-color-4;
+    background: $white;
+    box-shadow: 0px 5px 30px 0px rgba($black-0, 0.1);
+    width: max-content;
+}
+
+.month-picker-year-table {
+
+    .month-picker-previous,
+    .month-picker-next {
+        padding: 10px;
+    }
+
+    .month-picker-title {
+        width: 150px;
+        padding: 10px;
+    }
+
+    .month-picker-next {
+        .ui-button {
+            .ui-icon {
+                background-image: url(../images/arrow-right.png);
+            }
+        }
+    }
+
+    .ui-button {
+        padding: 0;
+        border: 0;
+        text-align: center;
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        font-size: 14px;
+        font-weight: 500;
+        color: $black-2;
+
+        .ui-icon {
+            background-image: url(../images/arrow-left.png);
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: 18px;
+            border: 1px solid $txt-color-2;
+            width: 40px;
+            height: 40px;
+            transition: .3s;
+
+            &:hover {
+                box-shadow: 0px 5px 20px 0px rgba($black-0, 0.1);
+                border-color: transparent;
+            }
+        }
+    }
+}
+
+.month-picker-month-table {
+    width: 100%;
+
+    td {
+        text-align: center;
+        width: calc(100% / 3);
+        padding: 0;
+        height: 40px;
+        border-top: 1px solid $txt-color-2;
+        border-left: 1px solid $txt-color-2;
+
+        &:first-child {
+            border-left: 0;
+        }
+
+        .ui-button {
+            font-size: 14px;
+            color: $black-2;
+
+            &.ui-state-highlight {
+                color: $color-1;
+            }
+
+            &:hover {
+                color: $color-1;
+            }
+        }
+    }
+}
+
+.apexcharts-tooltip-z-group {
+    display: none;
+}
+
+/* INDEX-3 PANEL HEADER */
+.panel .rev-3-panel-header {
+    &::after {
+        background-color: $bg-blue-3;
+    }
+}
+
+.section-spacing {
+    padding: 80px 0;
+
+    @include md {
+        padding: 60px 0;
+    }
+}
+
+/*----- INDEX-4 SECTION HEADING SYLES -----*/
+.section-heading {
+    text-align: center;
+    width: fit-content;
+    margin: 0 auto;
+
+    h6 {
+        font-size: 15px;
+        font-weight: 400;
+        color: $black-2;
+    }
+
+    h2 {
+        position: relative;
+        font-size: 30px;
+        font-weight: 700;
+        padding-bottom: 15px;
+        margin-bottom: 45px;
+        text-transform: uppercase;
+
+        @include xl {
+            font-size: 27px;
+        }
+
+        @include lg {
+            margin-bottom: 30px;
+        }
+
+        @include md {
+            margin-bottom: 20px;
+            font-size: 25px;
+        }
+
+        @include sm {
+            font-size: 22px;
+        }
+
+        @include xs {
+            font-size: 20px;
+        }
+
+        &::before {
+            position: absolute;
+            content: "";
+            bottom: 0;
+            left: 50%;
+            translate: -50% 0;
+            width: calc(100% - 75%);
+            height: 3px;
+            background-color: $bg-purple;
+        }
+    }
+}
+
+
+
+/*----- INDEX-6 DEFAULT BUTTON -----*/
+.rev-6-def-btn {
+    background: $bg-red;
+    border-radius: 5px;
+
+    &:hover {
+        color: $bg-red;
+    }
+}
+
+.area-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    &-left {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .title {
+        font-size: 20px;
+        line-height: 20px;
+        font-weight: 600;
+        text-transform: capitalize;
+        color: #292929;
+        margin-top: -2px;
+        margin-bottom: 0;
+
+        @include md {
+            font-size: 18px;
+        }
+
+        @include xxs {
+            font-size: 16px;
+        }
+    }
+}
+
+/*----- INDEX-5 DEFAULTS -----*/
+.rev-5-body {
+    .heading h2 {
+        &::after {
+            background: $bg-red-2;
+        }
+    }
+
+    .panel {
+        .panel-header {
+            &::after {
+                background: $bg-red-2;
+            }
+
+            .explore-section {
+                color: $bg-red-2;
+            }
+        }
+
+        .nav button.active {
+            color: $bg-red-2;
+        }
+    }
+}
+
+.rev-5-def-btn {
+    background: $bg-red-2;
+
+    &:hover {
+        color: $bg-red-2;
+    }
+}
+
+/*----- INDEX-7 DEFAULTS -----*/
+.rev-7-body {
+    background: $white;
+    font-family: $jost;
+}
+
+.rev-7-def-btn {
+    background: $bg-green;
+    border-radius: 30px;
+    height: 45px;
+    line-height: 45px;
+
+    &:hover {
+        color: $bg-green;
+    }
+}
+
+.rev-7-section-heading {
+    width: unset;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 40px;
+
+    h2 {
+        text-align: left;
+        margin-bottom: 0;
+        padding-bottom: 0;
+        text-transform: capitalize;
+        font-weight: 600;
+        font-size: 40px;
+        margin-top: -4px;
+
+        &::before {
+            content: none;
+        }
+    }
+
+    @include xl {
+        >.row {
+            row-gap: 25px;
+        }
+
+        h2 {
+            font-size: 35px;
+            text-align: center;
+        }
+    }
+
+    @include lg {
+        h2 {
+            font-size: 32px;
+        }
+    }
+
+    @include md {
+        margin-bottom: 25px;
+    }
+
+    @include sm {
+        h2 {
+            font-size: 30px;
+        }
+    }
+
+    @include xs {
+        margin-bottom: 20px;
+
+        h2 {
+            font-size: 28px;
+        }
+    }
+
+    @include xxs {
+        h2 {
+            font-size: 25px;
+        }
+    }
+}
+
+/*----- INDEX-8 DEFAULTS -----*/
+.rev-8-section-heading {
+    border: 0;
+}
+
+@include xs {
+    .col-xs-6 {
+        width: 50%;
+    }
+}
+
+@include xxs {
+    .col-xs-12 {
+        width: 100%;
+    }
+
+    .col-xxs-6 {
+        width: 50%;
+    }
+}
+
+/*----- INDEX-9 DEFAULTS -----*/
+.rev-9-section-heading {
+    width: 50%;
+    margin: auto;
+    text-align: center;
+    margin-bottom: 64px;
+
+    @include xl {
+        width: 60%;
+        margin-bottom: 34px;
+    }
+
+    @include md {
+        width: 80%;
+        margin-bottom: 29px;
+    }
+
+    @include sm {
+        width: 100%;
+    }
+
+    .section-title {
+        color: #102039;
+        font-family: $jost;
+        font-weight: 700;
+        font-size: 40px;
+        margin-bottom: 15px;
+
+        @include xl {
+            font-size: 35px;
+            margin-bottom: 10px;
+        }
+
+        @include lg {
+            font-size: 30px;
+            margin-bottom: 5px;
+        }
+
+        @include md {
+            font-size: 27px;
+        }
+
+        @include sm {
+            font-size: 25px;
+        }
+
+        @include xs {
+            font-size: 23px;
+        }
+    }
+
+    p {
+        font-family: $Heebo;
+        font-weight: 400;
+        color: $black-2;
+        margin-bottom: 0;
+    }
+}
+
+.rev-9-def-btn {
+    background-color: $bg-red;
+    border-radius: 6px;
+    color: $white;
+    padding: 0 30px;
+    height: 45px;
+    line-height: 42px;
+    font-family: $jost;
+    font-size: 22px;
+    font-weight: 500;
+    border: 1px solid $bg-red;
+    text-transform: capitalize;
+
+    @include xl {
+        font-size: 20px;
+    }
+
+    @include md {
+        font-size: 18px;
+        padding: 0 20px;
+        height: 40px;
+        line-height: 38px;
+    }
+
+    &:hover {
+        color: $bg-red;
+        border-color: $bg-red;
+        background-color: $white;
+    }
+}
+
+
+/*----- INDEX-10 DEFAULTS -----*/
+.rev-10-def-btn {
+    background-color: $bg-blue-4;
+    text-transform: capitalize;
+    padding: 0 20px;
+    border-radius: 6px;
+    height: 45px;
+    line-height: 48px;
+
+    @include md {
+        height: 40px !important;
+        line-height: 43px !important;
+    }
+
+    @include xxs {
+        height: 35px !important;
+        line-height: 37px !important;
+    }
+
+    &:hover {
+        color: $bg-blue-4;
+    }
+}
+
+.rev-10-section-heading {
+    margin-bottom: 60px;
+
+    @include md {
+        margin-bottom: 35px;
+    }
+
+    .rev-10-section-title {
+        text-transform: capitalize;
+        padding-bottom: 5px;
+        margin-bottom: 0;
+
+        &::before {
+            background-color: $bg-blue-4;
+            width: 110px;
+            height: 2px;
+        }
+    }
+}
+
+/*----- INDEX-11 DEFAULTS -----*/
+.rev-11-section-heading {
+    margin-bottom: 39px;
+    width: 100%;
+    text-align: left;
+
+    @include md {
+        margin-bottom: 24px;
+    }
+
+    .rev-11-section-title {
+        font-weight: 600;
+        font-size: 45px;
+        text-transform: capitalize;
+        margin-bottom: 0;
+        padding-bottom: 0;
+
+        @include xl {
+            font-size: 35px;
+        }
+
+        @include md {
+            font-size: 30px;
+        }
+
+        @include sm {
+            font-size: 25px;
+            text-align: center;
+        }
+
+        &::before {
+            content: none;
+        }
+    }
+
+    .def-btn {
+        background-color: $white;
+        border: 2px solid $bg-green-2;
+        color: $bg-green-2;
+        font-size: 18px;
+        font-weight: 600;
+        padding: 0 25px;
+        line-height: 43px;
+
+        @include lg {
+            line-height: 40px;
+        }
+
+        @include md {
+            height: 40px;
+        }
+
+        @include sm {
+            height: 35px;
+            line-height: 33px !important;
+        }
+
+        &:hover {
+            color: $white;
+            background-color: $bg-green-2;
+        }
+    }
+}
+
+.rev-11-def-btn {
+    background-color: $bg-green-2;
+    text-transform: capitalize;
+    padding: 0 30px;
+    height: 45px;
+    line-height: 43px;
+    border: 2px solid $bg-green-2;
+    font-family: $josefinSans;
+    font-size: 18px;
+    font-weight: 600;
+
+    @include lg {
+        height: 40px;
+        line-height: 37px;
+        padding: 0 25px;
+        font-size: 16px;
+    }
+
+    @include xs {
+        line-height: 27px !important;
+    }
+
+    &:hover,
+    &:focus {
+        color: $bg-green-2;
+    }
+}
+
+/*----- INDEX-12 DEFAULTS -----*/
+.rev-12-section-heading {
+    margin-left: 0;
+    margin-bottom: 27px;
+
+    .rev-12-section-title {
+        font-family: $raleway;
+        text-transform: capitalize;
+        font-size: 50px;
+        font-weight: 700;
+        text-align: left;
+        margin-bottom: 0;
+        padding-bottom: 0;
+        position: relative;
+
+        @include xl {
+            font-size: 40px;
+        }
+
+        @include lg {
+            font-size: 35px;
+        }
+
+        @include sm {
+            font-size: 30px;
+        }
+
+        @include xs {
+            font-size: 28px;
+        }
+
+        @include xxs {
+            font-size: 25px;
+        }
+
+        &::before {
+            content: "";
+            position: absolute;
+            width: 215px;
+            height: 9px;
+            top: -28px;
+            left: 0;
+            translate: 0 0;
+            background-image: linear-gradient(150deg, $bg-yellow 60%, $black 25%, $black 85%, transparent 10px);
+            background-color: transparent;
+
+            @include xl {
+                width: 145px;
+            }
+
+            @include sm {
+                height: 7px;
+                width: 120px;
+            }
+        }
+    }
+}
+
+.rev-12-def-btn {
+    position: relative;
+    z-index: 1;
+    background-color: $white;
+    font-family: $kanit;
+    font-size: 18px;
+    font-weight: 400;
+    color: #191919;
+    text-transform: capitalize;
+
+    &:hover,
+    &:focus {
+        color: $black;
+
+        &::before {
+            width: 90%;
+        }
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 10%;
+        height: 100%;
+        background: $bg-yellow;
+        z-index: -1;
+        transition: width 0.4s ease;
+    }
+}
+
+/*----- INDEX-13 DEFAULTS -----*/
+.rev-13-section-heading {
+    margin-left: 0;
+    width: max-content;
+    margin-bottom: 36px;
+
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+
+    @include xxs {
+        margin-bottom: 21px;
+    }
+
+    .rev-13-section-title {
+        font-family: $josefinSans;
+        font-weight: 600;
+        font-size: 40px;
+        color: #191919;
+        text-transform: capitalize;
+        padding-bottom: 0;
+        margin-bottom: 0;
+        text-align: left;
+
+        @include xl {
+            font-size: 35px;
+        }
+
+        @include lg {
+            font-size: 30px;
+        }
+
+        @include md {}
+
+        @include sm {
+            font-size: 28px;
+        }
+
+        @include xs {
+            font-size: 25px;
+        }
+
+        @include xxs {
+            font-size: 20px;
+        }
+
+        &::before {
+            content: none;
+        }
+    }
+
+    a,
+    button {
+        height: 40px;
+        line-height: 40px;
+        padding: 0 25px;
+        background-color: $bg-red-3;
+        border: 1px solid $bg-red-3;
+        color: $white;
+
+        @include lg {
+            height: 35px;
+            line-height: 35px;
+            padding: 0 15px;
+            font-size: 15px;
+        }
+
+        @include xxs {
+            height: 30px;
+            line-height: 30px;
+            padding: 0 13px;
+            font-size: 13px;
+        }
+
+        &:hover {
+            background-color: $white;
+            color: $bg-red-3;
+        }
+    }
+}
+
+/*----- INDEX-14 DEFAULTS -----*/
+.rev-14-def-btn {
+    background-color: $bg-red-4;
+    height: 40px;
+    line-height: 38px;
+    border: 1px solid $bg-red-4;
+    padding: 0 20px;
+    text-transform: capitalize;
+    color: $white;
+    font-family: $oxanium;
+
+    @include sm {
+        height: 35px;
+        line-height: 34px;
+        font-size: 14px;
+    }
+
+    @include xxs {
+        height: 30px;
+        line-height: 30px;
+        font-size: 13px;
+        padding: 0 10px;
+    }
+
+    i {
+        margin-left: 5px;
+    }
+
+    &:hover {
+        color: $bg-red-4;
+        background-color: transparent;
+    }
+}
+
+.rev-14-section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 60px;
+
+    @include xl {
+        margin-bottom: 30px;
+    }
+}
+
+.rev-14-section-title {
+    margin-bottom: 0;
+    line-height: 1;
+    font-size: 55px;
+    font-weight: 600;
+    text-transform: capitalize;
+    position: relative;
+    margin-bottom: -14px;
+
+    @include xl {
+        font-size: 45px;
+    }
+
+    @include lg {
+        font-size: 40px;
+    }
+
+    @include md {
+        font-size: 35px;
+    }
+
+    @include sm {
+        font-size: 30px;
+    }
+
+    @include xxs {
+        font-size: 25px;
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: -20px;
+        left: 0;
+        width: 85px;
+        height: 3px;
+        background-color: $bg-red-4;
+    }
+}
+
+
+/*----- INDEX-15 DEFAULTS -----*/
+.rev-15-body {
+    background-color: $white;
+}
+
+.rev-15-def-btn {
+    background-color: $bg-orange;
+    color: $white;
+    padding: 0 20px;
+    height: 40px;
+    line-height: 37px;
+    border: 1px solid $bg-orange;
+    border-radius: 30px;
+    color: $white;
+    font-size: 16px;
+
+    @include lg {
+        height: 35px;
+        line-height: 33px;
+        font-size: 14px;
+    }
+
+    @include sm {
+        height: 30px;
+        line-height: 28px;
+        padding: 0 15px;
+    }
+
+    &:hover {
+        color: $bg-orange;
+        background-color: transparent;
+        border-style: dashed;
+    }
+}
+
+.rev-15-section-heading {
+    background-color: $white;
+    padding: 10px 15px;
+    border-bottom: 1px solid rgba($black-0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.rev-15-section-title {
+    font-size: 25px;
+    font-family: $jost;
+    color: #464646;
+    margin-bottom: 10px;
+
+    @include xs {
+        font-size: 22px;
+    }
+}
+
+/*----- INDEX-16 DEFAULTS -----*/
+.rev-16-body {
+    .rev-15-section-title {
+        margin-bottom: 0;
+    }
+}
+
+/*---- INDEX-17 DEFAULTS -----*/
+.rev-17-section-heading {
+    margin: auto;
+    margin-bottom: 30px;
+    width: max-content;
+    text-align: center;
+    max-width: 100%;
+
+    .rev-17-section-title {
+        margin-bottom: 5px;
+        color: #464646;
+        font-family: $rubik;
+
+        @include sm {
+            font-size: 28px;
+        }
+
+        @include xs {
+            font-size: 25px;
+        }
+
+        @include xxs {
+            font-size: 20px;
+        }
+    }
+
+    h6 {
+        font-weight: 400;
+        font-family: $jost;
+        font-size: 17px;
+        color: #777;
+
+        @include lg {
+            font-size: 16px;
+        }
+
+        @include sm {
+            font-size: 14px;
+        }
+    }
+}
+
+/*---- INDEX-18 DEFAULTS -----*/
+.rev-18-def-btn {
+    background-color: $bg-green-4;
+
+    &:hover,
+    &:focus {
+        color: $bg-green-4;
+    }
+}
+
+.rev-18-panel {
+    padding: 20px;
+
+    .panel-header {
+        margin-bottom: 20px;
+    }
+}

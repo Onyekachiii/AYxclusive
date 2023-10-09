@@ -1,0 +1,48 @@
+.shop-by-categories-section {
+    padding: 77px 0 50px;
+
+    @include md {
+        padding: 57px 0 50px;
+    }
+
+    .nav-tabs {
+        border-bottom: none;
+
+        .nav-item {
+            .nav-link {
+                padding: 0;
+                border: none;
+                color: #a8a8a8;
+                padding-right: 10px;
+                margin-right: 10px;
+                border-right: 1px solid #a8a8a8;
+                border-radius: 0;
+                font-family: $openSans;
+                font-size: 18px;
+                font-weight: 600;
+
+                @include sm {
+                    font-size: 16px;
+                }
+
+                &:hover {
+                    color: $bg-green-2;
+                }
+            }
+
+            &:last-child {
+                .nav-link {
+                    border: 0;
+                    padding: 0;
+                    margin: 0;
+                }
+            }
+        }
+
+        .nav-item.show .nav-link,
+        .nav-link.active {
+            color: $bg-green-2;
+        }
+    }
+
+}

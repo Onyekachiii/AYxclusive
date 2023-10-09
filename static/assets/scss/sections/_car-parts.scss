@@ -1,0 +1,153 @@
+.car-parts-section {
+    padding: 80px 0;
+
+    @include md {
+        padding: 60px 0;
+    }
+
+    .section-heading {
+        padding-bottom: 8px;
+        border-bottom: 1px solid $bg-yellow;
+        margin-bottom: 20px;
+    }
+
+    .car-parts-title {
+        margin-top: -7px;
+        margin-bottom: 0;
+        padding-bottom: 0;
+        font-family: $raleway;
+        font-size: 45px;
+        font-weight: 700;
+        text-transform: capitalize;
+        text-align: left;
+
+        @include xl {
+            font-size: 40px;
+        }
+
+        @include lg {
+            font-size: 35px;
+        }
+
+        @include sm {
+            font-size: 30px;
+        }
+
+        @include xs {
+            font-size: 28px;
+        }
+
+        @include xxs {
+            font-size: 25px;
+        }
+
+        &::before {
+            content: none;
+        }
+    }
+
+    .car-parts-slider-nav {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+
+        button {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #d9d9d9;
+            font-size: 17px;
+            line-height: 40px;
+            color: $bg-yellow;
+
+            @include xl {
+                line-height: 37px;
+            }
+
+            &:hover {
+                background-color: $black;
+                border-color: $black;
+            }
+        }
+    }
+
+    .rev-11-single-product {
+        @include md {
+            padding-bottom: 0;
+        }
+
+        .single-product {
+            &__txt {
+                padding: 7px 10px 0;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                column-gap: 10px;
+                flex-wrap: wrap;
+            }
+
+            &__title {
+                margin-bottom: 5px;
+            }
+        }
+
+        .current-price {
+            font-size: 14px;
+            font-family: $josefinSans;
+            color: $bg-yellow;
+            font-weight: 600;
+        }
+    }
+
+    .car-parts-ad-area {
+        width: 100%;
+        height: 100%;
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+
+.rev-14-car-parts {
+    @include lg {
+        padding: 60px 0;
+    }
+
+    .section-heading {
+        border-color: $bg-red-4;
+    }
+
+    .car-parts-title {
+        font-family: $josefinSans;
+        font-weight: 600;
+        font-size: 40px;
+        margin-top: 0;
+
+        @include md {
+            font-size: 35px;
+        }
+
+        @include sm {
+            font-size: 30px;
+        }
+
+        @include xxs {
+            font-size: 25px;
+        }
+    }
+
+    .car-parts-slider-nav button {
+        color: $bg-red-4;
+
+        &:hover {
+            background-color: $bg-red-4;
+            border-color: $bg-red-4;
+            color: $white;
+        }
+    }
+
+    .rev-14-single-product .current-price {
+        color: $bg-red-4;
+    }
+}

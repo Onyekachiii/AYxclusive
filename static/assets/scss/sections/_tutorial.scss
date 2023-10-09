@@ -1,0 +1,216 @@
+.tutorial-section {
+    padding: 80px 0;
+    position: relative;
+    z-index: 1;
+    overflow-x: hidden;
+
+    @include md {
+        padding: 60px 0;
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        background-image: linear-gradient(115deg, transparent 25%, black 0, black 60%, #ffc000 0);
+        right: 0;
+        top: 50%;
+        translate: 0 -50%;
+        width: 50%;
+        height: 420px;
+        z-index: -1;
+
+        @include lg {
+            height: 240px;
+        }
+
+        @include md {
+            bottom: 0;
+            top: auto;
+        }
+
+        @include sm {
+            translate: 0;
+            bottom: 60px;
+            width: 80%;
+        }
+
+        @include xs {
+            height: 160px;
+        }
+    }
+
+    .rev-12-section-title {
+        @include md {
+            text-align: center;
+        }
+
+        &::before {
+            content: "TUTORIAL";
+            font-family: $kanit;
+            background: none;
+            height: fit-content;
+            width: max-content;
+            font-size: 135px;
+            -webkit-text-stroke: 1px $bg-yellow;
+            -webkit-text-fill-color: transparent;
+            opacity: 32%;
+            top: -80px;
+            text-transform: uppercase;
+
+            @include xl {
+                font-size: 110px;
+            }
+
+            @include md {
+                left: 50%;
+                translate: -50%;
+            }
+
+            @include sm {
+                top: -50px;
+                font-size: 80px;
+            }
+
+            @include xs {
+                top: -45px;
+                font-size: 70px;
+            }
+
+            @include xxs {
+                top: -40px;
+                font-size: 60px;
+            }
+        }
+    }
+
+    &__txt {
+        position: relative;
+
+        .rev-12-section-heading {
+            @include md {
+                margin: auto;
+                margin-bottom: 27px;
+            }
+        }
+
+        .rev-12-def-btn {
+            background-color: $black;
+            color: $bg-yellow;
+
+            @include md {
+                height: 40px;
+                line-height: 40px;
+            }
+
+            &:hover,
+            &:focus {
+                color: $black;
+            }
+        }
+
+        .rev-12-video-modal-btn {
+            border: 8px solid $bg-yellow;
+            padding: 0;
+            width: 50px;
+            line-height: 30px;
+            margin-left: 36px;
+
+            @include md {
+                border-width: 5px;
+                line-height: 32px;
+            }
+
+            &:hover,
+            &:focus {
+                background-color: $bg-yellow;
+                border-color: $black;
+            }
+
+            &::before {
+                content: none;
+            }
+
+        }
+    }
+
+    &__description {
+        font-family: $openSans;
+        font-size: 18px;
+        font-weight: 400;
+        color: #333;
+        margin-bottom: 22px;
+        padding-right: 90px;
+
+        @include lg {
+            padding-right: 60px;
+        }
+
+        @include md {
+            padding-right: 0;
+            text-align: center;
+        }
+
+        &:last-of-type {
+            margin-bottom: 0;
+            margin-bottom: 73px;
+
+            @include md {
+                margin-bottom: 43px;
+            }
+        }
+    }
+
+    .shapes {
+        img {
+            position: absolute;
+            animation: shape-animation 7s linear infinite;
+
+
+            transform: rotate(0deg);
+
+            &:first-child {
+                top: 120px;
+                right: 0;
+
+                @include md {
+                    display: none;
+                }
+            }
+
+            &:nth-child(2) {
+                top: -110px;
+                left: 400px;
+            }
+
+            &:nth-child(3) {
+                top: 0;
+                left: -110px;
+            }
+
+            &:nth-child(4) {
+                top: 50%;
+                left: -70px;
+            }
+
+            &:nth-child(5) {
+                bottom: 20px;
+                left: -140px;
+            }
+
+            &:nth-child(6) {
+                right: 250px;
+                bottom: 0;
+            }
+        }
+    }
+}
+
+@keyframes shape-animation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

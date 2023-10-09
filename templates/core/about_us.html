@@ -1,0 +1,222 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+
+<main>
+
+
+    {% comment %} <!--------------------------------- BANNER SECTION START ---------------------------------> {% endcomment %}
+    <div class="banner banner-inner">
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-lg-6 col-md-9 col-8">
+                    <div class="breadcrumb-txt">
+                        <h1>About Us</h1>
+                        <ul>
+                            <li><a href="{% url 'core:index' %}"><i class="fa-regular fa-house"></i></a></li>
+                            <li>/</li>
+                            <li>About Us</li>
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    {% comment %} <!--------------------------------- BANNER SECTION END ---------------------------------> {% endcomment %}
+
+
+
+    {% comment %} <!--------------------------------- ABOUT SECTION START ---------------------------------> {% endcomment %}
+    <div class="about pt-120 pb-60">
+        <div class="container">
+            <div class="main-img">
+                <img src="{% static 'assets/images/about-us.png' %}" alt="Image">
+            </div>
+            <div class="main-txt">
+                <div class="row justify-content-center">
+                    <div class="col-xxl-6 col-xl-7">
+                        <h2 class="about-page-title text-center">Life is Hard Enough Already. Let us Make it Much More Easier.​</h2>
+                        <p>AY Exclusive emerged from the collaboration between two visionary colleagues. One among them, an inquisitive architect with a strong business acumen, nurtured the initial idea and joined forces with a seasoned entrepreneur. Through the convergence of words and thoughts, this idea took shape and transformed into a tangible reality.
+
+ 
+
+                            The name "AY Exclusive" was derived from the abbreviation of "Assemble Yourself," reflecting our commitment to crafting exclusive furniture and artworks. We aim to redefine the concept of ownership, offering a fresh perspective to those seeking to possess a unique piece of furniture or art. The act of assembling our products creates a sense of togetherness, as families come together to transform their newly purchased exclusive items.
+                            
+                             
+                            
+                            
+                            
+                            
+                            
+                                     
+                            Driven by our passion for meticulous attention to detail, AY Exclusive distinguishes itself by focusing on the minutiae that others may overlook. We strive to provide the epitome of exclusivity to those who desire to stand out. We empower our customers to take ownership and control, allowing them to shape their own narrative. Whether it's art, an antique, or furniture, we offer affordable luxury with a touch of exclusivity.
+                            
+                             
+                            
+                            </p>
+                    </div>
+                </div>
+                <div class="why-choose">
+                    <div class="row g-4 justify-content-between">
+                        <div class="col-xl-6 col-lg-7">
+                            <div class="part-txt">
+                                <h2 class="part-title">Why Choose Us?</h2>
+                                <div class="accordion" id="accordionExample">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingOne">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                OUR VISION
+                                                <span><i class="fa-regular fa-minus"></i></span>
+                                            </button>
+                                        </h2>
+                                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <p>At AY Exclusive, our vision is rooted in the belief that everyone deserves the opportunity to embrace their individuality and experience the sense of uniqueness they crave. We strive to empower those who yearn to stand out from the crowd, offering them an exclusive platform to express their distinctiveness. By embracing a forward-thinking approach, we aim to provide services that are not only exceptional but also tailored to the needs of the modern world.
+
+
+
+
+ 
+
+                                                    Central to our vision is the concept of fostering togetherness through ownership, particularly within families. We envision our products as catalysts for creating shared experiences and strengthening the bonds between loved ones. With careful consideration of comfort and aesthetics, we anticipate that our products will bring about a refreshing transformation in your living space, offering a renewed perspective and a heightened sense of tranquility.
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    By combining our passion for exclusivity with a commitment to innovative solutions, we are dedicated to surpassing expectations and redefining the standards of excellence in our industry. Our ultimate vision is to become a driving force in the pursuit of personalized and meaningful experiences, where individuals can discover their true essence and revel in the joy of owning something truly extraordinary.
+                                                    
+                                                    
+                                                    
+                                                    
+                                                     
+                                                    
+                                                    Our vision extends far beyond the confines of individual homes and buildings; we aspire to make a global impact. Like a tiny island surrounded by the vast Indian Ocean, we strive to transform not only physical spaces but also people's perceptions. We are driven by a steadfast belief in reshaping the world's understanding of the distinction between luxury and exclusivity.
+                                                    
+                                                     
+                                                    
+                                                    In a world where the pursuit of luxury often seems endless, with new designs emerging at ever-increasing prices, AY Exclusive takes a different approach. Our intention is to offer products at affordable prices, without compromising on value or quality. We recognize that true exclusivity lies not in exorbitant price tags, but in the essence and significance that a product holds.
+                                                    
+                                                     
+                                                    
+                                                    By making our products accessible and affordable, we aim to redefine the relationship between cost and exclusivity. We want to break free from the notion that exclusivity is synonymous with excessive expense. At AY Exclusive, we believe in providing products that are within reach for a wider audience, while still retaining their inherent value and unique allure.
+                                                    
+                                                     
+                                                    
+                                                    Our unwavering commitment is to create a paradigm shift in the industry, where affordability and exclusivity coexist harmoniously. Through our offerings, we endeavor to bring a sense of delight and appreciation to our customers, who can experience the satisfaction of owning a truly remarkable and exceptional product without straining their budget.
+                                                    
+                                                     
+                                                    
+                                                    In summary, our vision at AY Exclusive transcends traditional boundaries. We seek to influence the world by challenging conventional notions of luxury and exclusivity. By offering affordable products of immense value, we aspire to redefine the relationship between price and distinction, ultimately bringing joy and fulfillment to our customers.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingTwo">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                OUR STAND
+                                                <span><i class="fa-regular fa-plus"></i></span>
+                                            </button>
+                                        </h2>
+                                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <p>AY Exclusive stands as an online-based store driven by the core principle of offering recognition through furniture, all with the convenience of a simple request. We pride ourselves on being a fully registered entity under the jurisdiction of the Mauritius Business Registration Department, bearing the registration number C22186328. Additionally, we have taken steps to protect our intellectual property by registering our trademark for copyright purposes.
+
+ 
+
+                                                    By establishing our legitimacy through proper registration, we demonstrate our commitment to operating in a professional and responsible manner. Our adherence to legal requirements ensures transparency and instills confidence in our customers, assuring them that they are engaging with a reputable and trustworthy brand.
+                                                    
+                                                     
+                                                    
+                                                    At AY Exclusive, we prioritize the protection of our innovative designs and creations, safeguarding them through copyright measures. By registering our trademark, we ensure that our brand identity remains distinct and recognizable, reinforcing our commitment to authenticity and originality.
+                                                    
+                                                     
+                                                    
+                                                    Our stand is founded upon these pillars of integrity and legality, which serve as the solid foundation of trust and credibility upon which our business operates. </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingThree">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                OUR BUSINESS IDEA
+                                                <span><i class="fa-regular fa-plus"></i></span>
+                                            </button>
+                                        </h2>
+                                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <p> At AY Exclusive, our business idea revolves around the concept of exclusivity. We take great pride in offering furniture crafted from premium, contemporary materials that exemplify superior durability and sustainability. Our relentless pursuit of excellence extends to our design process, where our talented designers continually generate numerous innovative ideas every day to ensure we stay at the forefront of the industry.
+
+ 
+
+                                                    To maintain our commitment to providing truly exceptional products, we have implemented a rigorous selection process. At the end of each month, only one design is chosen from the multitude of ideas generated, ultimately becoming our coveted "Product of the Month."
+                                                    
+                                                     
+                                                    
+                                                    We firmly believe that quality home products should be accessible to everyone. We embrace the ideology that true exclusivity lies not in competing to be the most expensive, but rather in creating pieces that allow individuals to stand out from the crowd. Our vision is to provide a sense of exclusivity that brings peace and contentment, without the need for competition or comparison.
+                                                    
+                                                    
+                                                    
+                                                    
+                                                     
+                                                    
+                                                              By focusing on craftsmanship, quality materials, and an unwavering dedication to innovative design, we strive to offer a distinctive range of furniture that transcends ordinary offerings. Our business idea is rooted in the belief that exclusivity should be attainable for all those who seek to create a unique and exceptional living environment. </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingFour">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                                DOING AND DONATING
+                                                <span><i class="fa-regular fa-plus"></i></span>
+                                            </button>
+                                        </h2>
+                                        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <p>At AY Exclusive, we are driven by the belief in the positive impact we can make on our customers, employees, and society as a whole. We recognize the pressing need for such actions, particularly in the present civilization.
+
+ 
+
+                                                    This is why we have established an online store, ensuring that reaching us and accessing our services is convenient and effortless. By embracing technology, we strive to create a seamless experience for both our customers and our dedicated workforce. We understand the importance of providing our employees with the necessary tools and resources to excel in their roles, enabling them to execute their jobs with ease and efficiency.
+                                                    
+                                                     
+                                                    
+                                                    As modern-day entrepreneurs, we have envisioned a future that prioritizes ease and accessibility through technological advancements. By leveraging these advancements, we are committed to delivering unparalleled comfort to both our workers and customers in unique and exclusive ways. We aim to stay at the forefront of industry trends, constantly adapting to meet the evolving needs and expectations of our stakeholders.
+                                                    
+                                                     
+                                                    
+                                                    Furthermore, we understand the significance of giving back to society. As part of our commitment to making a positive impact, we actively engage in philanthropic endeavors and contribute to causes that align with our values. By supporting initiatives that benefit communities and individuals in need, we strive to make a tangible difference and inspire others to do the same.
+                                                    
+                                                    
+                                                     
+                                                    
+                                                     
+                                                    
+                                                              In summary, AY Exclusive stands as a catalyst for positive change. Through our online platform, we provide convenience, create employment opportunities, and empower our workforce. We embrace technology to enhance the comfort and experience of our customers. Moreover, we actively participate in philanthropic endeavors to make a meaningful impact on the world around us. </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-5">
+                            <div class="video-area">
+                                <a href="#" class="" data-video-id="uoIW4M_MeU8"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% comment %} <!--------------------------------- ABOUT SECTION END ---------------------------------> {% endcomment %}
+
+
+
+
+
+</main>
+
+
+{% endblock content %}

@@ -1,0 +1,104 @@
+.revel-header-mobile-sidebar {
+	position: fixed;
+	right: -430px;
+	top: 0;
+	overflow-y: auto;
+	transition: all 0.5s;
+	height: 100%;
+	background-color: #fff;
+	max-width: 400px;
+	z-index: 99999;
+    width: 100%;
+}
+.revel-header-mobile-sidebar.open {
+	right: 0;
+}
+.overlay {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    opacity: 0;
+    visibility: hidden;
+    bottom: 0;
+    transition: all .5s;
+    background-color: rgba(0,0,0,0.6);
+    z-index: 999;
+}
+.overlay.open {
+	opacity: 1;
+	visibility: visible;
+}
+
+.revel-header-mobile-sidebar-inner {
+	padding: 30px;
+}
+.revel-header-mobile-sidebar-logo {
+	text-align: center;
+}
+.revel-header-mobile-sidebar-close-btn button span {
+	font-size: 14px;
+	font-weight: 300;
+	text-transform: uppercase;
+	padding-right: 5px;
+	display: inline-block;
+    color: #606060;
+}
+.revel-header-mobile-sidebar-close-btn button svg {
+	max-width: 12px;
+}
+.revel-header-mobile-sidebar-logo a {
+	max-width: 160px;
+}
+.revel-header-mobile-sidebar-menu-nav .mean-container .mean-bar {
+	float: none;
+	min-height: auto;
+	padding: 0;
+}
+
+.revel-header-mobile-sidebar-menu-nav .mean-container .mean-nav {
+	float: none;
+	background: #fe5502;
+	margin-top: 0;
+}
+
+.revel-header-mobile-sidebar-menu-nav .mean-container .mean-nav ul {
+	background: transparent;
+	border: 0;
+}
+.revel-header-mobile-sidebar-menu-nav .mean-container .mean-nav > ul {
+	display: block !important;
+	margin: 0 !important;
+	background: transparent;
+	border: 0;
+}
+
+.revel-header-mobile-sidebar-menu-nav .mean-container .mean-nav ul li {
+	float: none;
+}
+.revel-header-mobile-sidebar-menu-nav .mean-container .mean-nav ul li a {
+	white-space: inherit;
+    float: none;
+    border-top-color: rgba(255,255,255,0.4);
+}
+.revel-header-mobile-sidebar-menu-nav .mean-container .mean-nav ul li a.mean-expand {
+	margin-top: 4px;
+	width: 26px;
+	height: 22px;
+	text-align: center;
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: 2;
+	font-weight: 700;
+	background: transparent;
+	border: none !important;
+	font-size: 27px !important;
+	font-weight: 200;
+	padding: 10px 5%;
+	text-align: center;
+	line-height: 22px;
+}
+.revel-header-mobile-sidebar.open .dropdown-toggle::after {
+    display: none;
+}

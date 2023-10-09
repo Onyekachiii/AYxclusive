@@ -1,0 +1,268 @@
+.rev-12-about {
+    padding-top: 118px;
+    overflow-x: hidden;
+
+    >.container>.row {
+        @include md {
+            --bs-gutter-y: 80px;
+        }
+    }
+
+    @include md {
+        padding-top: 60px;
+    }
+
+    &.tutorial-section {
+        &::before {
+            right: 67.5%;
+            right: auto;
+            left: 0;
+            width: unset;
+            width: 32%;
+            background-image: linear-gradient(90deg, #222222 32%, #ffc000 0, #ffc000 73%, #222222 0);
+
+            @include md {
+                top: 60px;
+                translate: 0;
+            }
+
+            @include sm {
+                height: 320px;
+            }
+
+            @include xs {
+                height: 275px;
+            }
+
+            @include xxs {
+                height: 185px;
+            }
+        }
+
+
+        .rev-12-section-heading {
+            text-align: left;
+            margin-bottom: 0;
+
+            @include md {
+                text-align: center;
+            }
+        }
+
+        .rev-12-section-title {
+            margin-bottom: 23px;
+            font-size: 70px;
+
+            @include xl {
+                font-size: 55px;
+            }
+
+            @include lg {
+                margin-bottom: 13px;
+                font-size: 45px;
+            }
+
+            @include md {
+                text-align: center;
+            }
+
+            @include sm {
+                font-size: 40px;
+            }
+
+            @include xs {
+                font-size: 35px;
+            }
+
+            @include xxs {
+                font-size: 25px;
+            }
+
+            &::before {
+                content: "about us";
+                top: -100px;
+                left: -40px;
+
+                @include xl {
+                    top: -70px;
+                }
+
+                @include md {
+                    left: 50%;
+                    translate: -50%;
+                }
+
+                @include sm {
+                    top: -50px;
+                    font-size: 80px;
+                }
+
+                @include xs {
+                    top: -45px;
+                    font-size: 70px;
+                }
+
+                @include xxs {
+                    top: -40px;
+                    font-size: 60px;
+                }
+            }
+        }
+
+        .shapes {
+            img {
+                &:first-child {
+                    top: -110px;
+                    left: 230px;
+                }
+
+                &:nth-child(2) {
+                    top: 120px;
+                    left: 620px;
+                }
+
+                &:nth-child(3) {
+                    top: 60px;
+                    left: -110px;
+                }
+
+                &:nth-child(4) {
+                    bottom: -25px;
+                    left: -150px;
+                    top: auto;
+                }
+
+                &:nth-child(5) {
+                    bottom: 0;
+                    left: 480px;
+                }
+
+                &:nth-child(6) {
+                    right: auto;
+                    bottom: 40px;
+                    left: 770px;
+                }
+
+                &:nth-child(7) {
+                    top: -110px;
+                    right: -140px;
+                }
+
+                &:nth-child(8) {
+                    top: -115px;
+                    right: 490px;
+                }
+
+                &:nth-child(9) {
+                    right: 0;
+                    top: 280px;
+                }
+
+                &:nth-child(10) {
+                    right: -40px;
+                    bottom: 120px;
+                }
+            }
+        }
+    }
+
+    .rev-12-features {
+        display: flex;
+        flex-direction: column;
+        row-gap: 40px;
+
+        @include md {
+            margin: auto;
+            width: max-content;
+        }
+
+        @include xxs {
+            row-gap: 15px;
+        }
+    }
+
+    .rev-12-single-feature {
+        display: flex;
+        align-items: center;
+        column-gap: 40px;
+
+        @include xxs {
+            flex-direction: column;
+            row-gap: 25px;
+        }
+
+        .single-feature {
+            &__icon {
+                width: 100px;
+                height: 100px;
+                background-color: $black;
+                box-shadow: 10px 10px 0 $bg-yellow;
+                text-align: center;
+                line-height: 100px;
+
+                @include lg {
+                    width: 90px;
+                    height: 90px;
+                    line-height: 90px;
+
+                    img {
+                        width: 45px;
+                    }
+                }
+
+                @include xxs {
+                    width: 80px;
+                    he: 80px;
+                    line-height: 80px;
+
+                    img {
+                        width: 40px;
+                    }
+                }
+            }
+
+            &__title {
+                font-family: $kanit;
+                font-size: 30px;
+                font-weight: 500;
+                color: #191919;
+                text-transform: uppercase;
+
+                @include xl {
+                    font-size: 27px;
+                }
+
+                @include lg {
+                    font-size: 25px;
+                }
+
+                @include sm {
+                    font-size: 22px;
+                }
+
+                @include xxs {
+                    font-weight: 400;
+                    font-size: 20px;
+                }
+            }
+
+            &__sub-title {
+                font-family: $openSans;
+                font-size: 16px;
+                font-weight: 400;
+                color: #333;
+            }
+        }
+    }
+
+    .about-section__description {
+        margin-bottom: 53px;
+        font-family: $openSans;
+        font-size: 18px;
+        font-weight: 400;
+
+        @include lg {
+            margin-bottom: 28px;
+        }
+    }
+}

@@ -1,0 +1,135 @@
+.video-section {
+    padding: 100px 0 272px;
+    background: url(../images/bg/rev-8-video-bg.jpg) no-repeat 0 0;
+    background-size: cover;
+    position: relative;
+    z-index: 0;
+
+    @include sm {
+        padding: 80px 0 280px;
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba($color: #000000, $alpha: 0.4);
+        z-index: -1;
+    }
+
+    &__txt {
+        text-align: center;
+
+        .video-btn {
+            border: 2px solid $white;
+            margin: auto;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            padding: 15px;
+            margin-bottom: 12px;
+            -webkit-animation: shadow 1s ease-in infinite;
+            animation: shadow 1.2s ease-in infinite;
+
+            button {
+                width: 100%;
+                height: 100%;
+                background: $white;
+                border-radius: 50%;
+                color: $bg-green;
+                line-height: 70px;
+                font-size: 20px;
+                cursor: pointer;
+
+                &:hover {
+                    color: $black-2;
+                }
+            }
+        }
+
+        h2 {
+            font-weight: 700;
+            font-size: 60px;
+            color: $white;
+
+            @include xl {
+                font-size: 50px;
+            }
+
+            @include lg {
+                font-size: 45px;
+            }
+
+            @include md {
+                font-size: 40px;
+            }
+
+            @include sm {
+                font-size: 35px;
+
+                br {
+                    display: none;
+                }
+            }
+
+            @include xxs {
+                font-size: 27px;
+            }
+        }
+    }
+}
+
+@keyframes shadow {
+    0% {
+        box-shadow:
+            0 0 0 0 $bg-green,
+            0 0 0 0 $bg-green,
+            0 0 0 0 $bg-green;
+    }
+
+    100% {
+        box-shadow:
+            0 0 5px 30px transparent,
+            0 0 5px 29px transparent,
+            0 0 5px 28px transparent;
+    }
+}
+
+
+/*---- INDEX 14 POPUP VIDEO SECTION STYLES -----*/
+.rev-14-video-modal-section {
+    position: relative;
+    padding: 50px 0 0;
+
+    @include md {
+        padding: 0;
+    }
+
+    .rev-14-video-modal-btn {
+        width: 60px;
+        height: 60px;
+        background-color: rgba(255, 255, 255, 0.87);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        translate: -50% -50%;
+        font-size: 25px;
+        line-height: 63px;
+        color: $bg-red-4;
+        animation: shadow-2 1.5s ease-in infinite;
+
+    }
+}
+
+@keyframes shadow-2 {
+    0% {
+        box-shadow: 0 0 0 0 rgb(255, 255, 255, 0.56);
+    }
+
+    100% {
+        box-shadow: 0 0 0 30px transparent;
+    }
+}

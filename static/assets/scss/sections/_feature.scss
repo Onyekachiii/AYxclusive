@@ -1,0 +1,327 @@
+.features {
+    position: relative;
+
+    &.features-2 {
+        .single-feature {
+            .part-icon {
+                span {
+                    color: $color-2;
+                }
+            }
+        }
+    }
+
+    .custom-row {
+        display: flex;
+        flex-wrap: wrap;
+
+        .custom-col {
+            width: calc(100% / 4);
+            border-right: 3px solid $txt-color-2;
+
+            &:last-child {
+                border: 0;
+            }
+        }
+    }
+
+    .single-feature {
+        height: 75px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 25px;
+
+        .part-icon {
+            span {
+                height: 50px;
+                line-height: 50px;
+                font-size: 45px;
+                color: $color-1;
+
+                i {
+                    display: inline-block;
+                    height: 50px;
+                }
+            }
+        }
+
+        .part-txt {
+            h4 {
+                font-family: $rubik;
+                font-size: 16px;
+                line-height: 100%;
+                font-weight: 500;
+                color: $black-3;
+                margin-top: -2px;
+                margin-bottom: 11px;
+            }
+
+            p {
+                font-size: 14px;
+                line-height: 100%;
+                font-weight: 400;
+                color: $black-2;
+                margin-bottom: -2px;
+            }
+        }
+    }
+}
+
+
+//Home-3 //  Features / Call to Action Section
+
+.rev-3-cal-to-action {
+    padding: 25px 0;
+
+    .single-feature .part-icon span i {
+        color: $bg-blue-3;
+    }
+}
+
+
+/*----- INDEX-3 FEATURES SECTION STYLES ----*/
+.rev-4-features {
+    .single-feature .part-icon span {
+        color: $bg-purple;
+    }
+}
+
+/*----- INDEX-6 FEATURES SECTION STYLES ----*/
+.rev-6-features {
+    background: $white;
+    box-shadow: 0px 0px 30px -5px rgb(0 0 0 / 10%);
+
+    .single-feature .part-icon span {
+        color: $bg-red;
+    }
+}
+
+/*----- INDEX-5 FEATURES SECTION STYLES ----*/
+.rev-5-features {
+    .single-feature .part-icon span {
+        color: $bg-red-2;
+    }
+}
+
+/*----- INDEX-10 FEATURES SECTION STYLES ----*/
+.rev-10-features {
+    background-color: #F1F5FF;
+    padding: 50px 0;
+
+    @include lg {
+        padding: 30px 0;
+    }
+
+    .custom-row {
+        @include xl {
+            gap: 15px 22px;
+        }
+
+        @include md {
+            gap: 25px 15px !important;
+        }
+
+        >* {
+            flex: fit-content;
+        }
+
+        .custom-col {
+            border-width: 1px;
+            border-color: #e1e1e1;
+
+            .single-feature {
+                @include md {
+                    justify-content: center !important;
+                    text-align: center !important;
+                }
+            }
+        }
+    }
+
+    .single-feature .part-icon span {
+        color: $bg-blue-4;
+    }
+
+    .single-feature .part-txt {
+        h4 {
+            font-family: $josefinSans;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        p {
+            font-family: $openSans;
+            font-size: 14px;
+            font-weight: 400;
+        }
+    }
+}
+
+/*----- INDEX-11 FEATURES SECTION STYLES ----*/
+.rev-11-features {
+    background-color: #E5FFF7;
+
+    .single-feature .part-icon span {
+        color: $bg-green-2;
+    }
+}
+
+/*----- INDEX-13 FEATURES SECTION STYLES ----*/
+.rev-13-features {
+    background-color: $white;
+    padding: 30px 0;
+
+    .single-feature .part-icon span {
+        color: $bg-red-3;
+    }
+}
+
+/*----- INDEX-14 FEATURES SECTION STYLES ----*/
+.rev-14-features {
+    padding: 80px 0;
+
+    @include md {
+        padding: 60px 0 30px;
+    }
+
+    .features-row {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        @include xxs {
+            flex-direction: column;
+        }
+    }
+
+    .rev-14-single-feature {
+        box-shadow: 0 9px 18px rgb(38 38 38 / 10%);
+        padding: 30px 20px;
+        flex: 1;
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+
+        @include xl {
+            flex: 0 23%;
+        }
+
+        @include lg {
+            flex: 0 30%;
+        }
+
+        @include md {
+            flex: 1 32%;
+
+            &:last-child {
+                flex: 0 50%;
+            }
+        }
+
+        &:hover {
+            &::before {
+                width: 20px;
+            }
+        }
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 80px;
+            width: 0;
+            background-color: $bg-red-4;
+            transition: width 0.4s ease;
+        }
+
+        .single-feature {
+            &__icon {
+                margin-bottom: 13px;
+                width: 65px;
+                height: 65px;
+                object-fit: contain;
+            }
+
+            &__title {
+                font-size: 20px;
+                font-weight: 600;
+                text-transform: uppercase;
+                margin-bottom: 5px;
+
+                @include xs {
+                    font-size: 18px;
+                }
+            }
+
+            &__sub-title {
+                font-family: $openSans;
+                font-size: 16px;
+                font-weight: 600;
+                color: #6e6e6e;
+                margin-bottom: 22px;
+            }
+
+            &__description {
+                margin-bottom: 0;
+                font-family: $openSans;
+                font-size: 14px;
+                font-weight: 400;
+                color: #333;
+            }
+        }
+    }
+}
+
+/*----- INDEX-15 SPECIAL FEATURES SECTION STYLES ----*/
+.rev-15-special-feature {
+    .single-feature {
+        background-color: $white;
+        text-align: center;
+        padding: 10px 0;
+        width: 100%;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+
+        &:hover {
+            color: $bg-orange;
+        }
+
+        &__img {
+            border-radius: 50%;
+            display: inline-block;
+            padding: 10px;
+            border: 1px solid $bg-orange;
+            width: 65px;
+            margin-bottom: 5px;
+
+            @include lg {
+                width: 55px;
+            }
+
+            @include sm {
+                width: 50px;
+            }
+        }
+
+        &__title {
+            font-size: 20px;
+            margin-bottom: 0;
+
+            @include lg {
+                font-size: 16px;
+            }
+
+            @include sm {
+                font-size: 14px;
+            }
+        }
+    }
+}
+
+/*----- INDEX-18 FEATURES SECTION STYLES ----*/
+.rev-18-features .single-feature .part-icon span {
+    color: $bg-green-4;
+}

@@ -1,0 +1,197 @@
+.new-arrival-section {
+    padding: 80px 0;
+
+    @include xxs {
+        padding: 60px 0;
+    }
+}
+
+.rev-4-single-product-card {
+    border: 0;
+    padding-bottom: 0 !important;
+
+    @include md {
+        padding: 0;
+    }
+
+    .part-img {
+        position: relative;
+
+        .discount-sticker {
+            background-color: $bg-purple;
+
+            position: absolute;
+            top: 20px;
+            left: 0;
+            padding: 0 5px;
+            color: $white;
+        }
+    }
+
+    .cart-option ul li a:hover {
+        color: $bg-purple;
+    }
+
+    .part-txt .star {
+        color: #fed638;
+
+    }
+
+    .part-txt .product-name a:hover {
+        color: $bg-purple;
+    }
+}
+
+//  INDEX 11 NEW PRODUCTS SECTION STYLES
+.rev-11-new-products {
+    background-image: linear-gradient(to right, $white 60%, $white-2 40%);
+    padding: 60px 0;
+
+    @include xxs {
+        background-image: linear-gradient(to right bottom, $white 60%, $white-2 40%);
+        padding: 0 0 60px;
+    }
+
+    .rev-11-section-heading {
+        margin-bottom: 0;
+
+        .rev-11-section-title {
+            margin-bottom: 20px;
+            text-align: left;
+
+            @include xl {
+                margin-bottom: 10px;
+            }
+        }
+
+        .rev-11-section-description {
+            font-family: $openSans;
+            font-size: 14px;
+            font-weight: 400;
+            color: #a8a8a8;
+        }
+
+        span.price-txt {
+            font-family: $openSans;
+            font-size: 14px;
+            font-weight: 400;
+            text-transform: capitalize;
+            color: #a8a8a8;
+            margin-bottom: 4px;
+        }
+
+        h6.price {
+            font-family: $josefinSans;
+            margin-bottom: 38px;
+
+            @include xl {
+                margin-bottom: 23px;
+            }
+
+            .new-price {
+                font-size: 25px;
+                font-weight: 600;
+                color: $bg-green-2;
+            }
+
+            .prev-price {
+                font-weight: 400;
+                font-size: 18px;
+                color: #a8a8a8;
+            }
+        }
+
+        .rev-11-def-btn {
+            background-color: $bg-green-2;
+            color: $white;
+
+            &:hover {
+                color: $bg-green-2;
+                background-color: $white;
+            }
+        }
+    }
+
+    .rev-11-new-products-container {
+        overflow: hidden;
+    }
+
+    .owl-dots {
+        display: flex;
+        gap: 5px;
+        justify-content: center;
+        margin-top: 22px;
+    }
+
+    .owl-carousel .owl-nav button.owl-next,
+    .owl-carousel .owl-nav button.owl-prev,
+    .owl-carousel button.owl-dot {
+        background-color: #a8a8a8;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+
+        &.active {
+            background-color: #d4d4d4;
+        }
+    }
+
+
+    .rev-11-single-product {
+        img {
+            border: 1px solid #d4d4d4;
+        }
+    }
+}
+
+
+//  INDEX 12 NEW PRODUCTS SECTION STYLES
+.rev-12-new-products {
+    background-image: linear-gradient(to right, #ffffff 60%, $bg-yellow 40%);
+
+    @include xxs {
+        background-image: linear-gradient(to right bottom, #ffffff 60%, $bg-yellow 40%);
+    }
+
+    .rev-12-single-product {
+        img {
+            border: none;
+        }
+    }
+
+    .rev-12-section-heading {
+        .def-btn {
+            border: none;
+            background-color: $black;
+            color: $bg-yellow;
+            font-weight: 400;
+            line-height: 48px;
+            padding: 0 40px;
+
+            @include md {
+                line-height: 40px;
+            }
+
+            &:hover {
+                background-color: $black;
+                color: $black;
+            }
+        }
+
+        h6.price {
+            .new-price {
+                color: $black;
+            }
+        }
+    }
+}
+
+/*----- INDEX 17 NEW ARRIVAL SECTION STYLES -----*/
+.rev-17-new-arrival {
+    background-color: $white;
+    padding: 50px 0;
+
+    @include sm {
+        padding: 30px 0;
+    }
+}

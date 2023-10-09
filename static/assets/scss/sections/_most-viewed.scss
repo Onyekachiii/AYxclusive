@@ -1,0 +1,65 @@
+.most-viewed {
+    .panel {
+        &-header {
+            &::after {
+                background: $bg-purple;
+            }
+        }
+    }
+
+    .new-arrival {
+        height: 100%;
+
+        @include lg {
+            height: max-content;
+        }
+
+        .part-img {
+            height: 100%;
+
+            @include lg {
+                height: 300px;
+                display: flex;
+                align-items: center;
+            }
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        .part-txt .def-btn {
+            background: $bg-purple;
+            border-color: $bg-purple;
+
+            &:hover {
+                color: $bg-purple;
+                background: $white;
+            }
+        }
+    }
+
+    .single-product-card {
+        padding-bottom: 20px;
+        border: none;
+
+        .cart-option ul li a:hover {
+            color: $bg-purple;
+        }
+
+        .part-txt {
+            text-align: left;
+
+            .product-name a:hover {
+                color: $bg-purple;
+            }
+
+            .star {
+                justify-content: flex-start;
+                color: #ffd700;
+            }
+        }
+    }
+}

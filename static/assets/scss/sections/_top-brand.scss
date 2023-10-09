@@ -1,0 +1,73 @@
+.top-brand {
+    .rg-30 {
+        row-gap: 30px;
+    }
+
+    .logo-box {
+        border: 1px solid $txt-color-2;
+        height: 80px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: .3s;
+
+        &:hover {
+            box-shadow: 0px 10px 30px -10px rgba($black-0, 0.2);
+            border-color: transparent;
+        }
+    }
+}
+
+/*----- INDEX-8 CLIENT SECTION SYLES -----*/
+.client-section {
+    background: #dddddd;
+    box-shadow: 0px 11px 62.08px 1.92px rgba(0, 0, 0, 0.1);
+    margin-top: -195px;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1px;
+
+    .single-client {
+        flex: calc(100% / 6.5);
+        background: $white;
+        padding: 60px 10px;
+        text-align: center;
+        line-height: 40px;
+
+        @include lg {
+            flex: calc(100% / 5);
+        }
+
+        @include md {
+            padding: 45px 10px;
+        }
+
+        @include sm {
+            flex: calc(100% / 4);
+        }
+
+        @include xs {
+            flex: calc(100% / 5);
+            padding: 25px 10px;
+        }
+
+        @include xxs {
+            flex: calc(100% / 3.5);
+            padding: 15px 10px;
+        }
+
+        &:hover {
+            img {
+                filter: grayscale(0);
+            }
+        }
+
+        img {
+            filter: grayscale(1);
+            transition: .4s ease;
+        }
+    }
+}

@@ -1,0 +1,214 @@
+.hot-deal-banner {
+    padding: 25px 0;
+
+    .bg {
+        background: url(../images/hot-deal-banner-bg.jpg) center center no-repeat;
+        background-size: cover;
+        padding: 90px 60px;
+
+        .banner-txt {
+            h2 {
+                font-size: 40px;
+                line-height: 100%;
+                font-weight: 400;
+                color: $white;
+                text-transform: uppercase;
+                margin-top: -6px;
+                margin-bottom: 21px;
+
+                span {
+                    font-weight: 700;
+                }
+            }
+
+            p {
+                font-size: 20px;
+                line-height: 100%;
+                font-weight: 400;
+                color: $white;
+                text-transform: uppercase;
+                padding-bottom: 28px;
+                margin-bottom: 30px;
+                position: relative;
+
+                &:after {
+                    content: "";
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 200px;
+                    height: 1px;
+                    background: $white;
+                }
+            }
+
+            .countdown {
+                margin-bottom: 30px;
+
+                .syotimer__body {
+                    display: flex;
+
+                    .syotimer-cell {
+                        text-align: center;
+                        padding: 0 25px;
+                        position: relative;
+
+                        &:after {
+                            content: "";
+                            position: absolute;
+                            top: 0;
+                            left: 100%;
+                            transform: translateX(-50%);
+                            width: 1px;
+                            height: 40px;
+                            background: $white;
+                        }
+
+                        .syotimer-cell__value {
+                            font-family: $rubik;
+                            font-size: 40px;
+                            line-height: 100%;
+                            font-weight: 700;
+                            color: $white;
+                            margin-bottom: 12px;
+                        }
+
+                        .syotimer-cell__unit {
+                            font-size: 15px;
+                            line-height: 100%;
+                            text-transform: uppercase;
+                            color: $white;
+                            margin-bottom: -2px;
+                        }
+
+                        &:first-child {
+                            padding-left: 0;
+                        }
+
+                        &:last-child {
+                            padding-right: 0;
+
+                            &:after {
+                                display: none;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/*----- INDEX 16 HOT DEAL SECTION STYLES -----*/
+.rev-16-hot-deal {
+    .hot-deal-slider-nav {
+        display: flex;
+        gap: 10px;
+
+        button {
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            color: #2f2f2f;
+            border-radius: 50%;
+            border: 1px solid rgba($black, 0.15);
+
+            &:hover {
+                color: $white;
+                background-color: $black;
+            }
+        }
+    }
+
+    .hot-deal-single-slide {
+        border: 1px solid rgba($black, 0.07);
+        border-top: 0;
+        overflow: hidden;
+
+        &__img img {
+            max-height: 615px;
+            object-fit: cover;
+
+            @include md {
+                max-height: 485px;
+            }
+        }
+
+        &__txt {
+            text-align: center;
+            background-color: $white;
+            padding: 25px 0;
+
+            .hot-deal-timer {
+                margin-bottom: 15px;
+
+                ul.flip-clock-container {
+                    padding-left: 0;
+                    margin: auto;
+                    justify-content: center;
+                }
+            }
+
+            h4 {
+                text-transform: capitalize;
+                color: $black;
+                margin-bottom: 5px;
+
+                @include lg {
+                    font-size: 20px;
+                }
+
+                a:hover {
+                    color: $bg-orange;
+                }
+            }
+
+            .price {
+                display: block;
+                font-size: 20px;
+                margin-bottom: 5px;
+                margin-bottom: 12px;
+
+                @include lg {
+                    font-size: 18px;
+                }
+
+                .current-price {
+                    color: $bg-orange;
+                    font-weight: 600;
+                }
+            }
+
+            .rating {
+                color: #e5ab1a;
+            }
+        }
+    }
+
+    .latest-products-area {
+        background: #fff;
+        padding: 15px;
+    }
+
+    .flip-clock-container {
+        --flip-bg-color: #f79300;
+    }
+
+    .flip-clock-container [class|="flip-item"] .flip-digit {
+        width: 30px;
+        height: 30px;
+    }
+
+    .flip-clock-container [class|="flip-item"] .flip-digit>span::before {
+        border-radius: 5px 5px 0 0;
+    }
+
+    .flip-clock-container [class|="flip-item"] .flip-digit>span::after {
+        border-radius: 0 0 5px 5px;
+    }
+
+    .flip-clock-container [class|="flip-item"] .flip-digit>span::after,
+    .flip-clock-container [class|="flip-item"] .flip-digit>span::before {
+        font-size: 20px;
+    }
+}

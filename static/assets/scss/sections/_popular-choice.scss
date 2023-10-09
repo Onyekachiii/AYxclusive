@@ -1,0 +1,127 @@
+/*----- POPULAR CHOICE SECTION STYLES -----*/
+.rev-17-popular-choice {
+    padding: 50px 0;
+
+    @include sm {
+        padding: 30px 0;
+    }
+
+    .products-container {
+        @include lg {
+            gap: 15px;
+        }
+    }
+}
+
+.rev-17-single-product {
+    padding-bottom: 0;
+    background-color: $white;
+
+    @include md {
+        padding: 0 !important;
+    }
+
+    &:hover {
+        .single-product-actions {
+            opacity: 1;
+            translate: 0 -50%;
+
+            button {
+                translate: 0;
+            }
+        }
+    }
+
+    .single-product {
+        &-img {
+            position: relative;
+            text-align: center;
+
+            img {
+                width: 100%;
+                height: 280px;
+                object-fit: cover;
+
+                @include lg {
+                    height: 200px;
+                }
+
+                @include xxs {
+                    height: 240px;
+                }
+            }
+        }
+
+        &-actions {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            translate: 0 -40%;
+            background-color: rgba(255, 255, 255, 0.475);
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            gap: 10px;
+            opacity: 0;
+            transition: all 0.4s ease;
+            padding: 5px;
+            overflow: hidden;
+
+            button {
+                transition: all 0.4s ease;
+                width: 30px;
+                height: 30px;
+                line-height: 33px;
+                border-radius: 30px;
+                translate: 0 20px;
+                background-color: $white;
+
+                &:hover {
+                    background-color: $bg-orange;
+                    color: $white;
+                }
+            }
+        }
+
+        &-txt {
+            padding: 0;
+            display: flex;
+            text-align: left;
+            padding: 15px;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: -2px;
+
+            @include lg {
+                padding: 10px;
+            }
+
+            .single-product-title {
+                font-size: 15px;
+                font-family: $openSans;
+                margin-bottom: 8px;
+
+                @include lg {
+                    font-size: 14px;
+                }
+
+                a:hover {
+                    color: $bg-orange;
+                }
+            }
+
+            .rating i {
+                font-size: 14px;
+                color: #faca51;
+            }
+
+        }
+
+        &-price {
+            color: $bg-orange;
+            font-size: 15px;
+            font-weight: 600;
+        }
+    }
+}

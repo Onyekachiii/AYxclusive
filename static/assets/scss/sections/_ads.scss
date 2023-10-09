@@ -1,0 +1,129 @@
+.ads-section {
+    >.container>.row {
+        row-gap: 20px;
+    }
+
+    .first-row {
+        display: flex;
+        flex-direction: column;
+        row-gap: 20px;
+    }
+
+    img {
+        width: 100%;
+        object-fit: cover;
+    }
+}
+
+
+//
+.rev-7-ads-section {
+    .single-ad {
+        background: url(../images/ads-banner/ads-banner-7.jpg) no-repeat 0 0;
+        background-size: cover;
+        padding: 35px 20px;
+        color: $white;
+        border-radius: 8px;
+        overflow: hidden;
+        position: relative;
+        z-index: 0;
+
+        &::before {
+            position: absolute;
+            content: "";
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: rgba($color: #000000, $alpha: .2);
+            z-index: -1;
+        }
+
+        &-sub-title {
+            font-size: 18px;
+            margin-bottom: 13px;
+        }
+
+        &-title {
+            font-size: 30px;
+            font-weight: 600;
+            margin-bottom: 11px;
+
+            @include lg {
+                font-size: 25px;
+            }
+        }
+
+        &-btn {
+            text-decoration: underline;
+
+            &:hover {
+                color: $bg-green;
+            }
+        }
+
+        &-2 {
+            background-image: url(../images/ads-banner/ads-banner-8.jpg);
+        }
+
+        &-3 {
+            background-image: url(../images/ads-banner/ads-banner-9.jpg);
+        }
+    }
+
+    @include sm {
+        .single-ad {
+            &-title {
+                font-size: 25px;
+            }
+        }
+    }
+
+    @include xxs {
+        .single-ad {
+            &-title {
+                font-size: 22px;
+
+                br {
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
+.rev-8-ads-section {
+    margin-bottom: 80px;
+
+    >.container>.row {
+        row-gap: 20px;
+    }
+
+    .single-ad {
+        background-image: url(../images/ads-banner/ads-banner-10.jpg);
+        padding: 65px 20px;
+
+        &::before,
+        &::after {
+            background: rgba($color: #000000, $alpha: 0.6);
+        }
+
+        &-2 {
+            background-image: url(../images/ads-banner/ads-banner-11.jpg);
+        }
+    }
+}
+
+// INDEX 17 AD SECTION STYLES
+.rev-17-ad-section {
+    padding: 30px 0 0;
+
+    a {
+        height: 100%;
+
+        img {
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+}

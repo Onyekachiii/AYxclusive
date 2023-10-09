@@ -1,0 +1,77 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+
+<main>
+
+
+
+    {% comment %} <!--------------------------------- BANNER SECTION START ---------------------------------> {% endcomment %}
+    <div class="banner banner-inner">
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-lg-6 col-md-9 col-8">
+                    <div class="breadcrumb-txt">
+                        <h1>Register Page</h1>
+                        <ul>
+                            <li><a href="index.html"><i class="fa-regular fa-house"></i></a></li>
+                            <li>/</li>
+                            <li>Register</li>
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    {% comment %} <!--------------------------------- BANNER SECTION END ---------------------------------> {% endcomment %}
+
+
+
+    {% comment %} <!--------------------------------- REGISTER SECTION START ---------------------------------> {% endcomment %}
+    <div class="register py-120">
+        <div class="container">
+            <div class="row justify-content-around">
+                <div class="col-xl-5 col-md-6">
+                    
+                    <div class="author-area">
+                        {% if form.errors %}
+                        <div class="alert alert-danger">
+                            <strong>{{ form.errors }}</strong>
+                        </div>
+                        {% endif %}
+                        <h2>Register</h2>
+                        <p>Have access to exclusive deals as a member of the family</p>
+                        <form class="login-form" method="POST">
+                            {% csrf_token %}
+                            {{ form.username }}
+                            {{ form.email }}
+                            {{ form.password1 }}
+                            {{ form.password2 }}
+                            <div class="form-check">
+                                <input class="form-check-input shipping-check" type="checkbox" name="shippingMode" id="agreeToTerm">
+                                <span class="sub-input"><i class="fa-regular fa-check"></i></span>
+                                <label class="form-check-label" for="agreeToTerm">
+                                    Agree to the <a href="#">Terms and Conditions</a>
+                                </label>
+                            </div>
+                            <button class="def-btn btn-border">Register</button>
+                        </form>
+                        <br>
+                        <div>
+                            <span>Already have an account? <a href="{% url 'userauths:sign-in' %}">Login</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% comment %} <!--------------------------------- REGISTER SECTION END ---------------------------------> {% endcomment %}
+
+
+
+
+</main>
+
+
+{% endblock content %}
