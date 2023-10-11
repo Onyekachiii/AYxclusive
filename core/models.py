@@ -43,7 +43,7 @@ class Category(models.Model):
         return mark_safe('<img src="%s" width="50" height="50" />' % (self.image.url))
     
     def __str__ (self):
-        self.title
+        return self.title
         
 
 class Tags(models.Model):
@@ -59,10 +59,10 @@ class Product(models.Model):
     image = models.ImageField(upload_to='product', blank=True, null=True, default="product.jpg")
     description = models.TextField(null=True, blank=True, default="This is the product")
     
-    price = models.DecimalField(max_digits=10, decimal_places=2, default=1.99)
-    old_price = models.DecimalField(max_digits=10, decimal_places=2, default=2.99)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=1.99, null=True, blank=True)
+    old_price = models.DecimalField(max_digits=10, decimal_places=2, default=2.99, null=True, blank=True)
     specifications = models.TextField(null=True, blank=True, default="This is the product specifications")
-    tags = models.ForeignKey(Tags, on_delete=models.SET_NULL, null=True)
+    # tags = models.ForeignKey(Tags, on_delete=models.SET_NULL, null=True)
     
     product_status = models.CharField(choices=STATUS, max_length=20, default="in_review")
     in_stock = models.BooleanField(default=True)
@@ -105,7 +105,7 @@ class ProductImages(models.Model):
 
 class CartOrder(models.Model):
     user = models.ForeignKey( User, on_delete=models.CASCADE)
-    price = models.DecimalField(max_digits=10, decimal_places=2, default=1.99)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=1.99, null=True, blank=True)
     paid_status = models.BooleanField(default=False)
     order_date = models.DateTimeField(auto_now_add=True)
     product_status = models.CharField(choices=STATUS_CHOICE, max_length=30, default="processing")
@@ -121,8 +121,8 @@ class CartOrderProducts(models.Model):
     item = models.CharField(max_length=200)
     image = models.CharField(max_length=200)
     qty = models.IntegerField(default=0)
-    price = models.DecimalField(max_digits=10, decimal_places=2, default=1.99)
-    total = models.DecimalField(max_digits=10, decimal_places=2, default=1.99)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=1.99, null=True, blank=True)
+    total = models.DecimalField(max_digits=10, decimal_places=2, default=1.99, null=True, blank=True)
     
     
     class Meta:

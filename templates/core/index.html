@@ -505,9 +505,10 @@
 
             <div class="flash-sale-products">
                 <div class="rev-15-flash-sale-slider owl-carousel">
+                    {% for p in products %}
                     <div class="single-product-card rev-9-single-product rev-16-single-product">
                         <div class="rev-9-single-product__img part-img">
-                            <img src="{% static 'assets/images/rev-11-pro-1.png' %}" alt="Product Image">
+                            <img src="{{ p.image.url }}" alt="Product Image">
                             <div class="rev-9-single-product__actions">
                                 <button class="product-view-btn quick-view"><i class="fa-solid fa-eye"></i></button>
                                 <button class="add-to-cart-btn"><i class="fa-solid fa-cart-shopping"></i></button>
@@ -516,7 +517,7 @@
                         </div>
 
                         <div class="rev-9-single-product__txt">
-                            <h4 class="rev-9-single-product__title"><a href="shop-details.html">High-back Comfortable Chair</a></h4>
+                            <h4 class="rev-9-single-product__title"><a href="shop-details.html">{{ p.title }}</a></h4>
                             <div class="rev-9-single-product__rating">
                                 <i class="fa-solid fa-star"></i>
                                 <i class="fa-solid fa-star"></i>
@@ -525,115 +526,13 @@
                                 <i class="fa-regular fa-star"></i>
                             </div>
                             <p class="rev-9-single-product__price">
-                                <span class="current-price">$160.35</span>
-                                <span class="prev-price text-decoration-line-through">$180.35</span>
+                                <span class="current-price"></span>
+                                <span class="prev-price text-decoration-line-through"></span>
                             </p>
                         </div>
                     </div>
-
-                    <div class="single-product-card rev-9-single-product rev-16-single-product">
-                        <div class="rev-9-single-product__img part-img">
-                            <img src="{% static 'assets/images/rev-11-pro-2.png' %}" alt="Product Image">
-                            <div class="rev-9-single-product__actions">
-                                <button class="product-view-btn quick-view"><i class="fa-solid fa-eye"></i></button>
-                                <button class="add-to-cart-btn"><i class="fa-solid fa-cart-shopping"></i></button>
-                                <button class="add-to-wishlist-btn"><i class="fa-regular fa-heart"></i></button>
-                            </div>
-                        </div>
-
-                        <div class="rev-9-single-product__txt">
-                            <h4 class="rev-9-single-product__title"><a href="shop-details.html">High-back Comfortable Chair</a></h4>
-                            <div class="rev-9-single-product__rating">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-regular fa-star"></i>
-                            </div>
-                            <p class="rev-9-single-product__price">
-                                <span class="current-price">$160.35</span>
-                                <span class="prev-price text-decoration-line-through">$180.35</span>
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="single-product-card rev-9-single-product rev-16-single-product">
-                        <div class="rev-9-single-product__img part-img">
-                            <img src="{% static 'assets/images/rev-11-pro-3.png' %}" alt="Product Image">
-                            <div class="rev-9-single-product__actions">
-                                <button class="product-view-btn quick-view"><i class="fa-solid fa-eye"></i></button>
-                                <button class="add-to-cart-btn"><i class="fa-solid fa-cart-shopping"></i></button>
-                                <button class="add-to-wishlist-btn"><i class="fa-regular fa-heart"></i></button>
-                            </div>
-                        </div>
-
-                        <div class="rev-9-single-product__txt">
-                            <h4 class="rev-9-single-product__title"><a href="shop-details.html">High-back Comfortable Chair</a></h4>
-                            <div class="rev-9-single-product__rating">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-regular fa-star"></i>
-                            </div>
-                            <p class="rev-9-single-product__price">
-                                <span class="current-price">$160.35</span>
-                                <span class="prev-price text-decoration-line-through">$180.35</span>
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="single-product-card rev-9-single-product rev-16-single-product">
-                        <div class="rev-9-single-product__img part-img">
-                            <img src="{% static 'assets/images/rev-11-pro-4.png' %}" alt="Product Image">
-                            <div class="rev-9-single-product__actions">
-                                <button class="product-view-btn quick-view"><i class="fa-solid fa-eye"></i></button>
-                                <button class="add-to-cart-btn"><i class="fa-solid fa-cart-shopping"></i></button>
-                                <button class="add-to-wishlist-btn"><i class="fa-regular fa-heart"></i></button>
-                            </div>
-                        </div>
-
-                        <div class="rev-9-single-product__txt">
-                            <h4 class="rev-9-single-product__title"><a href="shop-details.html">High-back Comfortable Chair</a></h4>
-                            <div class="rev-9-single-product__rating">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-regular fa-star"></i>
-                            </div>
-                            <p class="rev-9-single-product__price">
-                                <span class="current-price">$160.35</span>
-                                <span class="prev-price text-decoration-line-through">$180.35</span>
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="single-product-card rev-9-single-product rev-16-single-product">
-                        <div class="rev-9-single-product__img part-img">
-                            <img src="{% static 'assets/images/rev-11-pro-8.png' %}" alt="Product Image">
-                            <div class="rev-9-single-product__actions">
-                                <button class="product-view-btn quick-view"><i class="fa-solid fa-eye"></i></button>
-                                <button class="add-to-cart-btn"><i class="fa-solid fa-cart-shopping"></i></button>
-                                <button class="add-to-wishlist-btn"><i class="fa-regular fa-heart"></i></button>
-                            </div>
-                        </div>
-
-                        <div class="rev-9-single-product__txt">
-                            <h4 class="rev-9-single-product__title"><a href="shop-details.html">High-back Comfortable Chair</a></h4>
-                            <div class="rev-9-single-product__rating">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-regular fa-star"></i>
-                            </div>
-                            <p class="rev-9-single-product__price">
-                                <span class="current-price">$160.35</span>
-                                <span class="prev-price text-decoration-line-through">$180.35</span>
-                            </p>
-                        </div>
-                    </div>
+                    {% endfor %}
+                    
                 </div>
             </div>
         </div>
@@ -656,7 +555,7 @@
                     <div class="rev-16-hot-deal-slider owl-carousel owl-theme">
                         <div class="hot-deal-single-slide">
                             <div class="hot-deal-single-slide__img">
-                                <img src="{% static 'assets/images/hot-deal.jpg' %}" alt="Product Image">
+                                <img src="{% static 'assets/images/edited 15 1.jpg ' %}" alt="Product Image">
                             </div>
 
                             <div class="hot-deal-single-slide__txt">
@@ -671,8 +570,8 @@
                                 <h4><a href="shop-details.html">popular cosmic door</a></h4>
 
                                 <div class="price">
-                                    <span class="current-price">$160.00</span>
-                                    <span class="prev-price text-decoration-line-through">$180.00</span>
+                                    <span class="current-price"></span>
+                                    <span class="prev-price text-decoration-line-through"></span>
                                 </div>
 
                                 <div class="rating">
@@ -687,7 +586,7 @@
 
                         <div class="hot-deal-single-slide">
                             <div class="hot-deal-single-slide__img">
-                                <img src="{% static 'assets/images/hot-deal-2.jpg' %}" alt="Product Image">
+                                <img src="{% static 'assets/images/edited 9.jpg' %}" alt="Product Image">
                             </div>
 
                             <div class="hot-deal-single-slide__txt">
@@ -702,8 +601,8 @@
                                 <h4><a href="shop-details.html">popular cosmic door</a></h4>
 
                                 <div class="price">
-                                    <span class="current-price">$160.00</span>
-                                    <span class="prev-price text-decoration-line-through">$180.00</span>
+                                    <span class="current-price"></span>
+                                    <span class="prev-price text-decoration-line-through"></span>
                                 </div>
 
                                 <div class="rating">
@@ -725,10 +624,11 @@
 
                     <div class="latest-products-area">
                         <div class="row g-3">
+                            {% for p in products %}
                             <div class="col-xxl-3 col-md-4 col-6 col-xs-12">
                                 <div class="single-product-card rev-9-single-product rev-16-single-product">
                                     <div class="rev-9-single-product__img part-img">
-                                        <img src="{% static 'assets/images/rev-11-pro-15.png' %}" alt="Product Image">
+                                        <img src="{{ p.image.url }}" alt="Product Image">
                                         <div class="rev-9-single-product__actions">
                                             <button class="product-view-btn quick-view"><i class="fa-solid fa-eye"></i></button>
                                             <button class="add-to-cart-btn"><i class="fa-solid fa-cart-shopping"></i></button>
@@ -737,7 +637,7 @@
                                     </div>
 
                                     <div class="rev-9-single-product__txt">
-                                        <h4 class="rev-9-single-product__title"><a href="shop-details.html">High-back Comfortable Chair</a></h4>
+                                        <h4 class="rev-9-single-product__title"><a href="shop-details.html">{{ p.title }}</a></h4>
                                         <div class="rev-9-single-product__rating">
                                             <i class="fa-solid fa-star"></i>
                                             <i class="fa-solid fa-star"></i>
@@ -746,208 +646,14 @@
                                             <i class="fa-regular fa-star"></i>
                                         </div>
                                         <p class="rev-9-single-product__price">
-                                            <span class="current-price">$160.35</span>
-                                            <span class="prev-price text-decoration-line-through">$180.35</span>
+                                            <span class="current-price"></span>
+                                            <span class="prev-price text-decoration-line-through"></span>
                                         </p>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="col-xxl-3 col-md-4 col-6 col-xs-12">
-                                <div class="single-product-card rev-9-single-product rev-16-single-product">
-                                    <div class="rev-9-single-product__img part-img">
-                                        <img src="{% static 'assets/images/rev-11-pro-14.jpg' %}" alt="Product Image">
-                                        <div class="rev-9-single-product__actions">
-                                            <button class="product-view-btn quick-view"><i class="fa-solid fa-eye"></i></button>
-                                            <button class="add-to-cart-btn"><i class="fa-solid fa-cart-shopping"></i></button>
-                                            <button class="add-to-wishlist-btn"><i class="fa-regular fa-heart"></i></button>
-                                        </div>
-                                    </div>
-
-                                    <div class="rev-9-single-product__txt">
-                                        <h4 class="rev-9-single-product__title"><a href="shop-details.html">High-back Comfortable Chair</a></h4>
-                                        <div class="rev-9-single-product__rating">
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-regular fa-star"></i>
-                                        </div>
-                                        <p class="rev-9-single-product__price">
-                                            <span class="current-price">$160.35</span>
-                                            <span class="prev-price text-decoration-line-through">$180.35</span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-xxl-3 col-md-4 col-6 col-xs-12">
-                                <div class="single-product-card rev-9-single-product rev-16-single-product">
-                                    <div class="rev-9-single-product__img part-img">
-                                        <img src="{% static 'assets/images/rev-11-pro-13.png' %}" alt="Product Image">
-                                        <div class="rev-9-single-product__actions">
-                                            <button class="product-view-btn quick-view"><i class="fa-solid fa-eye"></i></button>
-                                            <button class="add-to-cart-btn"><i class="fa-solid fa-cart-shopping"></i></button>
-                                            <button class="add-to-wishlist-btn"><i class="fa-regular fa-heart"></i></button>
-                                        </div>
-                                    </div>
-
-                                    <div class="rev-9-single-product__txt">
-                                        <h4 class="rev-9-single-product__title"><a href="shop-details.html">High-back Comfortable Chair</a></h4>
-                                        <div class="rev-9-single-product__rating">
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-regular fa-star"></i>
-                                        </div>
-                                        <p class="rev-9-single-product__price">
-                                            <span class="current-price">$160.35</span>
-                                            <span class="prev-price text-decoration-line-through">$180.35</span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-xxl-3 col-md-4 col-6 col-xs-12">
-                                <div class="single-product-card rev-9-single-product rev-16-single-product">
-                                    <div class="rev-9-single-product__img part-img">
-                                        <img src="{% static 'assets/images/rev-11-pro-12.jpg' %}" alt="Product Image">
-                                        <div class="rev-9-single-product__actions">
-                                            <button class="product-view-btn quick-view"><i class="fa-solid fa-eye"></i></button>
-                                            <button class="add-to-cart-btn"><i class="fa-solid fa-cart-shopping"></i></button>
-                                            <button class="add-to-wishlist-btn"><i class="fa-regular fa-heart"></i></button>
-                                        </div>
-                                    </div>
-
-                                    <div class="rev-9-single-product__txt">
-                                        <h4 class="rev-9-single-product__title"><a href="shop-details.html">High-back Comfortable Chair</a></h4>
-                                        <div class="rev-9-single-product__rating">
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-regular fa-star"></i>
-                                        </div>
-                                        <p class="rev-9-single-product__price">
-                                            <span class="current-price">$160.35</span>
-                                            <span class="prev-price text-decoration-line-through">$180.35</span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-xxl-3 col-md-4 col-6 col-xs-12">
-                                <div class="single-product-card rev-9-single-product rev-16-single-product">
-                                    <div class="rev-9-single-product__img part-img">
-                                        <img src="{% static 'assets/images/rev-11-pro-11.png' %}" alt="Product Image">
-                                        <div class="rev-9-single-product__actions">
-                                            <button class="product-view-btn quick-view"><i class="fa-solid fa-eye"></i></button>
-                                            <button class="add-to-cart-btn"><i class="fa-solid fa-cart-shopping"></i></button>
-                                            <button class="add-to-wishlist-btn"><i class="fa-regular fa-heart"></i></button>
-                                        </div>
-                                    </div>
-
-                                    <div class="rev-9-single-product__txt">
-                                        <h4 class="rev-9-single-product__title"><a href="shop-details.html">High-back Comfortable Chair</a></h4>
-                                        <div class="rev-9-single-product__rating">
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-regular fa-star"></i>
-                                        </div>
-                                        <p class="rev-9-single-product__price">
-                                            <span class="current-price">$160.35</span>
-                                            <span class="prev-price text-decoration-line-through">$180.35</span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-xxl-3 col-md-4 col-6 col-xs-12">
-                                <div class="single-product-card rev-9-single-product rev-16-single-product">
-                                    <div class="rev-9-single-product__img part-img">
-                                        <img src="{% static 'assets/images/rev-11-pro-10.png' %}" alt="Product Image">
-                                        <div class="rev-9-single-product__actions">
-                                            <button class="product-view-btn quick-view"><i class="fa-solid fa-eye"></i></button>
-                                            <button class="add-to-cart-btn"><i class="fa-solid fa-cart-shopping"></i></button>
-                                            <button class="add-to-wishlist-btn"><i class="fa-regular fa-heart"></i></button>
-                                        </div>
-                                    </div>
-
-                                    <div class="rev-9-single-product__txt">
-                                        <h4 class="rev-9-single-product__title"><a href="shop-details.html">High-back Comfortable Chair</a></h4>
-                                        <div class="rev-9-single-product__rating">
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-regular fa-star"></i>
-                                        </div>
-                                        <p class="rev-9-single-product__price">
-                                            <span class="current-price">$160.35</span>
-                                            <span class="prev-price text-decoration-line-through">$180.35</span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-xxl-3 col-md-4 col-6 col-xs-12">
-                                <div class="single-product-card rev-9-single-product rev-16-single-product">
-                                    <div class="rev-9-single-product__img part-img">
-                                        <img src="{% static 'assets/images/rev-11-pro-9.png' %}" alt="Product Image">
-                                        <div class="rev-9-single-product__actions">
-                                            <button class="product-view-btn quick-view"><i class="fa-solid fa-eye"></i></button>
-                                            <button class="add-to-cart-btn"><i class="fa-solid fa-cart-shopping"></i></button>
-                                            <button class="add-to-wishlist-btn"><i class="fa-regular fa-heart"></i></button>
-                                        </div>
-                                    </div>
-
-                                    <div class="rev-9-single-product__txt">
-                                        <h4 class="rev-9-single-product__title"><a href="shop-details.html">High-back Comfortable Chair</a></h4>
-                                        <div class="rev-9-single-product__rating">
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-regular fa-star"></i>
-                                        </div>
-                                        <p class="rev-9-single-product__price">
-                                            <span class="current-price">$160.35</span>
-                                            <span class="prev-price text-decoration-line-through">$180.35</span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-xxl-3 col-md-4 col-6 col-xs-12">
-                                <div class="single-product-card rev-9-single-product rev-16-single-product">
-                                    <div class="rev-9-single-product__img part-img">
-                                        <img src="{% static 'assets/images/rev-11-pro-8.png' %}" alt="Product Image">
-                                        <div class="rev-9-single-product__actions">
-                                            <button class="product-view-btn quick-view"><i class="fa-solid fa-eye"></i></button>
-                                            <button class="add-to-cart-btn"><i class="fa-solid fa-cart-shopping"></i></button>
-                                            <button class="add-to-wishlist-btn"><i class="fa-regular fa-heart"></i></button>
-                                        </div>
-                                    </div>
-
-                                    <div class="rev-9-single-product__txt">
-                                        <h4 class="rev-9-single-product__title"><a href="shop-details.html">High-back Comfortable Chair</a></h4>
-                                        <div class="rev-9-single-product__rating">
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-regular fa-star"></i>
-                                        </div>
-                                        <p class="rev-9-single-product__price">
-                                            <span class="current-price">$160.35</span>
-                                            <span class="prev-price text-decoration-line-through">$180.35</span>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
+                            {% endfor %}
+                            
                         </div>
                     </div>
                 </div>
@@ -981,9 +687,10 @@
 
             <div class="flash-sale-products">
                 <div class="rev-15-flash-sale-slider owl-carousel">
+                    {% for p in products %}
                     <div class="single-product-card rev-9-single-product rev-16-single-product">
                         <div class="rev-9-single-product__img part-img">
-                            <img src="{% static 'assets/images/rev-11-pro-1.png' %}" alt="Product Image">
+                            <img src="{{ p.image.url }}" alt="Product Image">
                             <div class="rev-9-single-product__actions">
                                 <button class="product-view-btn quick-view"><i class="fa-solid fa-eye"></i></button>
                                 <button class="add-to-cart-btn"><i class="fa-solid fa-cart-shopping"></i></button>
@@ -992,7 +699,7 @@
                         </div>
 
                         <div class="rev-9-single-product__txt">
-                            <h4 class="rev-9-single-product__title"><a href="shop-details.html">High-back Comfortable Chair</a></h4>
+                            <h4 class="rev-9-single-product__title"><a href="shop-details.html">{{ p.title }}</a></h4>
                             <div class="rev-9-single-product__rating">
                                 <i class="fa-solid fa-star"></i>
                                 <i class="fa-solid fa-star"></i>
@@ -1001,115 +708,13 @@
                                 <i class="fa-regular fa-star"></i>
                             </div>
                             <p class="rev-9-single-product__price">
-                                <span class="current-price">$160.35</span>
-                                <span class="prev-price text-decoration-line-through">$180.35</span>
+                                <span class="current-price"></span>
+                                <span class="prev-price text-decoration-line-through"></span>
                             </p>
                         </div>
                     </div>
-
-                    <div class="single-product-card rev-9-single-product rev-16-single-product">
-                        <div class="rev-9-single-product__img part-img">
-                            <img src="{% static 'assets/images/rev-11-pro-2.png' %}" alt="Product Image">
-                            <div class="rev-9-single-product__actions">
-                                <button class="product-view-btn quick-view"><i class="fa-solid fa-eye"></i></button>
-                                <button class="add-to-cart-btn"><i class="fa-solid fa-cart-shopping"></i></button>
-                                <button class="add-to-wishlist-btn"><i class="fa-regular fa-heart"></i></button>
-                            </div>
-                        </div>
-
-                        <div class="rev-9-single-product__txt">
-                            <h4 class="rev-9-single-product__title"><a href="shop-details.html">High-back Comfortable Chair</a></h4>
-                            <div class="rev-9-single-product__rating">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-regular fa-star"></i>
-                            </div>
-                            <p class="rev-9-single-product__price">
-                                <span class="current-price">$160.35</span>
-                                <span class="prev-price text-decoration-line-through">$180.35</span>
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="single-product-card rev-9-single-product rev-16-single-product">
-                        <div class="rev-9-single-product__img part-img">
-                            <img src="{% static 'assets/images/rev-11-pro-3.png' %}" alt="Product Image">
-                            <div class="rev-9-single-product__actions">
-                                <button class="product-view-btn quick-view"><i class="fa-solid fa-eye"></i></button>
-                                <button class="add-to-cart-btn"><i class="fa-solid fa-cart-shopping"></i></button>
-                                <button class="add-to-wishlist-btn"><i class="fa-regular fa-heart"></i></button>
-                            </div>
-                        </div>
-
-                        <div class="rev-9-single-product__txt">
-                            <h4 class="rev-9-single-product__title"><a href="shop-details.html">High-back Comfortable Chair</a></h4>
-                            <div class="rev-9-single-product__rating">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-regular fa-star"></i>
-                            </div>
-                            <p class="rev-9-single-product__price">
-                                <span class="current-price">$160.35</span>
-                                <span class="prev-price text-decoration-line-through">$180.35</span>
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="single-product-card rev-9-single-product rev-16-single-product">
-                        <div class="rev-9-single-product__img part-img">
-                            <img src="{% static 'assets/images/rev-11-pro-4.png' %}" alt="Product Image">
-                            <div class="rev-9-single-product__actions">
-                                <button class="product-view-btn quick-view"><i class="fa-solid fa-eye"></i></button>
-                                <button class="add-to-cart-btn"><i class="fa-solid fa-cart-shopping"></i></button>
-                                <button class="add-to-wishlist-btn"><i class="fa-regular fa-heart"></i></button>
-                            </div>
-                        </div>
-
-                        <div class="rev-9-single-product__txt">
-                            <h4 class="rev-9-single-product__title"><a href="shop-details.html">High-back Comfortable Chair</a></h4>
-                            <div class="rev-9-single-product__rating">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-regular fa-star"></i>
-                            </div>
-                            <p class="rev-9-single-product__price">
-                                <span class="current-price">$160.35</span>
-                                <span class="prev-price text-decoration-line-through">$180.35</span>
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="single-product-card rev-9-single-product rev-16-single-product">
-                        <div class="rev-9-single-product__img part-img">
-                            <img src="{% static 'assets/images/rev-11-pro-8.png' %}" alt="Product Image">
-                            <div class="rev-9-single-product__actions">
-                                <button class="product-view-btn quick-view"><i class="fa-solid fa-eye"></i></button>
-                                <button class="add-to-cart-btn"><i class="fa-solid fa-cart-shopping"></i></button>
-                                <button class="add-to-wishlist-btn"><i class="fa-regular fa-heart"></i></button>
-                            </div>
-                        </div>
-
-                        <div class="rev-9-single-product__txt">
-                            <h4 class="rev-9-single-product__title"><a href="shop-details.html">High-back Comfortable Chair</a></h4>
-                            <div class="rev-9-single-product__rating">
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-solid fa-star"></i>
-                                <i class="fa-regular fa-star"></i>
-                            </div>
-                            <p class="rev-9-single-product__price">
-                                <span class="current-price">$160.35</span>
-                                <span class="prev-price text-decoration-line-through">$180.35</span>
-                            </p>
-                        </div>
-                    </div>
+                    {% endfor %}
+                    
                 </div>
             </div>
         </div>
@@ -1125,9 +730,10 @@
             </div>
 
             <div class="products-container">
+                {% for p in products %}
                 <div class="single-product-card rev-9-single-product rev-16-single-product">
                     <div class="rev-9-single-product__img part-img">
-                        <img src="{% static 'assets/images/rev-11-pro-1.png' %}" alt="Product Image">
+                        <img src="{{ p.image.url }}" alt="Product Image">
                         <div class="rev-9-single-product__actions">
                             <button class="product-view-btn quick-view"><i class="fa-solid fa-eye"></i></button>
                             <button class="add-to-cart-btn"><i class="fa-solid fa-cart-shopping"></i></button>
@@ -1136,7 +742,7 @@
                     </div>
 
                     <div class="rev-9-single-product__txt">
-                        <h4 class="rev-9-single-product__title"><a href="shop-details.html">High-back Comfortable Chair</a></h4>
+                        <h4 class="rev-9-single-product__title"><a href="shop-details.html">{{ p.title }}</a></h4>
                         <div class="rev-9-single-product__rating">
                             <i class="fa-solid fa-star"></i>
                             <i class="fa-solid fa-star"></i>
@@ -1145,245 +751,13 @@
                             <i class="fa-regular fa-star"></i>
                         </div>
                         <p class="rev-9-single-product__price">
-                            <span class="current-price">$160.35</span>
-                            <span class="prev-price text-decoration-line-through">$180.35</span>
+                            <span class="current-price"></span>
+                            <span class="prev-price text-decoration-line-through"></span>
                         </p>
                     </div>
                 </div>
-
-                <div class="single-product-card rev-9-single-product rev-16-single-product">
-                    <div class="rev-9-single-product__img part-img">
-                        <img src="{% static 'assets/images/rev-11-pro-2.png' %}" alt="Product Image">
-                        <div class="rev-9-single-product__actions">
-                            <button class="product-view-btn quick-view"><i class="fa-solid fa-eye"></i></button>
-                            <button class="add-to-cart-btn"><i class="fa-solid fa-cart-shopping"></i></button>
-                            <button class="add-to-wishlist-btn"><i class="fa-regular fa-heart"></i></button>
-                        </div>
-                    </div>
-
-                    <div class="rev-9-single-product__txt">
-                        <h4 class="rev-9-single-product__title"><a href="shop-details.html">High-back Comfortable Chair</a></h4>
-                        <div class="rev-9-single-product__rating">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                        </div>
-                        <p class="rev-9-single-product__price">
-                            <span class="current-price">$160.35</span>
-                            <span class="prev-price text-decoration-line-through">$180.35</span>
-                        </p>
-                    </div>
-                </div>
-
-                <div class="single-product-card rev-9-single-product rev-16-single-product">
-                    <div class="rev-9-single-product__img part-img">
-                        <img src="{% static 'assets/images/rev-11-pro-3.png' %}" alt="Product Image">
-                        <div class="rev-9-single-product__actions">
-                            <button class="product-view-btn quick-view"><i class="fa-solid fa-eye"></i></button>
-                            <button class="add-to-cart-btn"><i class="fa-solid fa-cart-shopping"></i></button>
-                            <button class="add-to-wishlist-btn"><i class="fa-regular fa-heart"></i></button>
-                        </div>
-                    </div>
-
-                    <div class="rev-9-single-product__txt">
-                        <h4 class="rev-9-single-product__title"><a href="shop-details.html">High-back Comfortable Chair</a></h4>
-                        <div class="rev-9-single-product__rating">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                        </div>
-                        <p class="rev-9-single-product__price">
-                            <span class="current-price">$160.35</span>
-                            <span class="prev-price text-decoration-line-through">$180.35</span>
-                        </p>
-                    </div>
-                </div>
-
-                <div class="single-product-card rev-9-single-product rev-16-single-product">
-                    <div class="rev-9-single-product__img part-img">
-                        <img src="{% static 'assets/images/rev-11-pro-4.png' %}" alt="Product Image">
-                        <div class="rev-9-single-product__actions">
-                            <button class="product-view-btn quick-view"><i class="fa-solid fa-eye"></i></button>
-                            <button class="add-to-cart-btn"><i class="fa-solid fa-cart-shopping"></i></button>
-                            <button class="add-to-wishlist-btn"><i class="fa-regular fa-heart"></i></button>
-                        </div>
-                    </div>
-
-                    <div class="rev-9-single-product__txt">
-                        <h4 class="rev-9-single-product__title"><a href="shop-details.html">High-back Comfortable Chair</a></h4>
-                        <div class="rev-9-single-product__rating">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                        </div>
-                        <p class="rev-9-single-product__price">
-                            <span class="current-price">$160.35</span>
-                            <span class="prev-price text-decoration-line-through">$180.35</span>
-                        </p>
-                    </div>
-                </div>
-
-                <div class="single-product-card rev-9-single-product rev-16-single-product">
-                    <div class="rev-9-single-product__img part-img">
-                        <img src="{% static 'assets/images/rev-11-pro-9.png' %}" alt="Product Image">
-                        <div class="rev-9-single-product__actions">
-                            <button class="product-view-btn quick-view"><i class="fa-solid fa-eye"></i></button>
-                            <button class="add-to-cart-btn"><i class="fa-solid fa-cart-shopping"></i></button>
-                            <button class="add-to-wishlist-btn"><i class="fa-regular fa-heart"></i></button>
-                        </div>
-                    </div>
-
-                    <div class="rev-9-single-product__txt">
-                        <h4 class="rev-9-single-product__title"><a href="shop-details.html">High-back Comfortable Chair</a></h4>
-                        <div class="rev-9-single-product__rating">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                        </div>
-                        <p class="rev-9-single-product__price">
-                            <span class="current-price">$160.35</span>
-                            <span class="prev-price text-decoration-line-through">$180.35</span>
-                        </p>
-                    </div>
-                </div>
-
-                <div class="single-product-card rev-9-single-product rev-16-single-product">
-                    <div class="rev-9-single-product__img part-img">
-                        <img src="{% static 'assets/images/rev-11-pro-10.png' %}" alt="Product Image">
-                        <div class="rev-9-single-product__actions">
-                            <button class="product-view-btn quick-view"><i class="fa-solid fa-eye"></i></button>
-                            <button class="add-to-cart-btn"><i class="fa-solid fa-cart-shopping"></i></button>
-                            <button class="add-to-wishlist-btn"><i class="fa-regular fa-heart"></i></button>
-                        </div>
-                    </div>
-
-                    <div class="rev-9-single-product__txt">
-                        <h4 class="rev-9-single-product__title"><a href="shop-details.html">High-back Comfortable Chair</a></h4>
-                        <div class="rev-9-single-product__rating">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                        </div>
-                        <p class="rev-9-single-product__price">
-                            <span class="current-price">$160.35</span>
-                            <span class="prev-price text-decoration-line-through">$180.35</span>
-                        </p>
-                    </div>
-                </div>
-
-                <div class="single-product-card rev-9-single-product rev-16-single-product">
-                    <div class="rev-9-single-product__img part-img">
-                        <img src="{% static 'assets/images/rev-11-pro-11.png' %}" alt="Product Image">
-                        <div class="rev-9-single-product__actions">
-                            <button class="product-view-btn quick-view"><i class="fa-solid fa-eye"></i></button>
-                            <button class="add-to-cart-btn"><i class="fa-solid fa-cart-shopping"></i></button>
-                            <button class="add-to-wishlist-btn"><i class="fa-regular fa-heart"></i></button>
-                        </div>
-                    </div>
-
-                    <div class="rev-9-single-product__txt">
-                        <h4 class="rev-9-single-product__title"><a href="shop-details.html">High-back Comfortable Chair</a></h4>
-                        <div class="rev-9-single-product__rating">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                        </div>
-                        <p class="rev-9-single-product__price">
-                            <span class="current-price">$160.35</span>
-                            <span class="prev-price text-decoration-line-through">$180.35</span>
-                        </p>
-                    </div>
-                </div>
-
-                <div class="single-product-card rev-9-single-product rev-16-single-product">
-                    <div class="rev-9-single-product__img part-img">
-                        <img src="{% static 'assets/images/rev-11-pro-12.jpg' %}" alt="Product Image">
-                        <div class="rev-9-single-product__actions">
-                            <button class="product-view-btn quick-view"><i class="fa-solid fa-eye"></i></button>
-                            <button class="add-to-cart-btn"><i class="fa-solid fa-cart-shopping"></i></button>
-                            <button class="add-to-wishlist-btn"><i class="fa-regular fa-heart"></i></button>
-                        </div>
-                    </div>
-
-                    <div class="rev-9-single-product__txt">
-                        <h4 class="rev-9-single-product__title"><a href="shop-details.html">High-back Comfortable Chair</a></h4>
-                        <div class="rev-9-single-product__rating">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                        </div>
-                        <p class="rev-9-single-product__price">
-                            <span class="current-price">$160.35</span>
-                            <span class="prev-price text-decoration-line-through">$180.35</span>
-                        </p>
-                    </div>
-                </div>
-
-                <div class="single-product-card rev-9-single-product rev-16-single-product">
-                    <div class="rev-9-single-product__img part-img">
-                        <img src="{% static 'assets/images/rev-11-pro-13.png' %}" alt="Product Image">
-                        <div class="rev-9-single-product__actions">
-                            <button class="product-view-btn quick-view"><i class="fa-solid fa-eye"></i></button>
-                            <button class="add-to-cart-btn"><i class="fa-solid fa-cart-shopping"></i></button>
-                            <button class="add-to-wishlist-btn"><i class="fa-regular fa-heart"></i></button>
-                        </div>
-                    </div>
-
-                    <div class="rev-9-single-product__txt">
-                        <h4 class="rev-9-single-product__title"><a href="shop-details.html">High-back Comfortable Chair</a></h4>
-                        <div class="rev-9-single-product__rating">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                        </div>
-                        <p class="rev-9-single-product__price">
-                            <span class="current-price">$160.35</span>
-                            <span class="prev-price text-decoration-line-through">$180.35</span>
-                        </p>
-                    </div>
-                </div>
-
-                <div class="single-product-card rev-9-single-product rev-16-single-product">
-                    <div class="rev-9-single-product__img part-img">
-                        <img src="{% static 'assets/images/rev-11-pro-14.jpg' %}" alt="Product Image">
-                        <div class="rev-9-single-product__actions">
-                            <button class="product-view-btn quick-view"><i class="fa-solid fa-eye"></i></button>
-                            <button class="add-to-cart-btn"><i class="fa-solid fa-cart-shopping"></i></button>
-                            <button class="add-to-wishlist-btn"><i class="fa-regular fa-heart"></i></button>
-                        </div>
-                    </div>
-
-                    <div class="rev-9-single-product__txt">
-                        <h4 class="rev-9-single-product__title"><a href="shop-details.html">High-back Comfortable Chair</a></h4>
-                        <div class="rev-9-single-product__rating">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                        </div>
-                        <p class="rev-9-single-product__price">
-                            <span class="current-price">$160.35</span>
-                            <span class="prev-price text-decoration-line-through">$180.35</span>
-                        </p>
-                    </div>
-                </div>
+                {% endfor %}
+                
             </div>
 
             <a href="shop.html" class="rev-15-def-btn">Show More</a>
