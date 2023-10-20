@@ -1,6 +1,6 @@
-from django.shortcuts import render
-
-from core.models import Product, Category
+from django.shortcuts import render, redirect, get_object_or_404
+from core.forms import ProductReviewForm
+from core.models import Product, Category, ProductImages, ProductReview
 
 
 
@@ -47,3 +47,37 @@ def category_product_list_view(request, cid):
         "products": products,
     }
     return render(request, "core/category-product-list.html", context)
+
+
+# To get a product detail
+def product_detail_view(request, pid):
+    product = Product.objects.get(pid=pid)
+    product_images = ProductImages.objects.filter(product=product)
+    # product_reviews = ProductReview.objects.filter(product=product)
+    products = Product.objects.filter(product_status= "published", category=product.category).exclude(pid=pid)[:4]
+    
+    #To get all reviews
+    reviews = ProductReview.objects.filter(product=product).order_by("-date")
+    
+    #Product review form
+    review_form = ProductReviewForm()
+    
+    make_review = True
+    
+    if request.user.is_authenticated:
+        user_review_count = ProductReview.objects.filter(user=request.user, product=product).count()
+        
+        if user_review_count == 1:
+            make_review = False
+    
+    product_images = product.product_images.all()
+    
+    context = {
+        "p": product,
+        "make_review": make_review,
+        "review_form": review_form,
+        "product_images": product_images,
+        "reviews": reviews,
+        "products": products,
+    }
+    return render(request, 'core/product-detail.html', context)

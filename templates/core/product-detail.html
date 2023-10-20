@@ -1,0 +1,355 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+
+
+ {% comment %} <!--------------------------------- BANNER SECTION START ---------------------------------> {% endcomment %}
+    <div class="banner banner-inner">
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-lg-6 col-md-9 col-8">
+                    <div class="breadcrumb-txt">
+                        <h1>Shop Details</h1>
+                        <ul>
+                            <li><a href="{% url "core:index" %}"><i class="fa-regular fa-house"></i></a></li>
+                            <li>/</li>
+                            <li>Shop Details</li>
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    {% comment %} <!--------------------------------- BANNER SECTION END ---------------------------------> {% endcomment %}
+
+    {% comment %} <!--------------------------------- SHOP SECTION START ---------------------------------> {% endcomment %}
+    <div class="shop-details py-120">
+        <div class="container">
+            <div class="product-view-area">
+                <div class="row">
+                    <div class="col-xl-6 col-lg-5 col-md-6">
+                        <div class="part-img mr-30">
+                            <div class="img-box" id="bigPreview">
+                                <img src="{{ p.image.url }}" alt="Image">
+                                
+                            </div>
+                            <div class="btn-box">
+                                {% for product_image in product_images %}
+                                <button class="small-thumb active">
+                                    <img src="{{ product_image.images.url }}" alt="image">
+                                </button>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-7 col-md-6">
+                        <div class="part-txt">
+                            <h2 class="main-product-title">{{ p.title }}</h2>
+                            <div class="review">
+                                <span class="star">
+                                    <i class="fa-solid fa-star-sharp rated"></i>
+                                    <i class="fa-solid fa-star-sharp rated"></i>
+                                    <i class="fa-solid fa-star-sharp rated"></i>
+                                    <i class="fa-solid fa-star-sharp rated"></i>
+                                    <i class="fa-solid fa-star-sharp"></i>
+                                </span>
+                                <span class="rating-amount">3 Reviews</span>
+                            </div>
+                            <p class="price"><span>Rs{{ p.old_price }}</span> Rs{{ p.price }}</p>
+                            <ul class="short-details">
+                                <li>Availability: <span>In stock, Custom-made</span></li>
+                                <li>Product Code: <span>{{ p.sku }}</span></li>
+                            </ul>
+                            <p class="dscr">{{ p.description|truncatechars:150|safe }}</p>
+                            <form>
+                                <div class="row g-xl-4 g-3">
+                                    
+                                    <div class="col-lg-4 col-md-12 col-sm-4">
+                                        <div class="quantity-wrap">
+                                            <label>QTY</label>
+                                            <div class="product-count">
+                                                <div class="quantity rapper-quantity">
+                                                    <input type="number" min="1" max="100" step="1" value="1" readonly>
+                                                    <div class="quantity-nav">
+                                                        <div class="quantity-button quantity-down">
+                                                            <i class="fa-solid fa-minus"></i>
+                                                        </div>
+                                                        <div class="quantity-button quantity-up">
+                                                            <i class="fa-solid fa-plus"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="btn-box">
+                                <button id="addToCart"><span><i class="fa-light fa-cart-shopping"></i></span> add to cart</button>
+                                <button id="addToWishList"><span><i class="fa-light fa-heart"></i></span> add to wishlist</button>
+                            </div>
+                            <div class="product-share">
+                                <span>Share Link:</span>
+                                <div class="social">
+                                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                                    <a href="#"><i class="fa-brands fa-google-plus-g"></i></a>
+                                    <a href="#"><i class="fa-solid fa-rss"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="details-area">
+                <nav>
+                    <div class="nav" id="nav-tab" role="tablist">
+                        <button class="nav-link active" id="nav-dscr-tab" data-bs-toggle="tab" data-bs-target="#nav-dscr" type="button" role="tab" aria-controls="nav-dscr" aria-selected="true">Description</button>
+                        <button class="nav-link" id="nav-info-tab" data-bs-toggle="tab" data-bs-target="#nav-info" type="button" role="tab" aria-controls="nav-info" aria-selected="false">Information</button>
+                        <button class="nav-link" id="nav-review-tab" data-bs-toggle="tab" data-bs-target="#nav-review" type="button" role="tab" aria-controls="nav-review" aria-selected="false">Reviews</button>
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-dscr" role="tabpanel" aria-labelledby="nav-dscr-tab" tabindex="0">
+                        <div class="product-dscr">
+                            <p>{{ p.description|truncatechars:150|safe }}</p>
+                            
+                            
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab" tabindex="0">
+                        <div class="product-information">
+                            <ul>
+                                <li><span>Weight:</span> </li>
+                                <li><span>Dimensions:</span> </li>
+                                <li><span>Color:</span> </li> 
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="nav-review" role="tabpanel" aria-labelledby="nav-review-tab" tabindex="0">
+                        <div class="product-review">
+                            <div class="review-overview">
+                                <div class="left">
+                                    <h2>4.2 <span>/5</span></h2>
+                                    <p>251 Ratings</p>
+                                </div>
+                                <div class="right">
+                                    <ul>
+                                        <li>
+                                            <div class="stars">
+                                                <i class="fa-solid fa-star-sharp rated"></i>
+                                                <i class="fa-solid fa-star-sharp rated"></i>
+                                                <i class="fa-solid fa-star-sharp rated"></i>
+                                                <i class="fa-solid fa-star-sharp rated"></i>
+                                                <i class="fa-solid fa-star-sharp rated"></i>
+                                            </div>
+                                            <div class="review-line">
+                                                <div class="progress">
+                                                    <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 41%" aria-valuenow="41" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                            <div class="percentage">
+                                                <span>103</span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="stars">
+                                                <i class="fa-solid fa-star-sharp rated"></i>
+                                                <i class="fa-solid fa-star-sharp rated"></i>
+                                                <i class="fa-solid fa-star-sharp rated"></i>
+                                                <i class="fa-solid fa-star-sharp rated"></i>
+                                                <i class="fa-solid fa-star-sharp"></i>
+                                            </div>
+                                            <div class="review-line">
+                                                <div class="progress">
+                                                    <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 29%" aria-valuenow="29" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                            <div class="percentage">
+                                                <span>73</span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="stars">
+                                                <i class="fa-solid fa-star-sharp rated"></i>
+                                                <i class="fa-solid fa-star-sharp rated"></i>
+                                                <i class="fa-solid fa-star-sharp rated"></i>
+                                                <i class="fa-solid fa-star-sharp"></i>
+                                                <i class="fa-solid fa-star-sharp"></i>
+                                            </div>
+                                            <div class="review-line">
+                                                <div class="progress">
+                                                    <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 16%" aria-valuenow="16" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                            <div class="percentage">
+                                                <span>39</span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="stars">
+                                                <i class="fa-solid fa-star-sharp rated"></i>
+                                                <i class="fa-solid fa-star-sharp rated"></i>
+                                                <i class="fa-solid fa-star-sharp"></i>
+                                                <i class="fa-solid fa-star-sharp"></i>
+                                                <i class="fa-solid fa-star-sharp"></i>
+                                            </div>
+                                            <div class="review-line">
+                                                <div class="progress">
+                                                    <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 11%" aria-valuenow="11" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                            <div class="percentage">
+                                                <span>27</span>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="stars">
+                                                <i class="fa-solid fa-star-sharp rated"></i>
+                                                <i class="fa-solid fa-star-sharp"></i>
+                                                <i class="fa-solid fa-star-sharp"></i>
+                                                <i class="fa-solid fa-star-sharp"></i>
+                                                <i class="fa-solid fa-star-sharp"></i>
+                                            </div>
+                                            <div class="review-line">
+                                                <div class="progress">
+                                                    <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 3%" aria-valuenow="3" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                            <div class="percentage">
+                                                <span>09</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="review-title">
+                                <h3>Reviews</h3>
+                            </div>
+                            <div class="review-wrap">
+                                {% for r in reviews %}
+                                <div class="single-review">
+                                    <div class="user">
+                                        <div class="part-img">
+                                            <img src="{% static 'assets/images/avatar.png' %}" alt="User">
+                                        </div>
+                                        <div class="txt">
+                                            <span class="name">{{ r.user.username|title }}</span>
+                                            <span class="date">{{ r.date|date:"d M, Y" }}</span>
+                                            <span class="star">
+                                                <i class="fa-solid fa-star-sharp rated"></i>
+                                                <i class="fa-solid fa-star-sharp rated"></i>
+                                                <i class="fa-solid fa-star-sharp rated"></i>
+                                                <i class="fa-solid fa-star-sharp rated"></i>
+                                                <i class="fa-solid fa-star-sharp"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="comment-area">
+                                        <p>{{ r.review }}</p>
+                                        <div class="bottom-wrap">
+                                            <div class="gallery-wrap">
+                                                <div class="img-gallery">
+                                                    <button class="client-img"><img src="{% static 'assets/images/review-img-1.jpg' %}" alt="image"></button>
+                                                    <button class="client-img"><img src="{% static 'assets/images/review-img-2.jpg' %}" alt="image"></button>
+                                                    <button class="client-img"><img src="{% static 'assets/images/review-img-3.jpg' %}" alt="image"></button>
+                                                    <button class="client-img"><img src="{% static 'assets/images/review-img-4.jpg' %}" alt="image"></button>
+                                                </div>
+                                                <div class="view-panel">
+                                                    <img class="client-product" src="{% static 'assets/images/' %}" alt="image">
+                                                    <button class="clt-view-panel-close"><i class="fa-light fa-circle-xmark"></i></button>
+                                                </div>
+                                            </div>
+                                            <div class="reaction">
+                                                <div class="like">
+                                                    <button><i class="fa-duotone fa-thumbs-up"></i></button>
+                                                    <span>(2)</span>
+                                                </div>
+                                                <div class="dislike">
+                                                    <button><i class="fa-duotone fa-thumbs-down"></i></button>
+                                                    <span>(0)</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% comment %} <!--------------------------------- SHOP SECTION END ---------------------------------> {% endcomment %}
+
+
+
+    {% comment %} <!--------------------------------- RELATED PRODUCT SECTION START ---------------------------------> {% endcomment %}
+    <div class="rlated-product pb-120">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="heading text-center">
+                        <h2>Related Products</h2>
+                    </div>
+                </div>
+                {% if products %}
+                <div class="col-12">
+                    <div class="related-product-slider owl-carousel">
+                        {% for p in products %}
+                        <div class="single-product-card">
+                            <div class="part-img">
+                                <a href="shop-details.html"><img src="{{ p.image.url }}" alt="Product"></a>
+                                <div class="cart-option cart-option-bottom">
+                                    <ul>
+                                        <li>
+                                            <a role="button" class="add-to-cart">
+                                                <i class="fa-light fa-cart-shopping"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a role="button" class="add-to-wish">
+                                                <i class="fa-light fa-heart"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a role="button" class="quick-view">
+                                                <i class="fa-light fa-image"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="shop-details.html" class="view-product">
+                                                <i class="fa-light fa-eye"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="part-txt">
+                                <h4 class="product-name"><a href="shop-details.html">{{ p.title }}</a></h4>
+                                <p class="dscr">{{ p.description }}</p>
+                                <p class="price"><span>Rs{{ p.old_price }}</span>Rs {{ p.price }}</p>
+                                <div class="star">
+                                    <i class="fa-solid fa-star-sharp rated"></i>
+                                    <i class="fa-solid fa-star-sharp rated"></i>
+                                    <i class="fa-solid fa-star-sharp rated"></i>
+                                    <i class="fa-solid fa-star-sharp rated"></i>
+                                    <i class="fa-solid fa-star-sharp"></i>
+                                </div>
+                                <button class="add-to-cart-btn">Add to Cart</button>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% comment %} <!--------------------------------- RELATED PRODUCT SECTION END ---------------------------------> {% endcomment %}
+
+
+
+   {% endblock content %}
