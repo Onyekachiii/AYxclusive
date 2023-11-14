@@ -1,7 +1,7 @@
 from django.db import models
 from shortuuid.django_fields import ShortUUIDField
 from django.utils.html import mark_safe
-from userauths.models import User
+from userauths.models import User, Profile
 
 
 STATUS_CHOICE = (
@@ -182,5 +182,19 @@ class Address(models.Model):
         verbose_name_plural = "Address"
     
     
+###################################### Quotations, Invoices, Receipts & Emails ################################
+###################################### Quotations, Invoices, Receipts & Emails ################################
+###################################### Quotations, Invoices, Receipts & Emails ################################
+###################################### Quotations, Invoices, Receipts & Emails ################################
+###################################### Quotations, Invoices, Receipts & Emails ################################
     
-        
+
+class Quotation(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    quotation_number = ShortUUIDField(unique=True, length=10, max_length=20, prefix='quo_', alphabet="abc12345678")
+    file = models.FileField(upload_to='quotations/')
+    date = models.DateTimeField(auto_now_add=True)
+    email_subject = models.CharField(max_length=255)
+    email_body = models.TextField()
+    sent = models.BooleanField(default=False)
+

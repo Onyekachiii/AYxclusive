@@ -1,6 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from core.forms import ProductReviewForm
-from core.models import Product, Category, ProductImages, ProductReview
+from core.models import Product, Category, ProductImages, ProductReview, Quotation
+from django.contrib.auth.decorators import login_required
+from userauths.models import Profile
+from userauths.forms import ProfileForm
+from django.contrib import messages
+from django.http import HttpResponse
+from django.core.mail import send_mail, EmailMessage
 
 
 
@@ -81,3 +87,55 @@ def product_detail_view(request, pid):
         "products": products,
     }
     return render(request, 'core/product-detail.html', context)
+
+@login_required
+def customer_dashboard(request):
+    profile = Profile.objects.get(user=request.user)
+    if request.method == "POST":
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            new_profile = form.save(commit=False)
+            new_profile.user = request.user
+            new_profile.save()
+            messages.success(request, "Profile updated successfully")
+            return redirect("core:dashboard")
+        
+    else:
+        form = ProfileForm(instance=profile)
+        
+    quotations = Quotation.objects.filter(user=request.user)
+    
+    context = {
+        'form': form,
+        'profile': profile,
+        'quotations' : quotations,
+        
+    }
+    return render (request, "core/dashboard.html", context)
+
+
+
+def simple_mail(request):
+    
+    send_mail(subject='This is your subject', 
+              message='This is your message', 
+              from_email='django@mailtrap.club', 
+              recipient_list=['test.mailtrap1234@gmail.com'])
+    
+    return HttpResponse('Message sent')
+
+
+def message_mail(request):
+    
+    email= EmailMessage(subject='This is your subject', 
+              message='This is your message', 
+              from_email='django@mailtrap.club', 
+              to=['test.mailtrap1234@gmail.com'],
+              bcc = ['bcc@anotherbestuser.com'])
+    
+    email.send()
+    
+    return HttpResponse('Message sent')
+    
+
+

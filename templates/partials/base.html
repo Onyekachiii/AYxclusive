@@ -53,7 +53,7 @@
 
                 {% for c in categories %}
                 <li class="category-item">
-                    <a href="#">
+                    <a href="{% url 'core:category-product-list' c.cid %}">
                     
                         <span>{{c.title}}</span>
                     </a>
@@ -66,13 +66,13 @@
             <button class="mobile-menu-close-btn"><i class="fa-solid fa-xmark-large"></i></button>
             <ul class="menu-bar">
                 <li class="logo">
-                    <img src="{% static 'assets/images/logos/AY11.png' %}" alt="Logo">
+                    <a href="{% url 'core:index' %}"><img src="{% static 'assets/images/logos/AY11.png' %}" alt="Logo"></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="index-16.html">Home</a>
+                    <a class="nav-link" href="{% url "core:index" %}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a href="account.html" class="nav-link">Account</a>
+                    <a href="{% url 'core:dashboard' %}" class="nav-link">Account</a>
                 </li>
                 <li class="nav-item">
                     <a href="{% url "userauths:sign-up" %}" class="nav-link">Register</a>
@@ -80,33 +80,19 @@
                 <li class="nav-item">
                     <a href="{% url 'core:about-us' %}" class="nav-link">About</a>
                 </li>
+                
                 <li class="nav-item">
-                    <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="shop.html" class="dropdown-item">Shop Left Bar</a></li>
-                        <li><a href="shop-right-bar.html" class="dropdown-item">Shop Right Bar</a></li>
-                        <li><a href="shop-details.html" class="dropdown-item">Shop Details Page</a></li>
-                    </ul>
+                    <a href="{% url 'core:product-list' %}" class="nav-link">Shop</a>
                 </li>
+                
                 <li class="nav-item">
-                    <a href="faq.html" class="nav-link">FAQ</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Blog</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="blog.html" class="dropdown-item">Blog Page</a></li>
-                        <li><a href="blog-details.html" class="dropdown-item">Blog Details Page</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a href="contact.html" class="nav-link">Contact</a>
+                    <a href="#" class="nav-link">Contact</a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pages</a>
                     <ul class="dropdown-menu">
-                        <li><a href="cart.html" class="dropdown-item">Cart Page</a></li>
-                        <li><a href="compare.html" class="dropdown-item">Compare Page</a></li>
-                        <li><a href="wishlist.html" class="dropdown-item">Wishlist Page</a></li>
+                        <li><a href="" class="dropdown-item">Cart Page</a></li>
+                        <li><a href="" class="dropdown-item">Wishlist Page</a></li>
                         <li><a href="{% url "userauths:sign-up" %}" class="dropdown-item">Register Page</a></li>
                     </ul>
                 </li>
@@ -114,9 +100,9 @@
         </div>
         <ul class="mobile-nav">
             <li><a role="button" data-target="mobile-category-list" class="m-nav-link"><i class="fa-light fa-grid-2"></i></a></li>
-            <li><a href="cart.html" class="m-nav-link"><i class="fa-light fa-cart-shopping"></i></a></li>
-            <li><a href="index.html" class="center"><i class="fa-light fa-house"></i></a></li>
-            <li><a href="account.html" class="m-nav-link"><i class="fa-light fa-user-large"></i></a></li>
+            <li><a href="" class="m-nav-link"><i class="fa-light fa-cart-shopping"></i></a></li>
+            <li><a href="{% url "core:index" %}" class="center"><i class="fa-light fa-house"></i></a></li>
+            <li><a href="{% url "core:dashboard" %}" class="m-nav-link"><i class="fa-light fa-user-large"></i></a></li>
             <li><a role="button" data-target="m-main-menu" class="m-nav-link"><i class="fa-light fa-ellipsis-stroke"></i></a></li>
         </ul>
     </div>
@@ -127,8 +113,8 @@
         <div class="top-header">
             <div class="container">
                 <ul class="top-header-link justify-content-center justify-content-sm-end flex-wrap">
-                    <li><a href="mailto:adhona@bponi.com">ay.exclusive@outlook.com</a></li>
-                    <li><a href="tel:+8801635653239">+230 5914 4325</a></li>
+                    <li><a href="mailto:ay.exclusive@outlook.com">ay.exclusive@outlook.com</a></li>
+                    <li><a href="tel:+230 5914 4325">+230 5914 4325</a></li>
                     {% comment %} <li><a href="#">Track Order</a></li> {% endcomment %}
                 </ul>
             </div>
@@ -139,7 +125,7 @@
                 <div class="row align-items-center">
                     <div class="col-xxl-4 col-md-3 col-5">
                         <div class="logo">
-                            <img src="{% static 'assets/images/logos/AY11.png' %}" alt="logo">
+                            <a href="{% url 'core:index' %}"><img src="{% static 'assets/images/logos/AY11.png' %}" alt="logo"></a>
                         </div>
                     </div>
 
@@ -160,7 +146,7 @@
                                 </li>
                                 <li>
                                     <span class="product-amount">03</span>
-                                    <a href="cart.html"><i class="fas fa-shopping-cart"></i></a>
+                                    <a href=""><i class="fas fa-shopping-cart"></i></a>
                                 </li>
                                 <li><a href="wishlist.html"><i class="fas fa-heart"></i></a></li>
                                 {% if request.user.is_authenticated %}
@@ -168,7 +154,7 @@
                                 {% else %}
                                 <li><a href="{% url 'userauths:sign-in' %}"><i class="fas fa-power-off"></i></a></li>
                                 {% endif %}
-                                <li><a href="account.html"><i class="fas fa-user"></i></a></li>
+                                <li><a href="{% url "core:dashboard" %}"><i class="fas fa-user"></i></a></li>
                             </ul>
                         </div>
                     </div>
@@ -196,7 +182,7 @@
                                             </li>
 
                                             <li class="nav-item">
-                                                <a class="nav-link" href="">Shop</a>
+                                                <a class="nav-link" href="{% url "core:product-list" %}">Shop</a>
                                                 
                                             </li>
 
@@ -205,12 +191,12 @@
                                                     Pages
                                                 </a>
                                                 <ul class="dropdown-menu" aria-labelledby="pageDropdown">
-                                                    <li><a class="dropdown-item" href="account.html">Account Page</a>
+                                                    <li><a class="dropdown-item" href="{% url "core:dashboard" %}">Account Page</a>
                                                     </li>
-                                                    <li><a class="dropdown-item" href="cart.html">Cart Page</a></li>
+                                                    <li><a class="dropdown-item" href="">Cart Page</a></li>
         
-                                                    <li><a class="dropdown-item" href="faq.html">FAQ Page</a></li>
-                                                    <li><a class="dropdown-item" href="wishlist.html">Wishlist</a></li>
+                                                    <li><a class="dropdown-item" href="">FAQ Page</a></li>
+                                                    <li><a class="dropdown-item" href="">Wishlist</a></li>
                                                     <li><a class="dropdown-item" href="{% url "userauths:sign-up" %}">Register Page</a>
                                                     </li>
                                                 </ul>
@@ -229,7 +215,7 @@
 
                     <div class="col-lg-3">
                         <div class="account-link">
-                            <a href="#">Free Shipping on Orders $150+</a>
+                            <a href="#">Free Shipping on Orders within Mauritius</a>
                         </div>
                     </div>
                 </div>
@@ -318,14 +304,14 @@
                         <div class="footer-logo">
                             <img src="{% static 'assets/images/logos/AY11.png' %}" alt="Logo">
                         </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed</p>
+                        <p>Your trusted and reliable partner for everything furniture</p>
                         <ul>
                             <li>
                                 <div class="icon">
                                     <span><i class="flaticon-map"></i></span>
                                 </div>
                                 <div class="txt">
-                                    <span>4920 Trails End Road Ft United States, FL 33311</span>
+                                    <span>Quatre Bornes, Mauritius</span>
                                 </div>
                             </li>
                             <li>
@@ -333,8 +319,8 @@
                                     <span><i class="flaticon-email"></i></span>
                                 </div>
                                 <div class="txt">
-                                    <a href="mailto:info@example.com">info@example.com</a>
-                                    <a href="mailto:test@example.com">test@example.com</a>
+                                    <a href="mailto:ay.exclusive@outlook.com">ay.exclusive@outlook.com</a>
+                                    
                                 </div>
                             </li>
                             <li>
@@ -342,8 +328,8 @@
                                     <span><i class="flaticon-telephone"></i></span>
                                 </div>
                                 <div class="txt">
-                                    <a href="tel:+123456679123">+123 456 679 123</a>
-                                    <a href="tel:+123456789">+123 456 789</a>
+                                    <a href="tel:+230 5914 4325">+230 5914 4325</a>
+
                                 </div>
                             </li>
                         </ul>
@@ -356,7 +342,7 @@
                             <ul>
                                 <li><a href="{% url 'core:about-us' %}">About Us</a></li>
                                 <li><a href="contact.html">Contact Us</a></li>
-                                <li><a href="blog.html">Blogs</a></li>
+                                <li><a href="{% url "core:dashboard" %}">Dashboard</a></li>
                                 <li><a href="#">Terms Of Use</a></li>
                                 <li><a href="#">Privacy Policies</a></li>
                             </ul>
@@ -364,11 +350,11 @@
                         <div class="footer-link">
                             <h3 class="footer-title">Information</h3>
                             <ul>
-                                <li><a href="cart.html">My Order</a></li>
-                                <li><a href="wishlist.html">Wishlist</a></li>
-                                <li><a href="account.html">My Credit</a></li>
-                                <li><a href="register.html">Login</a></li>
-                                <li><a href="account.html">Personal Info</a></li>
+                                <li><a href="{% url "core:dashboard" %}">My Order</a></li>
+                                <li><a href="">Wishlist</a></li>
+                                <li><a href="{% url "core:dashboard" %}">My Credit</a></li>
+                                <li><a href="{% url "userauths:sign-in" %}">Login</a></li>
+                                <li><a href="{% url "core:dashboard" %}">Personal Info</a></li>
                             </ul>
                         </div>
                     </div>
@@ -419,7 +405,7 @@
                 <div class="custom-col">
                     <div class="footer-subscribe">
                         <h3 class="footer-title">Subscribe</h3>
-                        <p>Lorem ipsum dolor si consectetur adipisicing elit, sed eiusmotempor incididunt ut labore et
+                        <p>Want us to come take measurements for a custom  quote? Drop your email
                         </p>
                         <form>
                             <input type="email" name="email" placeholder="Your Email">
