@@ -5,9 +5,17 @@ from userauths.models import User, Profile
 
 class UserRegisterForm(UserCreationForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Username'}))
+    first_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Firstname'}))
+    last_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Lastname'}))
     email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder': 'Email'}))
     password1 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
     password2 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Confirm Password'}))
+    house_address = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Address'}))
+    phone = forms.CharField(widget=forms.NumberInput(attrs={'placeholder': 'Phone Number'}))
+    floorlevel = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Delivery Floor Level'}))
+    city = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'City'}))
+    country = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Country'}))
+    
     
     
     class Meta:
@@ -16,12 +24,16 @@ class UserRegisterForm(UserCreationForm):
         
         
 class ProfileForm(forms.ModelForm):
-    full_name = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "Full name"})) 
+    first_name = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "First name"})) 
+    last_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Lastname'}))
     image = forms.ImageField(widget=forms.FileInput(attrs={"placeholder": "Image"}))
     bio = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "Bio"}))
     phone = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "Phone"}))
-    address = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "Address"}))
+    house_address = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "Address"}))
+    floorlevel = forms.CharField(widget=forms.NumberInput(attrs={'placeholder': 'Delivery Floor Level'}))
+    city = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'City'}))
+    country = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Country'}))
     
     class Meta:
         model = Profile
-        fields = ['full_name', 'image', 'bio', 'phone', 'address']
+        fields = ['first_name', 'last_name', 'image', 'bio', 'phone']

@@ -1,0 +1,84 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+
+<main>
+    <span class="jm-cat-icon-new mb-10"></br></span>
+    <!-- breadcrumb area start -->
+    <section class="breadcrumb-height bg-default jm-breadcrumb-area align-items-center d-flex pt-100" data-background="job/assets/img/breadcrumb/breadcrumb.jpg">
+        
+        <div class="container">
+           <div class="row">
+               <div class="col-12">
+                   <div class="jm-breadcrumb-wrap pt-105 pb-115">
+                        {% if query %}
+                       <h2 class="jm-breadcrumb-title">{{query}}</h2>
+                        {% else %}
+                        <h2 class="jm-breadcrumb-title">No searched items </h2>
+                        {% endif %}
+                       <div class="jm-breadcrumb-list">
+                           <a href="{% url "core:index" %}">Home</a>
+                           <span class="jm-category-item-icon-new"><i class="fa-solid fa-angle-double-right"></i></span>
+                           <span>{{query}}</span>
+                       </div>
+                   </div>
+               </div>
+           </div>
+           <span class="jm-cat-icon-new mb-10"></br></span>
+       </div>
+   </section>
+   <!-- breadcrumb area end -->
+
+   <!-- category area start -->
+   <section class="jm-category-area pt-85 pb-70">
+       <div class="container">
+           <div class="row">
+               <div class="col-12">
+                   <div class="jm-section-title mb-40 text-center">
+                       <h2 class="title mb-10">{{ category.title }}</h2>
+                       <p class="text">We found {{products.count}} item{{products.count|pluralize:'s'}} for you</p>
+                   </div>
+               </div>
+           </div>
+           
+           <div class="row">
+            {% for p in products %}
+               <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                   <div class="jm-category-item-new mb-30">
+                       <div class="jm-category-item-img-new w_img">
+                           <a href="{% url 'core:product-detail' p.pid %}"><img src="{{p.image.url}}" height='300px' width = '300px' alt=""></a>
+                       </div>
+                       <div class="jm-category-item-content-new">
+                           <div class="jm-category-item-content-inner-new mb-10">
+                                <span class="jm-cat-icon-new"></br></span>
+                                <h4 class="jm-cat-title-new"><a href="{% url 'core:product-detail' p.pid %}">{{ p.title }}</a></h4>
+                                    
+                                <p class="dscr">{{ p.description }}</p>
+                                <p class="price"> Rs {{ p.price }}</p>
+                                <div class="star">
+                                    <i class="fa-solid fa-star-sharp rated"></i>
+                                    <i class="fa-solid fa-star-sharp rated"></i>
+                                    <i class="fa-solid fa-star-sharp rated"></i>
+                                    <i class="fa-solid fa-star-sharp rated"></i>
+                                    <i class="fa-solid fa-star-sharp"></i>
+                                </div>
+                                <span class="jm-cat-icon-new mb-10"></br></span>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+               {% endfor %}
+
+           </div>
+       </div>
+   </section>
+   <!-- category area end -->
+    <div>
+        </br>
+    </div>
+
+
+</main>     
+
+        
+{% endblock content %}

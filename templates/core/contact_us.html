@@ -1,0 +1,103 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+
+<main>
+
+
+
+    {% comment %} <!--------------------------------- BANNER SECTION START ---------------------------------> {% endcomment %}
+    <div class="banner banner-inner">
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-lg-6 col-md-9 col-8">
+                    <div class="breadcrumb-txt">
+                        <h1>Contact Us</h1>
+                        <ul>
+                            <li><a href="{% url 'core:index' %}"><i class="fa-regular fa-house"></i></a></li>
+                            <li>/</li>
+                            <li>Contact Us </li>
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    {% comment %} <!--------------------------------- BANNER SECTION END ---------------------------------> {% endcomment %}
+
+
+
+    {% comment %} <!--------------------------------- REGISTER SECTION START ---------------------------------> {% endcomment %}
+    <div class="register py-120">
+        <div class="container">
+            <div class="row justify-content-around">
+                <div class="col-xl-5 col-md-6">
+                    
+                    <div class="author-area">
+                        {% if form.errors %}
+                        <div class="alert alert-danger">
+                            <strong>{{ form.errors }}</strong>
+                        </div>
+                        {% endif %}
+                        <h2>Contact Us</h2>
+                        <p>Need custom made furniture to suit your needs? Tell us about it.</p>
+                        <form class="login-form" id="contact-form-ajax" method="POST" action="">
+                            {% csrf_token %}
+                            <div class="form-field mb-30">
+                                <label>First Name*</label>
+                                <input type="text" name="first_name" id="first_name" 
+                                    required />
+                            </div>
+                            <div class="form-field mb-30">
+                                <label>Last Name*</label>
+                                <input type="text" name="full_name" id="last_name" 
+                                    required />
+                            </div>
+                            <div class="form-field mb-30">
+                                <label>Email*</label>
+                                <input type="email" name="email" id="email" 
+                                    required />
+                            </div>
+                            <div class="form-field mb-30">
+                                <label>Phone Number*</label>
+                                <input type="text" name="phone_number" id="phone_number" 
+                                    required />
+                            </div>
+                            <div class="form-field mb-30">
+                                <label>Address*</label>
+                                <input type="text" name="address" id="address" 
+                                    required />
+                            </div>
+                            <div class="form-field mb-30">
+                                <label>Floor Level*</label>
+                                <input type="text" name="floor_level" id="floor_level" 
+                                    required />
+                            </div>
+                            <div class="form-field mb-30">
+                                <label>Furniture Type*</label>
+                                <input type="text" name="furniture_type" id="furniture_type" 
+                                    required />
+                            </div>
+                            <div class="">
+                                <label>Description*</label>
+                                <input type="text" name="description" id="description" 
+                                    required />
+                            </div>
+                            
+                            <button class="def-btn btn-border" type="submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% comment %} <!--------------------------------- REGISTER SECTION END ---------------------------------> {% endcomment %}
+
+
+
+
+</main>
+
+
+{% endblock content %}

@@ -104,13 +104,13 @@
                             <img src="{{ p.image.url }}" alt="Product Image">
                             <div class="rev-9-single-product__actions">
                                 <button class="product-view-btn quick-view"><i class="fa-solid fa-eye"></i></button>
-                                <button class="add-to-cart-btn"><i class="fa-solid fa-cart-shopping"></i></button>
-                                <button class="add-to-wishlist-btn"><i class="fa-regular fa-heart"></i></button>
+                                {% comment %} <button class="add-to-cart-btn"><i class="fa-solid fa-cart-shopping"></i></button>
+                                <button class="add-to-wishlist-btn"><i class="fa-regular fa-heart"></i></button> {% endcomment %}
                             </div>
                         </div>
 
                         <div class="rev-9-single-product__txt">
-                            <h4 class="rev-9-single-product__title"><a href="shop-details.html">{{ p.title }}</a></h4>
+                            <h4 class="rev-9-single-product__title"><a href="{% url 'core:product-detail' p.pid %}">{{ p.title }}</a></h4>
                             <div class="rev-9-single-product__rating">
                                 <i class="fa-solid fa-star"></i>
                                 <i class="fa-solid fa-star"></i>
@@ -160,7 +160,7 @@
                                     </ul>
                                 </div>
 
-                                <h4><a href="shop-details.html">popular cosmic door</a></h4>
+                                <h4><a href="">popular cosmic door</a></h4>
 
                                 <div class="price">
                                     <span class="current-price"></span>
@@ -191,7 +191,7 @@
                                     </ul>
                                 </div>
 
-                                <h4><a href="shop-details.html">popular cosmic door</a></h4>
+                                <h4><a href="">popular cosmic door</a></h4>
 
                                 <div class="price">
                                     <span class="current-price"></span>
@@ -224,13 +224,13 @@
                                         <img src="{{ p.image.url }}" alt="Product Image">
                                         <div class="rev-9-single-product__actions">
                                             <button class="product-view-btn quick-view"><i class="fa-solid fa-eye"></i></button>
-                                            <button class="add-to-cart-btn"><i class="fa-solid fa-cart-shopping"></i></button>
-                                            <button class="add-to-wishlist-btn"><i class="fa-regular fa-heart"></i></button>
+                                            {% comment %} <button class="add-to-cart-btn"><i class="fa-solid fa-cart-shopping"></i></button>
+                                            <button class="add-to-wishlist-btn"><i class="fa-regular fa-heart"></i></button> {% endcomment %}
                                         </div>
                                     </div>
 
                                     <div class="rev-9-single-product__txt">
-                                        <h4 class="rev-9-single-product__title"><a href="shop-details.html">{{ p.title }}</a></h4>
+                                        <h4 class="rev-9-single-product__title"><a href="{% url 'core:product-detail' p.pid %}">{{ p.title }}</a></h4>
                                         <div class="rev-9-single-product__rating">
                                             <i class="fa-solid fa-star"></i>
                                             <i class="fa-solid fa-star"></i>
@@ -271,13 +271,13 @@
                             <img src="{{ p.image.url }}" alt="Product Image">
                             <div class="rev-9-single-product__actions">
                                 <button class="product-view-btn quick-view"><i class="fa-solid fa-eye"></i></button>
-                                <button class="add-to-cart-btn"><i class="fa-solid fa-cart-shopping"></i></button>
-                                <button class="add-to-wishlist-btn"><i class="fa-regular fa-heart"></i></button>
+                                {% comment %} <button class="add-to-cart-btn"><i class="fa-solid fa-cart-shopping"></i></button>
+                                <button class="add-to-wishlist-btn"><i class="fa-regular fa-heart"></i></button> {% endcomment %}
                             </div>
                         </div>
 
                         <div class="rev-9-single-product__txt">
-                            <h4 class="rev-9-single-product__title"><a href="shop-details.html">{{ p.title }}</a></h4>
+                            <h4 class="rev-9-single-product__title"><a href="{% url 'core:product-detail' p.pid %}">{{ p.title }}</a></h4>
                             <div class="rev-9-single-product__rating">
                                 <i class="fa-solid fa-star"></i>
                                 <i class="fa-solid fa-star"></i>
@@ -314,13 +314,13 @@
                         <img src="{{ p.image.url }}" alt="Product Image">
                         <div class="rev-9-single-product__actions">
                             <button class="product-view-btn quick-view"><i class="fa-solid fa-eye"></i></button>
-                            <button class="add-to-cart-btn"><i class="fa-solid fa-cart-shopping"></i></button>
-                            <button class="add-to-wishlist-btn"><i class="fa-regular fa-heart"></i></button>
+                            {% comment %} <button class="add-to-cart-btn"><i class="fa-solid fa-cart-shopping"></i></button>
+                            <button class="add-to-wishlist-btn"><i class="fa-regular fa-heart"></i></button> {% endcomment %}
                         </div>
                     </div>
 
                     <div class="rev-9-single-product__txt">
-                        <h4 class="rev-9-single-product__title"><a href="shop-details.html">{{ p.title }}</a></h4>
+                        <h4 class="rev-9-single-product__title"><a href="{% url 'core:product-detail' p.pid %}">{{ p.title }}</a></h4>
                         <div class="rev-9-single-product__rating">
                             <i class="fa-solid fa-star"></i>
                             <i class="fa-solid fa-star"></i>
@@ -338,7 +338,7 @@
                 
             </div>
 
-            <a href="shop.html" class="rev-15-def-btn">Show More</a>
+            <a href="{% url 'core:product-list' %}" class="rev-15-def-btn">Show More</a>
         </div>
     </section>
     <!--=============== ALL PRODUCTS SECTION ENDS HERE ===============-->

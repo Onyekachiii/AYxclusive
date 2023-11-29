@@ -86,7 +86,10 @@
                 </li>
                 
                 <li class="nav-item">
-                    <a href="#" class="nav-link">Contact</a>
+                    <a href="{% url 'core:contact' %}" class="nav-link">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'core:projects' %}" class="nav-link">Projects</a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pages</a>
@@ -131,8 +134,8 @@
 
                     <div class="col-xxl-4 col-5 order-3 order-md-2">
                         <div class="bottom-header-search search-col rev-8-search-col">
-                            <form action="#">
-                                <input type="search" name="Search" id="rev-15-header-search" placeholder="Search Product">
+                            <form action="{% url 'core:search' %}" method="GET">
+                                <input type="search" name="q" id="rev-15-header-search" placeholder="Search Product">
                                 <button type="submit"><i class="fa-regular fa-search"></i></button>
                             </form>
                         </div>
@@ -145,7 +148,7 @@
                                     <button class="search-open rev-8-search-open"><i class="fa-solid fa-magnifying-glass"></i></button>
                                 </li>
                                 <li>
-                                    <span class="product-amount">03</span>
+                                    <span class="product-amount"></span>
                                     <a href=""><i class="fas fa-shopping-cart"></i></a>
                                 </li>
                                 <li><a href="wishlist.html"><i class="fas fa-heart"></i></a></li>
@@ -203,7 +206,12 @@
                                             </li>
 
                                             <li class="nav-item">
-                                                <a class="nav-link" href="">Projects</a>
+                                                <a class="nav-link" href="{% url 'core:contact' %}">Contact Us</a>
+                                                
+                                            </li>
+
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="{% url 'core:projects' %}">Projects</a>
                                                 
                                             </li>
                                         </ul>
@@ -302,7 +310,7 @@
                 <div class="custom-col-2">
                     <div class="footer-about">
                         <div class="footer-logo">
-                            <img src="{% static 'assets/images/logos/AY11.png' %}" alt="Logo">
+                            <a href="{% url 'core:index' %}"><img src="{% static 'assets/images/logos/AY11.png' %}" alt="Logo"></a>
                         </div>
                         <p>Your trusted and reliable partner for everything furniture</p>
                         <ul>
@@ -364,7 +372,7 @@
                         <h3 class="footer-title">Instagram</h3>
                         <ul>
                             <li>
-                                <a href="https://instagram.com" target="_blank">
+                                <a href="https://www.instagram.com/p/Czape5YrUk_/?utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==" target="_blank">
                                     <img src="{% static 'assets/images/gl-1.png' %}" alt="image">
                                     <span><i class="fa-brands fa-instagram"></i></span>
                                 </a>
@@ -443,6 +451,7 @@
 <script src="{% static 'assets/vendor/js/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'assets/vendor/js/flip-clock.js' %}"></script>
 <script src="{% static 'assets/js/main.js' %}"></script>
+<script src="{% static 'assets/js/function.js' %}"></script>
 </body>
 
 </html>

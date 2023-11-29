@@ -83,9 +83,9 @@ class Product(models.Model):
     def __str__ (self):
         return self.title
     
-    def get_percentage(self):
-        new_price = (self.old_price - self.price) / self.old_price * 100
-        return new_price
+    # def get_percentage(self):
+    #     new_price = (self.old_price - self.price) / self.old_price * 100
+    #     return new_price
     
 class ProductImages(models.Model):
     product = models.ForeignKey(Product, related_name="product_images", on_delete=models.SET_NULL, null=True)
@@ -188,7 +188,7 @@ class Address(models.Model):
 ###################################### Quotations, Invoices, Receipts & Emails ################################
 ###################################### Quotations, Invoices, Receipts & Emails ################################
     
-
+# For Quotations
 class Quotation(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     quotation_number = ShortUUIDField(unique=True, length=10, max_length=20, prefix='quo_', alphabet="abc12345678")
@@ -197,4 +197,75 @@ class Quotation(models.Model):
     email_subject = models.CharField(max_length=255)
     email_body = models.TextField()
     sent = models.BooleanField(default=False)
+    payment_status = models.CharField(max_length=20, choices=[
+        ('unpaid', 'Unpaid'),
+        ('paid', 'Paid'),
+        ('part_paid', 'Part-Paid'),
+    ], default='unpaid')
+    
+    class Meta:
+        verbose_name_plural = "Quotations"
+    
+
+class Invoice(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    invoice_number = ShortUUIDField(unique=True, length=10, max_length=20, prefix='quo_', alphabet="abc12345678")
+    file = models.FileField(upload_to='invoices/')
+    date = models.DateTimeField(auto_now_add=True)
+    email_subject = models.CharField(max_length=255)
+    email_body = models.TextField()
+    sent = models.BooleanField(default=False)
+    payment_status = models.CharField(max_length=20, choices=[
+        ('unpaid', 'Unpaid'),
+        ('paid', 'Paid'),
+        ('part_paid', 'Part-Paid'),
+    ], default='unpaid')
+    
+    class Meta:
+        verbose_name_plural = "Invoices"
+
+
+class Receipts(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    receipt_number = ShortUUIDField(unique=True, length=10, max_length=20, prefix='quo_', alphabet="abc12345678")
+    file = models.FileField(upload_to='receipts/')
+    date = models.DateTimeField(auto_now_add=True)
+    email_subject = models.CharField(max_length=255)
+    email_body = models.TextField()
+    sent = models.BooleanField(default=False)
+    payment_status = models.CharField(max_length=20, choices=[
+        ('unpaid', 'Unpaid'),
+        ('paid', 'Paid'),
+        ('part_paid', 'Part-Paid'),
+    ], default='unpaid')
+    
+    class Meta:
+        verbose_name_plural = "Receipts"
+
+
+# For Emails
+class EmailTemplate(models.Model):
+    email_template = models.CharField(max_length=255, unique=True, default='default_template')
+    subject = models.CharField(max_length=255)
+    message = models.TextField()
+    attachment = models.FileField(upload_to='email_attachments/', blank=True, null=True)
+     
+
+    def __str__(self):
+        return self.email_template
+    
+    
+
+class ProjectImage(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='project_images/')
+    description = models.TextField()
+
+    def __str__(self):
+        return self.description
+
+
+
+
+
 

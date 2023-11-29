@@ -1,5 +1,5 @@
 from django.urls import path
-from core.views import index, about_us, category_list_view, product_list_view, product_detail_view, category_product_list_view, customer_dashboard
+from core.views import index, about_us, category_list_view, product_list_view, product_detail_view, category_product_list_view, customer_dashboard, search_view, filter_product, contact_us, ajax_contact_form, upload_image, projects
 
 
 app_name = 'core'
@@ -22,7 +22,19 @@ urlpatterns = [
     # Customer Dashboard
     path('dashboard/', customer_dashboard, name='dashboard'),
     
-
+    # Search
+    path('search/', search_view, name='search'),
     
+    # Filter product URL
+    path('filter-products/', filter_product, name='filter-product'),
+    
+    # For Contact Us page
+    path('contact/', contact_us, name='contact'),
+    path('ajax-contact-form/', ajax_contact_form, name='ajax-contact-form'),
+    
+    # To upload images from Forum page
+    path('dashboard/upload/', upload_image, name='upload_image'),
+    path('projects/', projects, name='projects'),
+
 
 ]

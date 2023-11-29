@@ -147,10 +147,12 @@ JAZZMIN_SETTINGS = {
 
 AUTH_USER_MODEL = 'userauths.User'
 
+
+# Django Email Settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'live.smtp.mailtrap.io'
+EMAIL_HOST = 'smtp.office365.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'api'
-EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_USER = 'ayexclusive1@outlook.com'
+EMAIL_HOST_PASSWORD = 'exclusive321'
 EMAIL_USE_TSL = True
 EMAIL_USE_SSL = False

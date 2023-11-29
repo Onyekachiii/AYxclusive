@@ -1,6 +1,9 @@
 from django.contrib import admin
-from core.models import Product, ProductImages, Category, CartOrder, CartOrderProducts, ProductReview, WishList, Address, Quotation
-from .actions import send_quotation_email
+from core.models import Product, ProductImages, Category, CartOrder, CartOrderProducts, ProductReview, WishList, Address, Quotation, EmailTemplate, Invoice, Receipts, ProjectImage
+from .utils import send_custom_email
+from django import forms
+
+
 
 
 class ProductImagesAdmin(admin.TabularInline):
@@ -31,26 +34,55 @@ class AddressAdmin(admin.ModelAdmin):
     list_editable = ['address', 'status']
     list_display = ['user', 'address', 'status']
     
-class QuotationAdmin(admin.ModelAdmin):
-    actions = [send_quotation_email]
 
-    def get_actions(self, request):
-        actions = super().get_actions(request)
-        # Remove the default "delete_selected" action
-        if 'delete_selected' in actions:
-            del actions['delete_selected']
-        return actions
+class BaseAdmin(admin.ModelAdmin):
+    actions = ['send_email']
 
-    def send_email_button(self, obj):
-        return f'<a class="button" href="?send_email={obj.id}">Send Email</a>'
+    def send_email(self, request, queryset):
+        template_name = request.POST.get('email_template')
+        email_template = EmailTemplate.objects.get(template_name=template_name)
 
-    send_email_button.short_description = 'Send Email'
-    send_email_button.allow_tags = True
+        for obj in queryset:
+            context = {'object': obj, 'attachment': obj.attachment}
+            send_custom_email(obj.user_profile.user.email, email_template.subject, context=context)
 
-    list_display = ('user', 'quotation_number', 'date', 'sent')
+            obj.sent = True
+            obj.save()
 
+    send_email.short_description = 'Send selected objects via email'
+
+    def get_form(self, request, obj=None, **kwargs):
+        form = super().get_form(request, obj, **kwargs)
+        # Remove any references to 'email_template' here if not present in the model
+        if 'email_template' in form.base_fields:
+            del form.base_fields['email_template']
+        return form
+
+
+
+class QuotationAdmin(BaseAdmin):
+    
+    list_display = ('user', 'quotation_number', 'payment_status')
+
+
+
+class InvoiceAdmin(BaseAdmin):
+    
+    list_display = ('user', 'invoice_number', 'payment_status')
+
+
+
+class ReceiptAdmin(BaseAdmin):
+    
+    list_display = ('user', 'receipt_number', 'payment_status')
     
 
+class ProjectImageAdmin (admin.ModelAdmin):
+    list_display = ('user' )
+
+
+
+admin.site.register(EmailTemplate)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(CartOrder, CartOrderAdmin)
@@ -59,4 +91,8 @@ admin.site.register(ProductReview, ProductReviewAdmin)
 admin.site.register(WishList, WishListAdmin)
 admin.site.register(Address, AddressAdmin)
 admin.site.register(Quotation, QuotationAdmin)
+admin.site.register(Invoice, InvoiceAdmin)
+admin.site.register(Receipts, ReceiptAdmin)
+admin.site.register(ProjectImage)
+
     

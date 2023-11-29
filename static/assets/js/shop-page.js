@@ -3,6 +3,35 @@
 
     $(document).ready(function() {
 
+        $(".filter-checkbox").on("click", function(){
+            console.log("a checkbox has been clicked")
+    
+            let filter_object = {}
+    
+            $(".filter-checkbox").each(function() {
+                let filter_value = $(this).val()
+                let filter_key = $(this).data("filter")
+    
+                filter_object[filter_key] = Array.from(document.querySelectorAll(`input[data-filter="${filter_key}"]:checked`)).map(function(el) {
+                    return el.value
+                })
+            })
+            console.log("Filter Object: ", filter_object)
+            $.ajax({
+                url: '/filter-products',
+                data: filter_object,
+                dataType: 'json',
+                beforeSend: function() {
+                    console.log("loading...")
+                },
+                success: function(response) {
+                    $("#filtered-product").html(response.data)
+                }
+            })
+    
+        })
+        
+
 
         /*---------------------------
         Price Range Slider

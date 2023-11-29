@@ -1,5 +1,5 @@
 from django import forms
-from core.models import ProductReview
+from core.models import ProductReview, ProjectImage
 
 
 
@@ -11,3 +11,9 @@ class ProductReviewForm(forms.ModelForm):
         fields = ['review', 'rating']
         
         
+
+class ProjectImageForm(forms.ModelForm):
+    class Meta:
+        model = ProjectImage
+        fields = ['image', 'description']
+

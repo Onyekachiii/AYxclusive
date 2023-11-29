@@ -20,15 +20,15 @@
                                 {% endif %}
                             </div>
                             <div class="part-txt">
-                                <h3>{{profile.full_name|title}}</h3>
+                                <h3>Hi, {{profile.first_name|title}}</h3>
                             </div>
                         </div>
                         <div class="nav flex-column" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                             <button class="nav-link active" id="v-pills-dashboard-tab" data-bs-toggle="pill" data-bs-target="#v-pills-dashboard" type="button" role="tab" aria-controls="v-pills-dashboard" aria-selected="true"><span class="icon"><i class="fa-duotone fa-objects-column"></i></span> <span class="txt">Transactions</span></button>
                             <button class="nav-link" id="v-pills-quotation-tab" data-bs-toggle="pill" data-bs-target="#v-pills-quotation" type="button" role="tab" aria-controls="v-pills-quotation" aria-selected="false"><span class="icon"><i class="fa-duotone fa-file-alt"></i></span> <span class="txt">Quotations</span></button>
-                            <button class="nav-link" id="v-pills-purchase-tab" data-bs-toggle="pill" data-bs-target="#v-pills-purchase" type="button" role="tab" aria-controls="v-pills-purchase" aria-selected="false"><span class="icon"><i class="fa-duotone fa-file-invoice"></i></span> <span class="txt">Invoices(VAT)</span></button>
-                            <button class="nav-link" id="v-pills-dashboard-tab" data-bs-toggle="pill" data-bs-target="#v-pills-dashboard" type="button" role="tab" aria-controls="v-pills-purchase" aria-selected="false"><span class="icon"><i class="fa-duotone fa-receipt"></i></span> <span class="txt">Receipts</span></button>
-                            <button class="nav-link" id="v-pills-wallet-tab" data-bs-toggle="pill" data-bs-target="#v-pills-wallet" type="button" role="tab" aria-controls="v-pills-wallet" aria-selected="false"><span class="icon"><i class="fa-duotone fa-wallet"></i></span> <span class="txt">My Wallet</span></button>
+                            <button class="nav-link" id="v-pills-invoice-tab" data-bs-toggle="pill" data-bs-target="#v-pills-invoice" type="button" role="tab" aria-controls="v-pills-invoice" aria-selected="false"><span class="icon"><i class="fa-duotone fa-file-invoice"></i></span> <span class="txt">Invoices(VAT)</span></button>
+                            <button class="nav-link" id="v-pills-receipt-tab" data-bs-toggle="pill" data-bs-target="#v-pills-receipt" type="button" role="tab" aria-controls="v-pills-receipt" aria-selected="false"><span class="icon"><i class="fa-duotone fa-receipt"></i></span> <span class="txt">Receipts</span></button>
+                            {% comment %} <button class="nav-link" id="v-pills-wallet-tab" data-bs-toggle="pill" data-bs-target="#v-pills-wallet" type="button" role="tab" aria-controls="v-pills-wallet" aria-selected="false"><span class="icon"><i class="fa-duotone fa-wallet"></i></span> <span class="txt">My Wallet</span></button> {% endcomment %}
                             <button class="nav-link" id="v-pills-forum-tab" data-bs-toggle="pill" data-bs-target="#v-pills-forum" type="button" role="tab" aria-controls="v-pills-forum" aria-selected="false"><span class="icon"><i class="fa-duotone fa-file-image"></i></span> <span class="txt">Forum</span></button>
                             <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false"><span class="icon"><i class="fa-duotone fa-user-vneck"></i></span> <span class="txt">Manage Profile</span></button>
                             <a href="{% url 'userauths:sign-out' %}" class="nav-link"><span class="icon"><i class="fa-duotone fa-power-off"></i></span> <span class="txt">Log out</span></a>
@@ -44,56 +44,40 @@
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th>Invoice ID</th>
-                                                <th>Recipient</th>
+                                                <th>ID</th>
                                                 <th>Date</th>
-                                                <th>Amount</th>
+                                                <th>File</th>
                                                 <th>Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            {% for quotation in quotations %}
                                             <tr>
-                                                <td><span class="invoice-id">INV-012-345</span></td>
-                                                <td><span class="name">John Doe</span></td>
-                                                <td><span class="date">Mar 15, 2022</span></td>
-                                                <td><span class="amount">Rs 256</span></td>
-                                                <td><span class="status"><span class="paid">Paid</span></span></td>
+                                                <td><span class="id">{{ quotation.quotation_number }}</span></td>
+                                                <td><span class="date">{{ quotation.date }}</span></td>
+                                                <td><span class="amount">{{ quotation.file.url }}</span></td>
+                                                <td><span class="status"><span class="paid">{{quotation.payment_status}}</span></span></td>
                                             </tr>
+                                            {% endfor %}
+                                            {% for invoice in invoices %}
                                             <tr>
-                                                <td><span class="invoice-id">INV-012-345</span></td>
-                                                <td><span class="name">John Doe</span></td>
-                                                <td><span class="date">Mar 15, 2022</span></td>
-                                                <td><span class="amount">Rs 256</span></td>
-                                                <td><span class="status"><span class="unpaid">Unpaid</span></span></td>
+                                                <td><span class="invoice-id">{{ invoice.invoice_number }}</span></td>
+                                                <td><span class="date">{{ invoice.date }}</span></td>
+                                                <td><span class="file">{{ invoice.file.url }}</span></td>
+                                                <td><span class="status"><span class="unpaid">{{invoice.payment_status}}</span></span></td>
                                             </tr>
+                                            {% endfor %}
+                                            {% for receipt in receipts %}
                                             <tr>
-                                                <td><span class="invoice-id">INV-012-345</span></td>
-                                                <td><span class="name">John Doe</span></td>
-                                                <td><span class="date">Mar 15, 2022</span></td>
-                                                <td><span class="amount">Rs 256</span></td>
-                                                <td><span class="status"><span class="paid">Paid</span></span></td>
+                                                <td><span class="invoice-id">{{ receipt.receipt_number }}</span></td>
+                                                <td><span class="date">{{ receipt.date }}</span></td>
+                                                <td><span class="file">{{ receipt.file.url }}</span></td>
+                                                <td><span class="status"><span class="paid">{{receipt.payment_status}}</span></span></td>
                                             </tr>
-                                            <tr>
-                                                <td><span class="invoice-id">INV-012-345</span></td>
-                                                <td><span class="name">John Doe</span></td>
-                                                <td><span class="date">Mar 15, 2022</span></td>
-                                                <td><span class="amount">Rs 256</span></td>
-                                                <td><span class="status"><span class="unpaid">Unpaid</span></span></td>
-                                            </tr>
-                                            <tr>
-                                                <td><span class="invoice-id">INV-012-345</span></td>
-                                                <td><span class="name">John Doe</span></td>
-                                                <td><span class="date">Mar 15, 2022</span></td>
-                                                <td><span class="amount">Rs 256</span></td>
-                                                <td><span class="status"><span class="paid">Paid</span></span></td>
-                                            </tr>
-                                            <tr>
-                                                <td><span class="invoice-id">INV-012-345</span></td>
-                                                <td><span class="name">John Doe</span></td>
-                                                <td><span class="date">Mar 15, 2022</span></td>
-                                                <td><span class="amount">Rs 256</span></td>
-                                                <td><span class="status"><span class="unpaid">Unpaid</span></span></td>
-                                            </tr>
+                                            {% endfor %}
+                                           
+                                           
+                            
                                         </tbody>
                                     </table>
                                 </div>
@@ -109,7 +93,8 @@
                                             <tr>
                                                 <th>Quotation ID</th>
                                                 <th>Date</th>
-                                                <th>Details</th>
+                                                <th>Document</th>
+                                                <th>Status</th>
                                             </tr>
                                         </thead>
                                         {% for quotation in quotations %}
@@ -117,11 +102,8 @@
                                             <tr>
                                                 <td><a href="{{ quotation.file.url }}"download><span class="invoice-id">{{ quotation.quotation_number }}</span></a></td>
                                                 <td><span class="date">{{ quotation.date }}</span></td>
-                                                <td>
-                                                    <div class="details">
-                                                        <a href="{{ quotation.file.url }}" download>Open Quotation</a>
-                                                    </div>
-                                                </td>
+                                                <td><a href="{{ quotation.file.url }}"download><span class="invoice-id">Download</span></a></td>
+                                                <td><span class="date">{{ quotation.payment_status }}</span></td>
                                             </tr>
                                         </tbody>
                                         {% endfor %}
@@ -130,157 +112,67 @@
                                 
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="v-pills-purchase" role="tabpanel" aria-labelledby="v-pills-purchase-tab" tabindex="0">
+                        <div class="tab-pane fade" id="v-pills-invoice" role="tabpanel" aria-labelledby="v-pills-invoice-tab" tabindex="0">
                             <h2 class="account-title">Invoices (VAT)</h2>
                             <div class="table-wrap">
                                 <div class="table-responsive">
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th>ID</th>
+                                                <th>Invoice-ID</th>
                                                 <th>Date</th>
-                                                <th>Details</th>
-                                                <th>Amount</th>
+                                                <th>Document</th>
+                                                <th>Status</th>
                                             </tr>
                                         </thead>
+                                        
+                                        {% for invoice in invoices %}
                                         <tbody>
                                             <tr>
-                                                <td><span class="invoice-id">INV-012-345</span></td>
-                                                <td><span class="date">Mar 15, 2022</span></td>
-                                                <td>
-                                                    <div class="details">
-                                                        <a href="" class="product-name">AY Exclusive Furniture</a>
-                                                        <span class="invoice">Invoice: <button type="button" data-bs-toggle="modal" data-bs-target="#invoiceModal">48452022</button></span>
-                                                    </div>
-                                                </td>
-                                                <td><span class="amount">Rs 256</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td><span class="invoice-id">INV-012-345</span></td>
-                                                <td><span class="date">Mar 15, 2022</span></td>
-                                                <td>
-                                                    <div class="details">
-                                                        <a href="" class="product-name">AY Exclusive Furniture</a>
-                                                        <span class="invoice">Invoice: <button type="button" data-bs-toggle="modal" data-bs-target="#invoiceModal">48452022</button></span>
-                                                    </div>
-                                                </td>
-                                                <td><span class="amount">Rs 256</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td><span class="invoice-id">INV-012-345</span></td>
-                                                <td><span class="date">Mar 15, 2022</span></td>
-                                                <td>
-                                                    <div class="details">
-                                                        <a href="" class="product-name">AY Exclusive Furniture</a>
-                                                        <span class="invoice">Invoice: <button type="button" data-bs-toggle="modal" data-bs-target="#invoiceModal">48452022</button></span>
-                                                    </div>
-                                                </td>
-                                                <td><span class="amount">Rs 256</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td><span class="invoice-id">INV-012-345</span></td>
-                                                <td><span class="date">Mar 15, 2022</span></td>
-                                                <td>
-                                                    <div class="details">
-                                                        <a href="" class="product-name">AY Exclusive Furniture</a>
-                                                        <span class="invoice">Invoice: <button type="button" data-bs-toggle="modal" data-bs-target="#invoiceModal">48452022</button></span>
-                                                    </div>
-                                                </td>
-                                                <td><span class="amount">Rs 256</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td><span class="invoice-id">INV-012-345</span></td>
-                                                <td><span class="date">Mar 15, 2022</span></td>
-                                                <td>
-                                                    <div class="details">
-                                                        <a href="" class="product-name">AY Exclusive Furniture</a>
-                                                        <span class="invoice">Invoice: <button type="button" data-bs-toggle="modal" data-bs-target="#invoiceModal">48452022</button></span>
-                                                    </div>
-                                                </td>
-                                                <td><span class="amount">Rs 256</span></td>
+                                                <td><a href="{{ invoice.file.url }}"download><span class="invoice-id">{{ invoice.invoice_number }}</span></a></td>
+                                                <td><span class="date">{{ invoice.date }}</span></td>
+                                                <td><a href="{{ invoice.file.url }}"download><span class="invoice-id">Download</span></a></td>
+                                                <td><span class="details">{{ invoice.payment_status }}</span></td>
                                             </tr>
                                         </tbody>
+                                        {% endfor %}
+                                        
                                     </table>
                                 </div>
                                 
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="v-pills-purchase" role="tabpanel" aria-labelledby="v-pills-purchase-tab" tabindex="0">
+                        <div class="tab-pane fade" id="v-pills-receipt" role="tabpanel" aria-labelledby="v-pills-receipt-tab" tabindex="0">
                             <h2 class="account-title">Receipts</h2>
                             <div class="table-wrap">
                                 <div class="table-responsive">
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th>ID</th>
+                                                <th>Receipt-ID</th>
                                                 <th>Date</th>
-                                                <th>Details</th>
-                                                <th>Amount</th>
+                                                <th>Document</th>
+                                                <th>Status</th>
                                             </tr>
                                         </thead>
+                                        
+                                        {% for receipt in receipts %}
                                         <tbody>
                                             <tr>
-                                                <td><span class="invoice-id">INV-012-345</span></td>
-                                                <td><span class="date">Mar 15, 2022</span></td>
-                                                <td>
-                                                    <div class="details">
-                                                        <a href="" class="product-name">AY Exclusive Furniture</a>
-                                                        <span class="invoice">Invoice: <button type="button" data-bs-toggle="modal" data-bs-target="#invoiceModal">48452022</button></span>
-                                                    </div>
-                                                </td>
-                                                <td><span class="amount">Rs 256</span></td>
+                                                <td><a href="{{ receipt.file.url }}"download><span class="invoice-id">{{ receipt.receipt_number }}</span></a></td>
+                                                <td><span class="date">{{ receipt.date }}</span></td>
+                                                <td><a href="{{ receipt.file.url }}"download><span class="invoice-id">Download</span></a></td>
+                                                <td><span class="details">{{ receipt.payment_status }}</span></td>
                                             </tr>
-                                            <tr>
-                                                <td><span class="invoice-id">INV-012-345</span></td>
-                                                <td><span class="date">Mar 15, 2022</span></td>
-                                                <td>
-                                                    <div class="details">
-                                                        <a href="" class="product-name">AY Exclusive Furniture</a>
-                                                        <span class="invoice">Invoice: <button type="button" data-bs-toggle="modal" data-bs-target="#invoiceModal">48452022</button></span>
-                                                    </div>
-                                                </td>
-                                                <td><span class="amount">Rs 256</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td><span class="invoice-id">INV-012-345</span></td>
-                                                <td><span class="date">Mar 15, 2022</span></td>
-                                                <td>
-                                                    <div class="details">
-                                                        <a href="" class="product-name">AY Exclusive Furniture</a>
-                                                        <span class="invoice">Invoice: <button type="button" data-bs-toggle="modal" data-bs-target="#invoiceModal">48452022</button></span>
-                                                    </div>
-                                                </td>
-                                                <td><span class="amount">Rs 256</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td><span class="invoice-id">INV-012-345</span></td>
-                                                <td><span class="date">Mar 15, 2022</span></td>
-                                                <td>
-                                                    <div class="details">
-                                                        <a href="" class="product-name">AY Exclusive Furniture</a>
-                                                        <span class="invoice">Invoice: <button type="button" data-bs-toggle="modal" data-bs-target="#invoiceModal">48452022</button></span>
-                                                    </div>
-                                                </td>
-                                                <td><span class="amount">Rs 256</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td><span class="invoice-id">INV-012-345</span></td>
-                                                <td><span class="date">Mar 15, 2022</span></td>
-                                                <td>
-                                                    <div class="details">
-                                                        <a href="" class="product-name">AY Exclusive Furniture</a>
-                                                        <span class="invoice">Invoice: <button type="button" data-bs-toggle="modal" data-bs-target="#invoiceModal">48452022</button></span>
-                                                    </div>
-                                                </td>
-                                                <td><span class="amount">Rs 256</span></td>
-                                            </tr>
+                                        </tbody>
+                                        {% endfor %}
                                         </tbody>
                                     </table>
                                 </div>
                                 
                             </div>
                         </div>
-                        <div class="tab-pane fade" id="v-pills-wallet" role="tabpanel" aria-labelledby="v-pills-wallet-tab" tabindex="0">
+                        {% comment %} <div class="tab-pane fade" id="v-pills-wallet" role="tabpanel" aria-labelledby="v-pills-wallet-tab" tabindex="0">
                             <h2 class="account-title">My Wallet</h2>
                             <div class="row g-4">
                                 <div class="col-md-6">
@@ -309,7 +201,7 @@
                                         </div>
                                         <div id="overviewChart"></div>
                                     </div>
-                                </div>
+                                </div> 
                                 <div class="col-12">
                                     <div class="table-wrap">
                                         <div class="table-top">
@@ -327,7 +219,6 @@
                                                         <th>Date</th>
                                                         <th>Transfer type</th>
                                                         <th>Amount</th>
-                                                        <th>User</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -338,26 +229,8 @@
                                                             <div class="details"><a href="" class="product-name">AY Exclusive Furniture</a></div>
                                                         </td>
                                                         <td>Rs 256</td>
-                                                        <td>Steven Smith</td>
                                                     </tr>
-                                                    <tr>
-                                                        <td>INV-012-346</td>
-                                                        <td>Apr 09, 2022</td>
-                                                        <td>
-                                                            <div class="details"><a href="" class="product-name">AY Exclusive Furniture</a></div>
-                                                        </td>
-                                                        <td>Rs 123</td>
-                                                        <td>Steven Smith</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>INV-012-347</td>
-                                                        <td>Mar 15, 2022</td>
-                                                        <td>
-                                                            <div class="details"><a href="" class="product-name">AY Exclusive Furniture</a></div>
-                                                        </td>
-                                                        <td>Rs 174</td>
-                                                        <td>Steven Smith</td>
-                                                    </tr>
+                                                    
                                                 </tbody>
                                             </table>
                                         </div>
@@ -365,7 +238,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> {% endcomment %}
                         <div class="tab-pane fade" id="v-pills-forum" role="tabpanel" aria-labelledby="v-pills-forum-tab" tabindex="0">
                             <h2 class="account-title">Forum</h2>
                             <div class="profile-panel">
@@ -383,31 +256,24 @@
                                         </div>
                                     </div>
                                 </div>
-                                <form action="" method= "POST" enctype="multipart/form-data"> 
+                                <h2>Upload Image</h2>
+                                <h6>You can upload images of projects AY Exclusive have done for you</h6>
+                                </br></br>
+                                <form method="post" enctype="multipart/form-data">
                                     {% csrf_token %}
-                                    
+                                   
                                     <div class="row g-lg-4 g-3">
-                                        <div class="col-12">
-                                            {{form.full_name}}
-                                        </div>
-                                        <div class="col-sm-12">
-                                            {{form.phone}}
-                                        </div>
-                                        <div class="col-12">
-                                            {{form.bio}}
-                                        </div>
-                                        <div class="col-12">
-                                            {{form.address}}
-                                        </div>
-                                        <div class="col-12">
-                                            {{form.image}}
-                                        </div>
+                                        {{ image_form.image.label_tag }} {{ image_form.image }}
+                                                                              
+                                        {{ image_form.description.label_tag }} {{ image_form.description }}
+                                        
                                         <div class="col-12">
                                             <div class="btn-box">
-                                                <button class="def-btn" type="submit">Save Changes</button>
+                                                <button class="def-btn" type="submit">Upload</button>
                                             </div>
                                         </div>
                                     </div>
+                                    
                                 </form>
                             </div>
                         </div>
@@ -432,21 +298,7 @@
                                     {% csrf_token %}
                                     
                                     <div class="row g-lg-4 g-3">
-                                        <div class="col-12">
-                                            {{form.full_name}}
-                                        </div>
-                                        <div class="col-sm-12">
-                                            {{form.phone}}
-                                        </div>
-                                        <div class="col-12">
-                                            {{form.bio}}
-                                        </div>
-                                        <div class="col-12">
-                                            {{form.address}}
-                                        </div>
-                                        <div class="col-12">
-                                            {{form.image}}
-                                        </div>
+                                        {{ form.as_p }}
                                         <div class="col-12">
                                             <div class="btn-box">
                                                 <button class="def-btn" type="submit">Save Changes</button>
@@ -461,105 +313,6 @@
             </div>
         </div>
 
-
-
-        {% comment %} <!--------------------------------- INVOICE MODAL START ---------------------------------> {% endcomment %}
-        <div class="invoice-modal modal fade" id="invoiceModal" tabindex="-1" aria-labelledby="invoiceModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-xl">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h2 class="account-title mb-0" id="invoiceModalLabel">Invoice</h2>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="invoice-wrap">
-                            <div class="invoice-top d-flex justify-content-between align-items-center">
-                                <div class="left">
-                                    <div class="logo"><img src="{% static 'assets/images/logos/AY11.png' %}" alt="LOGO"></div>
-                                    <p>Invoice</p>
-                                </div>
-                                <div class="right">
-                                    <table>
-                                        <tbody>
-                                            <tr>
-                                                <th>Date:</th>
-                                                <td>17 Aug 2022</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Invoice No:</th>
-                                                <td>IVIP48452022</td>
-                                            </tr>
-                                            <tr>
-                                                <th>Order No:</th>
-                                                <td>166779322</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="invoice-body">
-                                <div class="details">
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            <h3>Bill to</h3>
-                                            <p>
-                                                <span>XYZ Inc</span>
-                                                <span>Grand Bay</span>
-                                                <span>Pamlemousses</span>
-                                                <span>Mauritius</span>
-                                                <span>+230 5252 3434</span>
-                                            </p>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <h3>Supplier</h3>
-                                            <p>
-                                                <span>AY Exclusive</span>
-                                                <span>Quatre Bornes, Mauritius</span>
-                                                <span>+230 5914 4325</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="items">
-                                    <div class="table-responsive">
-                                        <table class="table table-borderless">
-                                            <thead>
-                                                <tr>
-                                                    <th>Item ID</th>
-                                                    <th class="text-center">Qty</th>
-                                                    <th>Description</th>
-                                                    <th class="text-end">Amount</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>35130092</td>
-                                                    <td class="text-center">1</td>
-                                                    <td>AY Exclusive Invoice</td>
-                                                    <td class="text-end"><span class="price">Rs0.00</span></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="total ms-auto">
-                                        <h5>Invoice Total: <span>Rs 0.00</span></h5>
-                                        <p>Paid via Skrill</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="invoice-footer">
-                                <span>THANK YOU FOR YOUR PATRONAGE!</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="def-btn">Print <i class="fa-regular fa-print"></i></button>
-                        <button type="button" class="def-btn">Download <i class="fa-regular fa-download"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {% comment %} <!--------------------------------- INVOICE MODAL END ---------------------------------> {% endcomment %}
 
 
 
