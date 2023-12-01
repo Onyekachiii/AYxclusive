@@ -201,19 +201,19 @@
                                                     Pages
                                                 </a>
                                                 <ul class="dropdown-menu" aria-labelledby="pageDropdown">
-                                                    <li><a class="dropdown-item" href="{% url "core:dashboard" %}">Account Page</a>
-                                                    </li>
+                                                    
                                                     {% comment %} <li><a class="dropdown-item" href="">Cart Page</a></li>
         
                                                     <li><a class="dropdown-item" href="">FAQ Page</a></li>
                                                     <li><a class="dropdown-item" href="">Wishlist</a></li> {% endcomment %}
                                                     
-                                                    <li><a class="dropdown-item" href="{% url "userauths:sign-up" %}">Register Page</a>
-                                                    </li>
                                                     {% if request.user.is_authenticated %}
+                                                    <li><a class="dropdown-item" href="{% url "core:dashboard" %}">Account</a>
+                                                    </li>
                                                     <li><a class="dropdown-item" href="{% url 'userauths:sign-out' %}">Sign-out</a></li>
                                                     {% else %}
                                                     <li><a class="dropdown-item" href="{% url 'userauths:sign-in' %}">Sign-in</a></li>
+                                                    <li><a class="dropdown-item" href="{% url "userauths:sign-up" %}">Register</a></li>
                                                     {% endif %}
                                                 </ul>
                                             </li>
@@ -393,41 +393,18 @@
                         <h3 class="footer-title">Instagram</h3>
                         <ul>
                             <li>
-                                <a href="https://www.instagram.com/p/Czape5YrUk_/?utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==" target="_blank">
-                                    <img src="{% static 'assets/images/gl-1.png' %}" alt="image">
+                                <a href="https://www.instagram.com/p/Czape5YrUk_/" target="_blank">
+                                    <img src="{% static 'assets/images/002.jpg' %}" alt="image">
                                     <span><i class="fa-brands fa-instagram"></i></span>
                                 </a>
                             </li>
                             <li>
-                                <a href="https://instagram.com" target="_blank">
-                                    <img src="{% static 'assets/images/gl-2.png' %}" alt="image">
+                                <a href="https://www.instagram.com/p/Cs5uhAbLRaN/" target="_blank">
+                                    <img src="{% static 'assets/images/003.jpg' %}" alt="image">
                                     <span><i class="fa-brands fa-instagram"></i></span>
                                 </a>
                             </li>
-                            <li>
-                                <a href="https://instagram.com" target="_blank">
-                                    <img src="{% static 'assets/images/gl-3.png' %}" alt="image">
-                                    <span><i class="fa-brands fa-instagram"></i></span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://instagram.com" target="_blank">
-                                    <img src="{% static 'assets/images/gl-4.png' %}" alt="image">
-                                    <span><i class="fa-brands fa-instagram"></i></span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://instagram.com" target="_blank">
-                                    <img src="{% static 'assets/images/gl-5.png' %}" alt="image">
-                                    <span><i class="fa-brands fa-instagram"></i></span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://instagram.com" target="_blank">
-                                    <img src="{% static 'assets/images/gl-6.png' %}" alt="image">
-                                    <span><i class="fa-brands fa-instagram"></i></span>
-                                </a>
-                            </li>
+                                                       
                         </ul>
                     </div>
                 </div>

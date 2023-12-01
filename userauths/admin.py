@@ -3,7 +3,7 @@ from userauths.models import User, Profile, ContactUs
 
 
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('email', 'bio')
+    list_display = ('username', 'email', 'bio')
     
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ('user', 'bio', 'phone', 'verified')
