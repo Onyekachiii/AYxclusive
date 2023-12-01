@@ -193,7 +193,7 @@ class Quotation(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     quotation_number = ShortUUIDField(unique=True, length=10, max_length=20, prefix='quo_', alphabet="abc12345678")
     file = models.FileField(upload_to='quotations/')
-    date = models.DateTimeField(auto_now_add=True)
+    quotation_date = models.DateTimeField(auto_now_add=True)
     email_subject = models.CharField(max_length=255)
     email_body = models.TextField()
     sent = models.BooleanField(default=False)
@@ -209,9 +209,9 @@ class Quotation(models.Model):
 
 class Invoice(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    invoice_number = ShortUUIDField(unique=True, length=10, max_length=20, prefix='quo_', alphabet="abc12345678")
+    invoice_number = ShortUUIDField(unique=True, length=10, max_length=20, prefix='inv_', alphabet="abc12345678")
     file = models.FileField(upload_to='invoices/')
-    date = models.DateTimeField(auto_now_add=True)
+    invoice_date = models.DateTimeField(auto_now_add=True)
     email_subject = models.CharField(max_length=255)
     email_body = models.TextField()
     sent = models.BooleanField(default=False)
@@ -227,9 +227,9 @@ class Invoice(models.Model):
 
 class Receipts(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    receipt_number = ShortUUIDField(unique=True, length=10, max_length=20, prefix='quo_', alphabet="abc12345678")
+    receipt_number = ShortUUIDField(unique=True, length=10, max_length=20, prefix='rct_', alphabet="abc12345678")
     file = models.FileField(upload_to='receipts/')
-    date = models.DateTimeField(auto_now_add=True)
+    receipt_date = models.DateTimeField(auto_now_add=True)
     email_subject = models.CharField(max_length=255)
     email_body = models.TextField()
     sent = models.BooleanField(default=False)

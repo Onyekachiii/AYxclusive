@@ -72,11 +72,15 @@
                     <a class="nav-link" href="{% url "core:index" %}">Home</a>
                 </li>
                 <li class="nav-item">
+                    {% if request.user.is_authenticated %}
                     <a href="{% url 'core:dashboard' %}" class="nav-link">Account</a>
+                    {% else %}
+                    <a href="{% url "userauths:sign-in" %}" class="nav-link">Login</a>
+                    {% endif %}
                 </li>
-                <li class="nav-item">
+                {% comment %} <li class="nav-item">
                     <a href="{% url "userauths:sign-up" %}" class="nav-link">Register</a>
-                </li>
+                </li> {% endcomment %}
                 <li class="nav-item">
                     <a href="{% url 'core:about-us' %}" class="nav-link">About</a>
                 </li>
@@ -86,7 +90,7 @@
                 </li>
                 
                 <li class="nav-item">
-                    <a href="{% url 'core:contact' %}" class="nav-link">Contact</a>
+                    <a href="{% url 'userauths:contact' %}" class="nav-link">Contact</a>
                 </li>
                 <li class="nav-item">
                     <a href="{% url 'core:projects' %}" class="nav-link">Projects</a>
@@ -94,9 +98,12 @@
                 <li class="nav-item">
                     <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pages</a>
                     <ul class="dropdown-menu">
-                        <li><a href="" class="dropdown-item">Cart Page</a></li>
-                        <li><a href="" class="dropdown-item">Wishlist Page</a></li>
-                        <li><a href="{% url "userauths:sign-up" %}" class="dropdown-item">Register Page</a></li>
+                        <li><a href="{% url "userauths:sign-up" %}" class="dropdown-item">Register</a></li>
+                        {% if request.user.is_authenticated %}
+                        <li><a class="dropdown-item" href="{% url 'userauths:sign-out' %}">Sign-out</a></li>
+                        {% else %}
+                        <li><a class="dropdown-item" href="{% url 'userauths:sign-in' %}">Sign-in</a></li>
+                        {% endif %}
                     </ul>
                 </li>
             </ul>
@@ -116,7 +123,7 @@
         <div class="top-header">
             <div class="container">
                 <ul class="top-header-link justify-content-center justify-content-sm-end flex-wrap">
-                    <li><a href="mailto:ay.exclusive@outlook.com">ay.exclusive@outlook.com</a></li>
+                    <li><a href="mailto:sales@ayxclusive.com">sales@ayxclusive.com</a></li>
                     <li><a href="tel:+230 5914 4325">+230 5914 4325</a></li>
                     {% comment %} <li><a href="#">Track Order</a></li> {% endcomment %}
                 </ul>
@@ -154,10 +161,10 @@
                                 <li><a href="wishlist.html"><i class="fas fa-heart"></i></a></li>
                                 {% if request.user.is_authenticated %}
                                 <li><a href="{% url 'userauths:sign-out' %}"><i class="fas fa-power-off"></i></a></li>
+                                <li><a href="{% url "core:dashboard" %}"><i class="fas fa-user"></i></a></li>
                                 {% else %}
                                 <li><a href="{% url 'userauths:sign-in' %}"><i class="fas fa-power-off"></i></a></li>
                                 {% endif %}
-                                <li><a href="{% url "core:dashboard" %}"><i class="fas fa-user"></i></a></li>
                             </ul>
                         </div>
                     </div>
@@ -196,17 +203,23 @@
                                                 <ul class="dropdown-menu" aria-labelledby="pageDropdown">
                                                     <li><a class="dropdown-item" href="{% url "core:dashboard" %}">Account Page</a>
                                                     </li>
-                                                    <li><a class="dropdown-item" href="">Cart Page</a></li>
+                                                    {% comment %} <li><a class="dropdown-item" href="">Cart Page</a></li>
         
                                                     <li><a class="dropdown-item" href="">FAQ Page</a></li>
-                                                    <li><a class="dropdown-item" href="">Wishlist</a></li>
+                                                    <li><a class="dropdown-item" href="">Wishlist</a></li> {% endcomment %}
+                                                    
                                                     <li><a class="dropdown-item" href="{% url "userauths:sign-up" %}">Register Page</a>
                                                     </li>
+                                                    {% if request.user.is_authenticated %}
+                                                    <li><a class="dropdown-item" href="{% url 'userauths:sign-out' %}">Sign-out</a></li>
+                                                    {% else %}
+                                                    <li><a class="dropdown-item" href="{% url 'userauths:sign-in' %}">Sign-in</a></li>
+                                                    {% endif %}
                                                 </ul>
                                             </li>
 
                                             <li class="nav-item">
-                                                <a class="nav-link" href="{% url 'core:contact' %}">Contact Us</a>
+                                                <a class="nav-link" href="{% url 'userauths:contact' %}">Contact Us</a>
                                                 
                                             </li>
 
@@ -327,7 +340,16 @@
                                     <span><i class="flaticon-email"></i></span>
                                 </div>
                                 <div class="txt">
-                                    <a href="mailto:ay.exclusive@outlook.com">ay.exclusive@outlook.com</a>
+                                    <a href="mailto:sales@ayxclusive.com">sales@ayxclusive.com</a>
+                                    
+                                </div>
+                            </li>
+                            <li>
+                                <div class="icon">
+                                    <span><i class="flaticon-email"></i></span>
+                                </div>
+                                <div class="txt">
+                                    <a href="mailto:admincare@ayxclusive.com">admincare@ayxclusive.com</a>
                                     
                                 </div>
                             </li>
@@ -349,17 +371,16 @@
                             <h3 class="footer-title">Information</h3>
                             <ul>
                                 <li><a href="{% url 'core:about-us' %}">About Us</a></li>
-                                <li><a href="contact.html">Contact Us</a></li>
+                                <li><a href="{% url 'userauths:contact' %}">Contact Us</a></li>
                                 <li><a href="{% url "core:dashboard" %}">Dashboard</a></li>
                                 <li><a href="#">Terms Of Use</a></li>
-                                <li><a href="#">Privacy Policies</a></li>
+                                
                             </ul>
                         </div>
                         <div class="footer-link">
                             <h3 class="footer-title">Information</h3>
                             <ul>
-                                <li><a href="{% url "core:dashboard" %}">My Order</a></li>
-                                <li><a href="">Wishlist</a></li>
+                                <li><a href="{% url "core:dashboard" %}">My Orders</a></li>
                                 <li><a href="{% url "core:dashboard" %}">My Credit</a></li>
                                 <li><a href="{% url "userauths:sign-in" %}">Login</a></li>
                                 <li><a href="{% url "core:dashboard" %}">Personal Info</a></li>
@@ -412,13 +433,13 @@
                 </div>
                 <div class="custom-col">
                     <div class="footer-subscribe">
-                        <h3 class="footer-title">Subscribe</h3>
-                        <p>Want us to come take measurements for a custom  quote? Drop your email
+                        <h3 class="footer-title">Contact Us</h3>
+                        <p>Want us to come take measurements for a custom  quote? Click here
                         </p>
-                        <form>
-                            <input type="email" name="email" placeholder="Your Email">
-                            <button type="submit"><i class="fa-solid fa-paper-plane"></i></button>
-                        </form>
+                        
+                        <input type="" name="" placeholder="Click here">
+                        <button><a href="{% url 'userauths:contact' %}"><i class="fa-solid fa-paper-plane"></i></a></button>
+                        
                     </div>
                 </div>
             </div>

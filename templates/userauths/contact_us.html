@@ -42,9 +42,12 @@
                         {% endif %}
                         <h2>Contact Us</h2>
                         <p>Need custom made furniture to suit your needs? Tell us about it.</p>
-                        <form class="login-form" id="contact-form-ajax" method="POST" action="">
+                        <form class="login-form" method="POST" action="">
                             {% csrf_token %}
-                            <div class="form-field mb-30">
+                            <div class = form-field mb-30>
+                                {{ form.as_p }}
+                            </div>
+                            {% comment %} <div class="form-field mb-30">
                                 <label>First Name*</label>
                                 <input type="text" name="first_name" id="first_name" 
                                     required />
@@ -83,7 +86,7 @@
                                 <label>Description*</label>
                                 <input type="text" name="description" id="description" 
                                     required />
-                            </div>
+                            </div> {% endcomment %}
                             
                             <button class="def-btn btn-border" type="submit">Submit</button>
                         </form>

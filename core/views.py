@@ -8,7 +8,12 @@ from userauths.models import Profile, ContactUs
 from userauths.forms import ProfileForm
 from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
-from django.core.mail import send_mail, EmailMessage
+
+# For sending mails
+from django.conf import settings
+from django.core.mail import send_mail
+from django.core import mail
+from django.core.mail.message import EmailMessage
 
 
 
@@ -125,46 +130,52 @@ def filter_product(request):
 
 @login_required
 def customer_dashboard(request):
-    profile = Profile.objects.get(user=request.user)
-    if request.method == "POST":
-        form = ProfileForm(request.POST, request.FILES, instance=profile)
-        if form.is_valid():
-            new_profile = form.save(commit=False)
-            new_profile.user = request.user
-            new_profile.save()
-            messages.success(request, "Profile updated successfully")
-            return redirect("core:dashboard")
+    if request.user.is_authenticated:
+        profile = Profile.objects.get(user=request.user)
+        if request.method == "POST":
+            form = ProfileForm(request.POST, request.FILES, instance=profile)
+            if form.is_valid():
+                new_profile = form.save(commit=False)
+                new_profile.user = request.user
+                new_profile.save()
+                messages.success(request, "Profile updated successfully")
+                return redirect("core:dashboard")
         
+        else:
+            form = ProfileForm(instance=profile)
+    
+        
+    
+        image_form = ProjectImageForm()
+        if request.method == 'POST':
+            form = ProjectImageForm(request.POST, request.FILES)
+            if form.is_valid():
+                image_instance = form.save(commit=False)
+                image_instance.user = request.user
+                image_instance.save()
+                return redirect('core:projects')
+        
+        quotations = Quotation.objects.filter(user=request.user)
+        invoices = Invoice.objects.filter(user=request.user)
+        receipts = Receipts.objects.filter(user=request.user)
+    
+        context = {
+            'form': form,
+            'profile': profile,
+            'quotations' : quotations,
+            'invoices': invoices,
+            'receipts': receipts,
+            'image_form': image_form
+        
+        
+        }
+        return render (request, "core/dashboard.html", context)
+    
     else:
-        form = ProfileForm(instance=profile)
-        
-    
-    image_form = ProjectImageForm()
-    if request.method == 'POST':
-        form = ProjectImageForm(request.POST, request.FILES)
-        if form.is_valid():
-            image_instance = form.save(commit=False)
-            image_instance.user = request.user
-            image_instance.save()
-            return redirect('core:projects')
-        
-    quotations = Quotation.objects.filter(user=request.user)
-    invoices = Invoice.objects.filter(user=request.user)
-    receipts = Receipts.objects.filter(user=request.user)
-    
-    context = {
-        'form': form,
-        'profile': profile,
-        'quotations' : quotations,
-        'invoices': invoices,
-        'receipts': receipts,
-        'image_form': image_form
-        
-        
-    }
-    return render (request, "core/dashboard.html", context)
+        return redirect('core:index')
 
 
+@login_required
 def upload_image(request):
     if request.method == 'POST':
         image_form = ProjectImageForm(request.POST, request.FILES)
@@ -180,62 +191,74 @@ def upload_image(request):
 
 
 
-def simple_mail(request):
+# def simple_mail(request):
     
-    send_mail(subject='This is your subject', 
-              message='This is your message', 
-              from_email='django@mailtrap.club', 
-              recipient_list=['test.mailtrap1234@gmail.com'],
-              fail_silently=False
-              )
+#     send_mail(subject='This is your subject', 
+#               message='This is your message', 
+#               from_email='django@mailtrap.club', 
+#               recipient_list=['test.mailtrap1234@gmail.com'],
+#               fail_silently=False
+#               )
     
-    return HttpResponse('Message sent')
+#     return HttpResponse('Message sent')
 
 
-def message_mail(request):
+# def message_mail(request):
     
-    email= EmailMessage(subject='This is your subject', 
-              message='This is your message', 
-              from_email='django@mailtrap.club', 
-              to=['test.mailtrap1234@gmail.com'],
-              bcc = ['bcc@anotherbestuser.com'])
+#     email= EmailMessage(subject='This is your subject', 
+#               message='This is your message', 
+#               from_email='django@mailtrap.club', 
+#               to=['test.mailtrap1234@gmail.com'],
+#               bcc = ['bcc@anotherbestuser.com'])
     
-    email.send()
+#     email.send()
     
-    return HttpResponse('Message sent')
+#     return HttpResponse('Message sent')
     
 
 
-def contact_us(request):
-    return render(request, 'core/contact_us.html')
 
-# For contact form
-def ajax_contact_form(request):
-    first_name = request.GET['first_name']
-    last_name = request.GET['last_name']
-    email = request.GET['email']
-    phone_number = request.GET['phone_number']
-    address = request.GET['address']
-    floor_level = request.GET['floor_level']
-    furniture_type = request.GET['furniture_type']
-    description = request.GET['description']
+
+# def send_success_email(data):
+#     subject = 'Thank You for Contacting Us'
+#     message = 'Thank you for contacting us. We will get back to you shortly.'
+#     from_email = 'your_email@example.com'  # Update with your email
+#     to_email = [data['email']]
+
+#     # You can customize the email content based on the form data
+#     context = {'first_name': data['first_name']}
+#     html_message = render_to_string('success_email_template.html', context)
+#     plain_message = strip_tags(html_message)
+
+#     send_mail(subject, plain_message, from_email, to_email, html_message=html_message, fail_silently=True)
+
+# # For contact form
+# def ajax_contact_form(request):
+#     first_name = request.GET['first_name']
+#     last_name = request.GET['last_name']
+#     email = request.GET['email']
+#     phone_number = request.GET['phone_number']
+#     address = request.GET['address']
+#     floor_level = request.GET['floor_level']
+#     furniture_type = request.GET['furniture_type']
+#     description = request.GET['description']
     
-    contact = ContactUs.objects.create(
-        first_name = first_name,
-        last_name = last_name,
-        email = email,
-        phone_number = phone_number,
-        address = address,
-        floor_level = floor_level,
-        furniture_type = furniture_type,
-        description = description
-    )
+#     contact = ContactUs.objects.create(
+#         first_name = first_name,
+#         last_name = last_name,
+#         email = email,
+#         phone_number = phone_number,
+#         address = address,
+#         floor_level = floor_level,
+#         furniture_type = furniture_type,
+#         description = description
+#     )
     
-    data = {
-        "bool": True,
-        "message": "Thank you for reaching out, we will contact you shortly."
-    }
-    return JsonResponse({"data":data})
+#     data = {
+#         "bool": True,
+#         "message": "Thank you for reaching out, we will contact you shortly."
+#     }
+#     return JsonResponse({"data":data})
 
 
 

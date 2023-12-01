@@ -1,43 +1,199 @@
+from audioop import reverse
 from django.shortcuts import render, redirect
-from userauths.forms import UserRegisterForm
+from userauths.forms import UserRegisterForm, ContactFormForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.conf import settings
-from core.utils import send_custom_email
+from verify_email.email_handler import send_verification_email
+# from core.utils import send_custom_email
+from userauths.models import ContactUs
+from verify_email.email_handler import send_verification_email
+from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes, force_str
+from .utils import account_activation_token
 
+from django.contrib.auth.tokens import default_token_generator
+from django.http import HttpResponse
+
+from django.contrib.sites.shortcuts import get_current_site  
+from django.contrib.auth.models import User  
+from django.core.mail import EmailMessage  
+from django.contrib.auth import get_user_model
+from django.http import HttpResponse
+
+
+# For sending mails
+from django.core.mail import send_mail
+from django.core import mail
+from django.core.mail.message import EmailMessage
+from django.contrib.sites.shortcuts import get_current_site
 
 
 
 User = settings.AUTH_USER_MODEL
 
-# To register users
-def register_view(request):
+# def send_activation_email(user, request):
+#     current_site = get_current_site(request)
+#     email_subject = 'Activate your account'
+#     email_body= render_to_string ('userauths/acc_active_email.html',{
+#                                 'user':user,
+#                                 'domain':current_site,
+#                                 'uid':urlsafe_base64_encode(force_bytes(user.pk)),
+#                                 'token': default_token_generator.make_token(user)
+                                
+#     })
     
+    
+#     email= EmailMessage(subject=email_subject, body=email_body, from_email=settings.EMAIL_FROM_USER, 
+#                         to=[user.email]
+#                         )
+
+#     email.send()
+    
+
+def activateEmail(request, user, to_email):
+    mail_subject = 'Activate your user account.'
+    message = render_to_string('userauths/template_activate_account.html', {
+        'user': user.username,
+        'domain': get_current_site(request).domain,
+        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+        'token': account_activation_token.make_token(user),
+        'protocol': 'https' if request.is_secure() else 'http'
+    })
+    email = EmailMessage(mail_subject, message, to=[to_email])
+    if email.send():
+        messages.success(request, f'Dear {user}, please go to you email "{to_email}" inbox and click on \
+            received activation link to confirm and complete the registration. Note: Check your spam folder.')
+    else:
+        messages.error(request, f'Problem sending confirmation email to {to_email}, check if you typed it correctly.')
+
+# To register users
+# def register_view(request):
+#     if request.method == "POST":
+#         form = UserRegisterForm(request.POST)
+#         if form.is_valid():
+#             user = form.save(commit=False)
+#             user.is_active = False
+#             inactive_user = send_verification_email(request, form)
+#             # user.save()
+
+#             current_site = get_current_site(request)
+#             mail_subject = 'Activate your account'
+#             message = render_to_string('userauths/acc_active_email.html', {
+#                 'user': user,
+#                 'domain': current_site.domain,
+#                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+#                 'token': default_token_generator.make_token(user),
+#             })
+#             to_email = form.cleaned_data.get('email')
+#             email = EmailMessage(
+#                 mail_subject, message, to=[to_email]
+#             )
+#             email.send()
+
+#             messages.success(request, "Please confirm your email address to complete the registration.")
+#             return redirect('core:index')
+#     else:
+#         form = UserRegisterForm()
+
+#     return render(request, 'userauths/sign-up.html', {'form': form})
+
+
+def register_view(request):
     if request.method == "POST":
-        form = UserRegisterForm(request.POST)
+        form = UserRegisterForm(request.POST or None)
         if form.is_valid():
-            new_user = form.save()
-            first_name= form.cleaned_data.get('first_name')
-           
-            send_custom_email(new_user.email, 'Welcome to AY Exclusive Furniture')
-            messages.success(request, f'Hey {first_name}, your account has been created successfully!')
-            new_user = authenticate(username=form.cleaned_data['email'],
-                                    password = form.cleaned_data['password1'])
-            login(request, new_user)
-            return redirect('core:index')
+            user = form.save(commit=False)
+            user.is_active=False
+            user.save()
+            activateEmail(request, user, form.cleaned_data.get('email'))
+            
         
+            return redirect("core:index")
         
     else:
         form = UserRegisterForm()
     
-    
     context = {
-        'form': form,
+        'form': form
     }
-    return render(request, 'userauths/sign-up.html', context)
+    return render(request, "userauths/sign-up.html", context)
+
+# class ActivateView(request, uidb64, token):
+
+#     def get_user_from_email_verification_token(self, token: str):
+#         try:
+#             uid = force_str(urlsafe_base64_decode(self))
+#             user = get_user_model().objects.get(pk=uid)
+#         except (TypeError, ValueError, OverflowError,
+#                 get_user_model().DoesNotExist):
+#             return None
+
+#         if user is not None \
+#                 and \
+#                 email_verification_token.check_token(user, token):
+#             return user
+
+#         return None
+
+#     def get(self, request, uidb64, token):
+#         user = self.get_user_from_email_verification(uidb64, token)
+#         user.is_active = True
+#         user.save()
+#         login(request, user)
+#         return redirect('registration_successful')
+
+def activate(request, uidb64, token):
+    User = get_user_model()
+    try:
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except(TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+
+    if user is not None and account_activation_token.check_token(user, token):
+        user.is_active = True
+        user.save()
+
+        messages.success(request, 'Thank you for your email confirmation. Now you can login your account.')
+        return redirect('userauths:sign-in')
+    else:
+        messages.error(request, 'Activation link is invalid!')
+    
+    return redirect('core:index')
+
+ 
 
 
 # To login users
+# def login_view(request):
+#     if request.user.is_authenticated:
+#         messages.warning(request, "You are already logged in.")
+#         return redirect("core:index")
+
+#     if request.method == "POST":
+#         email = request.POST.get("email")
+#         password = request.POST.get("password")
+        
+#         # Authenticate user
+#         user = authenticate(request, email=email, password=password)
+
+#         if user is not None:
+#             # Check if the user is_email_verified attribute is available
+#             if hasattr(user, 'is_email_verified') and not user.is_email_verified:
+#                 messages.warning(request, f"User with {email} is not verified. Check your inbox or spam box.")
+#                 return render(request, 'userauths/sign-in.html')
+
+#             login(request, user)
+#             messages.success(request, f"Welcome {user.first_name}!")
+#             return redirect("core:index")
+#         else:
+#             messages.warning(request, f"Invalid credentials. User with {email} does not exist or incorrect password.")
+
+#     return render(request, "userauths/sign-in.html")      
+
+
 def login_view(request):
     if request.user.is_authenticated:
         messages.warning(request, f"You are already logged in")
@@ -50,13 +206,13 @@ def login_view(request):
        
         if user is not None:
             login(request, user)
-            messages.success(request, f"Welcome {user.first_name}!")   
+            messages.success(request, f"Welcome {user.username}!")   
             return redirect("core:index")
             
         else:
-            messages.warning(request, f"User with {email} does not exist, Create an account")
+            messages.warning(request, f"User with {email} does not exist, Create an account")        
     
-    return render(request, "userauths/sign-in.html")        
+    return render(request, "userauths/sign-in.html")
     
 
 # To logout users
@@ -65,4 +221,19 @@ def logout_view(request):
     messages.success(request, "You logged out successfully!")
     return redirect("userauths:sign-in")
 
+
+def contact_us(request):
+    if request.method == 'POST':
+        form = ContactFormForm(request.POST)
+        if form.is_valid():
+            # Save the form data to the database
+            form.save()
+
+            
+            messages.success(request, f"Thank you for contacting us, we will get back to you shortly!")   
+            return redirect("core:index")
+    else:
+        form = ContactFormForm()
+
+    return render(request, 'userauths/contact_us.html', {'form': form})
 

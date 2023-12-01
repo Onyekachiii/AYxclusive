@@ -1,6 +1,6 @@
 from django.contrib import admin
 from core.models import Product, ProductImages, Category, CartOrder, CartOrderProducts, ProductReview, WishList, Address, Quotation, EmailTemplate, Invoice, Receipts, ProjectImage
-from .utils import send_custom_email
+# from .utils import send_custom_email
 from django import forms
 
 
@@ -35,44 +35,44 @@ class AddressAdmin(admin.ModelAdmin):
     list_display = ['user', 'address', 'status']
     
 
-class BaseAdmin(admin.ModelAdmin):
-    actions = ['send_email']
+# class BaseAdmin(admin.ModelAdmin):
+#     actions = ['send_email']
 
-    def send_email(self, request, queryset):
-        template_name = request.POST.get('email_template')
-        email_template = EmailTemplate.objects.get(template_name=template_name)
+#     def send_email(self, request, queryset):
+#         template_name = request.POST.get('email_template')
+#         email_template = EmailTemplate.objects.get(template_name=template_name)
 
-        for obj in queryset:
-            context = {'object': obj, 'attachment': obj.attachment}
-            send_custom_email(obj.user_profile.user.email, email_template.subject, context=context)
+#         for obj in queryset:
+#             context = {'object': obj, 'attachment': obj.attachment}
+#             send_custom_email(obj.user_profile.user.email, email_template.subject, context=context)
 
-            obj.sent = True
-            obj.save()
+#             obj.sent = True
+#             obj.save()
 
-    send_email.short_description = 'Send selected objects via email'
+#     send_email.short_description = 'Send selected objects via email'
 
-    def get_form(self, request, obj=None, **kwargs):
-        form = super().get_form(request, obj, **kwargs)
-        # Remove any references to 'email_template' here if not present in the model
-        if 'email_template' in form.base_fields:
-            del form.base_fields['email_template']
-        return form
+#     def get_form(self, request, obj=None, **kwargs):
+#         form = super().get_form(request, obj, **kwargs)
+#         # Remove any references to 'email_template' here if not present in the model
+#         if 'email_template' in form.base_fields:
+#             del form.base_fields['email_template']
+#         return form
 
 
 
-class QuotationAdmin(BaseAdmin):
+class QuotationAdmin(admin.ModelAdmin):
     
     list_display = ('user', 'quotation_number', 'payment_status')
 
 
 
-class InvoiceAdmin(BaseAdmin):
+class InvoiceAdmin(admin.ModelAdmin):
     
     list_display = ('user', 'invoice_number', 'payment_status')
 
 
 
-class ReceiptAdmin(BaseAdmin):
+class ReceiptAdmin(admin.ModelAdmin):
     
     list_display = ('user', 'receipt_number', 'payment_status')
     

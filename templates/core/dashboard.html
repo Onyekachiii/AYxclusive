@@ -54,24 +54,24 @@
                                             {% for quotation in quotations %}
                                             <tr>
                                                 <td><span class="id">{{ quotation.quotation_number }}</span></td>
-                                                <td><span class="date">{{ quotation.date }}</span></td>
-                                                <td><span class="amount">{{ quotation.file.url }}</span></td>
+                                                <td><span class="date">{{ quotation.quotation_date }}</span></td>
+                                                <td><a href="{{ quotation.file.url }}"download><span class="invoice-id">Download file</span></a></td>
                                                 <td><span class="status"><span class="paid">{{quotation.payment_status}}</span></span></td>
                                             </tr>
                                             {% endfor %}
                                             {% for invoice in invoices %}
                                             <tr>
                                                 <td><span class="invoice-id">{{ invoice.invoice_number }}</span></td>
-                                                <td><span class="date">{{ invoice.date }}</span></td>
-                                                <td><span class="file">{{ invoice.file.url }}</span></td>
+                                                <td><span class="date">{{ invoice.invoice_date }}</span></td>
+                                                <td><a href="{{ invoice.file.url }}"download><span class="invoice-id">Download file</span></a></td>
                                                 <td><span class="status"><span class="unpaid">{{invoice.payment_status}}</span></span></td>
                                             </tr>
                                             {% endfor %}
                                             {% for receipt in receipts %}
                                             <tr>
                                                 <td><span class="invoice-id">{{ receipt.receipt_number }}</span></td>
-                                                <td><span class="date">{{ receipt.date }}</span></td>
-                                                <td><span class="file">{{ receipt.file.url }}</span></td>
+                                                <td><span class="date">{{ receipt.receipt_date }}</span></td>
+                                                <td><a href="{{ receipt.file.url }}"download><span class="invoice-id">Download file</span></a></td>
                                                 <td><span class="status"><span class="paid">{{receipt.payment_status}}</span></span></td>
                                             </tr>
                                             {% endfor %}
@@ -101,8 +101,8 @@
                                         <tbody>
                                             <tr>
                                                 <td><a href="{{ quotation.file.url }}"download><span class="invoice-id">{{ quotation.quotation_number }}</span></a></td>
-                                                <td><span class="date">{{ quotation.date }}</span></td>
-                                                <td><a href="{{ quotation.file.url }}"download><span class="invoice-id">Download</span></a></td>
+                                                <td><span class="date">{{ quotation.quotation_date }}</span></td>
+                                                <td><a href="{{ quotation.file.url }}"download><span class="invoice-id">Download file</span></a></td>
                                                 <td><span class="date">{{ quotation.payment_status }}</span></td>
                                             </tr>
                                         </tbody>
@@ -130,8 +130,8 @@
                                         <tbody>
                                             <tr>
                                                 <td><a href="{{ invoice.file.url }}"download><span class="invoice-id">{{ invoice.invoice_number }}</span></a></td>
-                                                <td><span class="date">{{ invoice.date }}</span></td>
-                                                <td><a href="{{ invoice.file.url }}"download><span class="invoice-id">Download</span></a></td>
+                                                <td><span class="date">{{ invoice.Invoice_date }}</span></td>
+                                                <td><a href="{{ invoice.file.url }}"download><span class="invoice-id">Download file</span></a></td>
                                                 <td><span class="details">{{ invoice.payment_status }}</span></td>
                                             </tr>
                                         </tbody>
@@ -160,7 +160,7 @@
                                         <tbody>
                                             <tr>
                                                 <td><a href="{{ receipt.file.url }}"download><span class="invoice-id">{{ receipt.receipt_number }}</span></a></td>
-                                                <td><span class="date">{{ receipt.date }}</span></td>
+                                                <td><span class="date">{{ receipt.receipt_date }}</span></td>
                                                 <td><a href="{{ receipt.file.url }}"download><span class="invoice-id">Download</span></a></td>
                                                 <td><span class="details">{{ receipt.payment_status }}</span></td>
                                             </tr>

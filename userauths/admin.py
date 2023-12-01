@@ -10,7 +10,7 @@ class ProfileAdmin(admin.ModelAdmin):
     
     
 class ContactUsAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'furniture_type')
+    list_display = ('first_name', 'last_name', 'email', 'phone_number')
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Profile, ProfileAdmin)

@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from userauths.models import User, Profile
+from userauths.models import User, Profile, ContactUs
 
 
 class UserRegisterForm(UserCreationForm):
@@ -37,3 +37,19 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['first_name', 'last_name', 'image', 'bio', 'phone']
+        
+    
+class ContactFormForm(forms.ModelForm):
+    first_name = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "First name"})) 
+    last_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Last name'}))
+    email = forms.EmailField(widget=forms.EmailInput(attrs={"placeholder": "Email"}))
+    phone_number = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "Phone"}))
+    address = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "Address"}))
+    floor_level = forms.CharField(widget=forms.NumberInput(attrs={'placeholder': 'Delivery Floor Level'}))
+    furniture_type = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Furniture type'}))
+    description = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Description'}))
+    
+    
+    class Meta:
+        model = ContactUs
+        fields = ['first_name', 'last_name', 'email', 'phone_number', 'address', 'floor_level', 'furniture_type', 'description']

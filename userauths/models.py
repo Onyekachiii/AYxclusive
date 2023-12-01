@@ -7,8 +7,8 @@ from django.conf import settings
 
 
 class User(AbstractUser):
+    username = models.CharField(max_length=50, unique=True)
     email = models.EmailField(unique=True, null=False)
-    username = models.CharField(max_length=100)
     first_name = models.CharField(max_length=100, default="Firstname")
     last_name = models.CharField(max_length=100, default="Lastname")
     bio = models.CharField(max_length=100, blank=True, null=True)
@@ -17,8 +17,8 @@ class User(AbstractUser):
     floorlevel = models.CharField(max_length=100, default="Ground Floor")
     city = models.CharField(max_length=100, default="Port Louis")
     country = models.CharField(max_length=100, default="Mauritius")
+    is_email_verified=models.BooleanField(default=False)
     
-
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
@@ -73,3 +73,6 @@ class ContactUs(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+    
+    
+
