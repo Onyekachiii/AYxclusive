@@ -1,7 +1,12 @@
 from django.contrib import admin
-from core.models import Product, ProductImages, Category, CartOrder, CartOrderProducts, ProductReview, WishList, Address, Quotation, EmailTemplate, Invoice, Receipts, ProjectImage
+from core.models import Product, ProductImages, Category, CartOrder, CartOrderProducts, ProductReview, WishList, Address, Quotation, EmailTemplate, Invoice, Receipts, ProjectImage, Wallet, WalletTransaction
 # from .utils import send_custom_email
 from django import forms
+from django.shortcuts import HttpResponseRedirect
+from django.shortcuts import render, redirect
+from django.urls import path, reverse
+from django.utils.html import format_html
+from decimal import Decimal
 
 
 
@@ -35,30 +40,6 @@ class AddressAdmin(admin.ModelAdmin):
     list_display = ['user', 'address', 'status']
     
 
-# class BaseAdmin(admin.ModelAdmin):
-#     actions = ['send_email']
-
-#     def send_email(self, request, queryset):
-#         template_name = request.POST.get('email_template')
-#         email_template = EmailTemplate.objects.get(template_name=template_name)
-
-#         for obj in queryset:
-#             context = {'object': obj, 'attachment': obj.attachment}
-#             send_custom_email(obj.user_profile.user.email, email_template.subject, context=context)
-
-#             obj.sent = True
-#             obj.save()
-
-#     send_email.short_description = 'Send selected objects via email'
-
-#     def get_form(self, request, obj=None, **kwargs):
-#         form = super().get_form(request, obj, **kwargs)
-#         # Remove any references to 'email_template' here if not present in the model
-#         if 'email_template' in form.base_fields:
-#             del form.base_fields['email_template']
-#         return form
-
-
 
 class QuotationAdmin(admin.ModelAdmin):
     
@@ -81,7 +62,64 @@ class ProjectImageAdmin (admin.ModelAdmin):
     list_display = ('user' )
 
 
+class WalletAdmin(admin.ModelAdmin):
+    list_display = ['user', 'balance']
+    actions = None
 
+    def get_urls(self):
+        urls = super().get_urls()
+        custom_urls = [
+            path('<str:wallet_id>/add_to_balance/', self.add_to_balance, name='add_to_balance'),
+            path('<str:wallet_id>/subtract_from_balance/', self.subtract_from_balance, name='subtract_from_balance'),
+        ]
+        return custom_urls + urls
+
+    
+    def add_to_balance(self, request, wallet_id):
+        wallet = Wallet.objects.get(pk=wallet_id)
+        if request.method == 'POST':
+            amount = Decimal(request.POST['amount'])
+            wallet.balance += amount
+            wallet.save()
+            return redirect('admin:core_wallet_changelist')
+        return render(request, 'admin/add_to_balance.html', {'wallet': wallet})
+
+    def subtract_from_balance(self, request, wallet_id):
+        wallet = Wallet.objects.get(pk=wallet_id)
+        if request.method == 'POST':
+            amount = Decimal(request.POST['amount'])
+            wallet.balance -= amount
+            wallet.save()
+            return redirect('admin:core_wallet_changelist')
+        return render(request, 'admin/subtract_from_balance.html', {'wallet': wallet})
+
+    def add_to_balance_button(self, obj):
+        return format_html(
+            '<a class="button" href="{}">Add</a>',
+            reverse('admin:add_to_balance', args=[obj.pk])
+        )
+    add_to_balance_button.short_description = 'Add to Balance'
+
+    def subtract_from_balance_button(self, obj):
+        return format_html(
+            '<a class="button" href="{}">Deduct</a>',
+            reverse('admin:subtract_from_balance', args=[obj.pk])
+        )
+    subtract_from_balance_button.short_description = 'Deduct from Balance'
+
+    def get_list_display(self, request):
+        list_display = super().get_list_display(request)
+        if 'add_to_balance_button' not in list_display:
+            list_display.append('add_to_balance_button')
+        if 'subtract_from_balance_button' not in list_display:
+            list_display.append('subtract_from_balance_button')
+        return list_display
+
+
+
+
+admin.site.register(Wallet, WalletAdmin)
+# admin.site.register(WalletTransaction, WalletTransactionAdmin)
 admin.site.register(EmailTemplate)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Category, CategoryAdmin)

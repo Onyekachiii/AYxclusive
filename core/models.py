@@ -3,6 +3,8 @@ from shortuuid.django_fields import ShortUUIDField
 from django.utils.html import mark_safe
 from userauths.models import User, Profile
 
+# from django.contrib.auth.models import User
+
 
 STATUS_CHOICE = (
     ("processing", "Processing"),
@@ -265,6 +267,34 @@ class ProjectImage(models.Model):
         return self.description
 
 
+# For Wallet 
+
+
+class Wallet(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
+    # Add other fields as needed
+
+    def __str__(self):
+        return f"{self.user.username}'s Wallet"
+
+
+
+class WalletTransaction(models.Model):
+    TRANSACTION_CHOICES = [
+        ('addition', 'Addition'),
+        ('deduction', 'Deduction'),
+    ]
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    transaction_type = models.CharField(max_length=10, choices=TRANSACTION_CHOICES)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+
+
+    def __str__(self):
+        return f'{self.user.username} - {self.transaction_type} - {self.amount} - {self.timestamp}'
 
 
 

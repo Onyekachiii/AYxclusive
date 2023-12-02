@@ -1,0 +1,15 @@
+<!-- add_to_balance.html -->
+
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+  <div class="colMS">
+    <h1>Add to Balance</h1>
+    <form method="post" action="">
+      {% csrf_token %}
+      <label for="amount">Amount:</label>
+      <input type="text" name="amount" required>
+      <button type="submit">Add</button>
+    </form>
+  </div>
+{% endblock %}

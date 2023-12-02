@@ -2,12 +2,13 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.template.loader import render_to_string
 from core.forms import ProductReviewForm, ProjectImageForm
-from core.models import Product, Category, ProductImages, ProductReview, Quotation, Invoice,Receipts, ProjectImage
+from core.models import Product, Category, ProductImages, ProductReview, Quotation, Invoice,Receipts, ProjectImage, Wallet, WalletTransaction
 from django.contrib.auth.decorators import login_required
 from userauths.models import Profile, ContactUs
 from userauths.forms import ProfileForm
 from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
+from decimal import Decimal
 
 # For sending mails
 from django.conf import settings
@@ -129,6 +130,25 @@ def filter_product(request):
 
 
 @login_required
+def create_transaction(request):
+    # Create an addition transaction
+    addition_transaction = WalletTransaction.objects.create(
+        user=request.user,
+        transaction_type='addition',
+        amount=Decimal('1000.00')  # Set the actual amount
+    )
+
+    # Create a deduction transaction
+    deduction_transaction = WalletTransaction.objects.create(
+        user=request.user,
+        transaction_type='deduction',
+        amount=Decimal('500.00')  # Set the actual amount
+    )
+
+    return render(request, 'transaction_created.html')
+
+
+@login_required
 def customer_dashboard(request):
     if request.user.is_authenticated:
         profile = Profile.objects.get(user=request.user)
@@ -154,18 +174,26 @@ def customer_dashboard(request):
                 image_instance.user = request.user
                 image_instance.save()
                 return redirect('core:projects')
-        
+            
+        current_user = request.user
+        user_wallet = Wallet.objects.get(user=request.user)
+        transactions = WalletTransaction.objects.filter(user=current_user).order_by('-timestamp')
+
+  
         quotations = Quotation.objects.filter(user=request.user)
         invoices = Invoice.objects.filter(user=request.user)
         receipts = Receipts.objects.filter(user=request.user)
     
         context = {
+            'user': current_user,
             'form': form,
             'profile': profile,
             'quotations' : quotations,
             'invoices': invoices,
             'receipts': receipts,
-            'image_form': image_form
+            'image_form': image_form,
+            'user_wallet': user_wallet,
+            'transactions': transactions
         
         
         }

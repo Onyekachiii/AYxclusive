@@ -20,7 +20,7 @@
                                 {% endif %}
                             </div>
                             <div class="part-txt">
-                                <h3>Hi, {{profile.first_name|title}}</h3>
+                                <h3>Hi, {{profile.username|title}}</h3>
                             </div>
                         </div>
                         <div class="nav flex-column" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -28,7 +28,7 @@
                             <button class="nav-link" id="v-pills-quotation-tab" data-bs-toggle="pill" data-bs-target="#v-pills-quotation" type="button" role="tab" aria-controls="v-pills-quotation" aria-selected="false"><span class="icon"><i class="fa-duotone fa-file-alt"></i></span> <span class="txt">Quotations</span></button>
                             <button class="nav-link" id="v-pills-invoice-tab" data-bs-toggle="pill" data-bs-target="#v-pills-invoice" type="button" role="tab" aria-controls="v-pills-invoice" aria-selected="false"><span class="icon"><i class="fa-duotone fa-file-invoice"></i></span> <span class="txt">Invoices(VAT)</span></button>
                             <button class="nav-link" id="v-pills-receipt-tab" data-bs-toggle="pill" data-bs-target="#v-pills-receipt" type="button" role="tab" aria-controls="v-pills-receipt" aria-selected="false"><span class="icon"><i class="fa-duotone fa-receipt"></i></span> <span class="txt">Receipts</span></button>
-                            {% comment %} <button class="nav-link" id="v-pills-wallet-tab" data-bs-toggle="pill" data-bs-target="#v-pills-wallet" type="button" role="tab" aria-controls="v-pills-wallet" aria-selected="false"><span class="icon"><i class="fa-duotone fa-wallet"></i></span> <span class="txt">My Wallet</span></button> {% endcomment %}
+                            <button class="nav-link" id="v-pills-wallet-tab" data-bs-toggle="pill" data-bs-target="#v-pills-wallet" type="button" role="tab" aria-controls="v-pills-wallet" aria-selected="false"><span class="icon"><i class="fa-duotone fa-wallet"></i></span> <span class="txt">My Wallet</span></button>
                             <button class="nav-link" id="v-pills-forum-tab" data-bs-toggle="pill" data-bs-target="#v-pills-forum" type="button" role="tab" aria-controls="v-pills-forum" aria-selected="false"><span class="icon"><i class="fa-duotone fa-file-image"></i></span> <span class="txt">Forum</span></button>
                             <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false"><span class="icon"><i class="fa-duotone fa-user-vneck"></i></span> <span class="txt">Manage Profile</span></button>
                             <a href="{% url 'userauths:sign-out' %}" class="nav-link"><span class="icon"><i class="fa-duotone fa-power-off"></i></span> <span class="txt">Log out</span></a>
@@ -172,73 +172,74 @@
                                 
                             </div>
                         </div>
-                        {% comment %} <div class="tab-pane fade" id="v-pills-wallet" role="tabpanel" aria-labelledby="v-pills-wallet-tab" tabindex="0">
-                            <h2 class="account-title">My Wallet</h2>
+                        <div class="tab-pane fade" id="v-pills-wallet" role="tabpanel" aria-labelledby="v-pills-wallet-tab" tabindex="0">
+                            <h2 class="account-title">{{ user_wallet.user.username }}'s Wallet</h2>
                             <div class="row g-4">
                                 <div class="col-md-6">
                                     <div class="total-balance">
                                         <div class="top">
                                             <h4>Total Balance</h4>
-                                            <div class="tags">
-                                                <span class="tag tag-up"><i class="fa-light fa-arrow-up-right"></i> Rs 600.99</span>
+                                            {% comment %} <div class="tags">
+                                                <span class="tag tag-up"><i class="fa-light fa-arrow-up-right"></i> Rs {{ user_wallet.balance }}</span>
                                                 <span class="tag tag-down"><i class="fa-light fa-arrow-down-left"></i> Rs 700.99</span>
-                                            </div>
+                                            </div> {% endcomment %}
                                         </div>
                                         <div class="middle">
-                                            <h3>Rs 7,950.96</h3>
+                                            <h3>Rs {{ user_wallet.balance }}</h3>
                                         </div>
-                                        <div class="btn-box">
+                                        {% comment %} <div class="btn-box">
                                             <a href="#" class="def-btn">Deposit</a>
                                             <a href="#" class="def-btn">Withdraw</a>
-                                        </div>
+                                        </div> {% endcomment %}
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="chart-panel">
+                                    {% comment %} <div class="chart-panel">
                                         <div class="custom-legend">
                                             <div class="single-legend">income</div>
                                             <div class="single-legend">withdrawals</div>
                                         </div>
                                         <div id="overviewChart"></div>
-                                    </div>
+                                    </div> {% endcomment %}
                                 </div> 
                                 <div class="col-12">
                                     <div class="table-wrap">
                                         <div class="table-top">
                                             <h4 class="title">Transfer History</h4>
-                                            <form class="search-box">
+                                            {% comment %} <form class="search-box">
                                                 <input type="search" placeholder="Search">
                                                 <button type="submit"><i class="fa-regular fa-magnifying-glass"></i></button>
-                                            </form>
+                                            </form> {% endcomment %}
                                         </div>
                                         <div class="table-responsive">
                                             <table class="table">
                                                 <thead>
                                                     <tr>
-                                                        <th>ID</th>
                                                         <th>Date</th>
                                                         <th>Transfer type</th>
                                                         <th>Amount</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>INV-012-345</td>
-                                                        <td>Jun 21, 2022</td>
-                                                        <td>
-                                                            <div class="details"><a href="" class="product-name">AY Exclusive Furniture</a></div>
-                                                        </td>
-                                                        <td>Rs 256</td>
-                                                    </tr>
-                                                    
-                                                </tbody>
+                                                
+                                                    <tbody>
+                                                        {% for transaction in transactions %}
+                                                            <tr>
+                                                                <td>{{ transaction.timestamp }}</td>
+                                                                <td>
+                                                                    <div class="details"><a href="" class="product-name">{{ transaction.transaction_type }}</a></div>
+                                                                </td>
+                                                                <td>Rs{{ transaction.amount }}</td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                    </tbody>
+                                                
                                             </table>
                                         </div>
                                         
                                     </div>
                                 </div>
                             </div>
-                        </div> {% endcomment %}
+                        </div>
                         <div class="tab-pane fade" id="v-pills-forum" role="tabpanel" aria-labelledby="v-pills-forum-tab" tabindex="0">
                             <h2 class="account-title">Forum</h2>
                             <div class="profile-panel">
