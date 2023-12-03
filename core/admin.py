@@ -78,18 +78,31 @@ class WalletAdmin(admin.ModelAdmin):
     def add_to_balance(self, request, wallet_id):
         wallet = Wallet.objects.get(pk=wallet_id)
         if request.method == 'POST':
-            amount = Decimal(request.POST['amount'])
-            wallet.balance += amount
+            amount_to_add = Decimal(request.POST['amount'])
+            wallet.balance += amount_to_add
             wallet.save()
+            
+            WalletTransaction.objects.create(
+                user=wallet.user,
+                transaction_type='addition',
+                amount=amount_to_add
+            )
             return redirect('admin:core_wallet_changelist')
         return render(request, 'admin/add_to_balance.html', {'wallet': wallet})
 
     def subtract_from_balance(self, request, wallet_id):
         wallet = Wallet.objects.get(pk=wallet_id)
         if request.method == 'POST':
-            amount = Decimal(request.POST['amount'])
-            wallet.balance -= amount
+            amount_to_deduct = Decimal(request.POST['amount'])
+            wallet.balance -= amount_to_deduct
             wallet.save()
+            
+            WalletTransaction.objects.create(
+                user=wallet.user,
+                transaction_type='deduction',
+                amount=amount_to_deduct
+            )
+            
             return redirect('admin:core_wallet_changelist')
         return render(request, 'admin/subtract_from_balance.html', {'wallet': wallet})
 

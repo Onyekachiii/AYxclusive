@@ -129,27 +129,33 @@ def filter_product(request):
     return JsonResponse({"data":data})
 
 
-@login_required
-def create_transaction(request):
-    # Create an addition transaction
-    addition_transaction = WalletTransaction.objects.create(
-        user=request.user,
-        transaction_type='addition',
-        amount=Decimal('1000.00')  # Set the actual amount
-    )
+# @login_required
+# def create_transaction(request):
+#     # Debug information
+#     print("Create Transaction View Accessed")
+    
+#     # Create an addition transaction
+#     addition_transaction = WalletTransaction.objects.create(
+#         user=request.user,
+#         transaction_type='addition',
+#         amount=Decimal('1000.00')  # Set the actual amount
+#     )
+#     print(f"Addition Transaction Amount: {addition_transaction.amount}")
 
-    # Create a deduction transaction
-    deduction_transaction = WalletTransaction.objects.create(
-        user=request.user,
-        transaction_type='deduction',
-        amount=Decimal('500.00')  # Set the actual amount
-    )
+#     # Create a deduction transaction
+#     deduction_transaction = WalletTransaction.objects.create(
+#         user=request.user,
+#         transaction_type='deduction',
+#         amount=Decimal('500.00')  # Set the actual amount
+#     )
+#     print(f"Deduction Transaction Amount: {deduction_transaction.amount}")
 
-    return render(request, 'transaction_created.html')
+#     return HttpResponse("Check the console for debug information")
 
 
 @login_required
 def customer_dashboard(request):
+    
     if request.user.is_authenticated:
         profile = Profile.objects.get(user=request.user)
         if request.method == "POST":
@@ -177,6 +183,7 @@ def customer_dashboard(request):
             
         current_user = request.user
         user_wallet = Wallet.objects.get(user=request.user)
+        
         transactions = WalletTransaction.objects.filter(user=current_user).order_by('-timestamp')
 
   
