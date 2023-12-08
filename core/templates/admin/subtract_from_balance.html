@@ -9,7 +9,9 @@
       {% csrf_token %}
       <label for="amount">Amount:</label>
       <input type="text" name="amount" required>
-      <button type="submit">Subtract</button>
-    </form>
+      <label for="description">Description:</label>
+      <input type="text" name="description" required>
+      <button type="submit">Deduct from Balance</button>
+  </form>
   </div>
 {% endblock %}

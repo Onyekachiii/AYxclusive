@@ -1,5 +1,5 @@
 from django.urls import path
-from core.views import index, about_us, category_list_view, product_list_view, product_detail_view, category_product_list_view, customer_dashboard, search_view, filter_product, upload_image, projects
+from core.views import index, about_us, category_list_view, product_list_view, product_detail_view, category_product_list_view, customer_dashboard, search_view, filter_product, upload_image, projects, approve_quotation, wishlist_view, add_to_wishlist, remove_from_wishlist, add_to_cart, cart_view, delete_item_from_cart, update_cart
 
 
 app_name = 'core'
@@ -22,6 +22,9 @@ urlpatterns = [
     # Customer Dashboard
     path('dashboard/', customer_dashboard, name='dashboard'),
     
+    # To approve quotations
+    path('approve_quotation/<int:quotation_id>/', approve_quotation, name='approve_quotation'),
+    
     # Search
     path('search/', search_view, name='search'),
     
@@ -34,6 +37,30 @@ urlpatterns = [
     # To upload images from Forum page
     path('dashboard/upload/', upload_image, name='upload_image'),
     path('projects/', projects, name='projects'),
+    
+    
+     # Wishlist page URL
+    path('wishlist/', wishlist_view, name='wishlist'),
+    
+    # Adding to wishlist
+    path('add-to-wishlist/', add_to_wishlist, name='add-to-wishlist'),
+    
+    # Deleting from wishlist
+    path('remove-from-wishlist/', remove_from_wishlist, name='remove-from-wishlist'),
+    
+    
+    #Add to cart URL
+    path('add-to-cart/', add_to_cart, name='add-to-cart'),
+    
+    # Cart page URL
+    path('cart/', cart_view, name='cart'),
+    
+    # Delete item from cart
+    path('delete-from-cart/', delete_item_from_cart, name='delete-from-cart'),
+    
+    # Update items in cart
+    path('update-cart/', update_cart, name='update-cart'),
+    
 
 
 ]

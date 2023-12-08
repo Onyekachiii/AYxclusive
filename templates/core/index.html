@@ -104,8 +104,15 @@
                             <img src="{{ p.image.url }}" alt="Product Image">
                             <div class="rev-9-single-product__actions">
                                 <button class="product-view-btn quick-view"><i class="fa-solid fa-eye"></i></button>
-                                {% comment %} <button class="add-to-cart-btn"><i class="fa-solid fa-cart-shopping"></i></button>
-                                <button class="add-to-wishlist-btn"><i class="fa-regular fa-heart"></i></button> {% endcomment %}
+                                <span class="add-cart">
+                                    <input type="hidden" value="1" name="" id="product-quantity" class="w-25 mb-20 product-quantity-{{p.id}}">
+                                    <input type="hidden" class="product-pid-{{p.id}}" value="{{p.pid}}">
+                                    <input type="hidden" class="product-image-{{p.id}}" value="{{p.image.url}}">
+                                    <input type="hidden" class="product-id-{{p.id}}" value="{{ p.id }}">
+                                    <input type="hidden" class="product-title-{{p.id}}" value="{{ p.title }}">
+                                    <button type='submit' class="add-to-cart-btn" class="ec-btn-group add-to-cart-btn" data-index="{{ p.id }}"><i class="fa-solid fa-cart-shopping"></i></button>
+                                </span>
+                                <button class="add-to-wishlist" data-product-item="{{p.id}}" title="Wishlist"><i class="fa-regular fa-heart"></i></button> 
                             </div>
                         </div>
 
@@ -119,8 +126,8 @@
                                 <i class="fa-regular fa-star"></i>
                             </div>
                             <p class="rev-9-single-product__price">
-                                <span class="current-price"></span>
-                                <span class="prev-price text-decoration-line-through"></span>
+                                <span class="current-price">Rs {{ p.price }}</span>
+                                <span class="prev-price text-decoration-line-through">Rs {{ p.old_price}}</span>
                             </p>
                         </div>
                     </div>
@@ -163,8 +170,8 @@
                                 <h4><a href="">popular cosmic door</a></h4>
 
                                 <div class="price">
-                                    <span class="current-price"></span>
-                                    <span class="prev-price text-decoration-line-through"></span>
+                                    <span class="current-price"> Rs {{ p.price }}</span>
+                                    <span class="prev-price text-decoration-line-through">Rs {{ p.old_price}}</span>
                                 </div>
 
                                 <div class="rating">
@@ -194,8 +201,8 @@
                                 <h4><a href="">popular cosmic door</a></h4>
 
                                 <div class="price">
-                                    <span class="current-price"></span>
-                                    <span class="prev-price text-decoration-line-through"></span>
+                                    <span class="current-price">Rs {{ p.price }}</span>
+                                    <span class="prev-price text-decoration-line-through">Rs {{ p.old_price}}</span>
                                 </div>
 
                                 <div class="rating">
@@ -224,8 +231,15 @@
                                         <img src="{{ p.image.url }}" alt="Product Image">
                                         <div class="rev-9-single-product__actions">
                                             <button class="product-view-btn quick-view"><i class="fa-solid fa-eye"></i></button>
-                                            {% comment %} <button class="add-to-cart-btn"><i class="fa-solid fa-cart-shopping"></i></button>
-                                            <button class="add-to-wishlist-btn"><i class="fa-regular fa-heart"></i></button> {% endcomment %}
+                                            <span class="add-cart">
+                                                <input type="hidden" value="1" name="" id="product-quantity" class="w-25 mb-20 product-quantity-{{p.id}}">
+                                                <input type="hidden" class="product-pid-{{p.id}}" value="{{p.pid}}">
+                                                <input type="hidden" class="product-image-{{p.id}}" value="{{p.image.url}}">
+                                                <input type="hidden" class="product-id-{{p.id}}" value="{{ p.id }}">
+                                                <input type="hidden" class="product-title-{{p.id}}" value="{{ p.title }}">
+                                                <button type='submit' class="add-to-cart-btn" class="ec-btn-group add-to-cart-btn" data-index="{{ p.id }}"><i class="fa-solid fa-cart-shopping"></i></button>
+                                            </span>
+                                            <button class="add-to-wishlist" data-product-item="{{p.id}}" title="Wishlist"><i class="fa-regular fa-heart"></i></button>
                                         </div>
                                     </div>
 
@@ -239,8 +253,8 @@
                                             <i class="fa-regular fa-star"></i>
                                         </div>
                                         <p class="rev-9-single-product__price">
-                                            <span class="current-price"></span>
-                                            <span class="prev-price text-decoration-line-through"></span>
+                                            <span class="current-price">Rs {{ p.price }}</span>
+                                            <span class="prev-price text-decoration-line-through">Rs {{ p.old_price}}</span>
                                         </p>
                                     </div>
                                 </div>
@@ -271,8 +285,15 @@
                             <img src="{{ p.image.url }}" alt="Product Image">
                             <div class="rev-9-single-product__actions">
                                 <button class="product-view-btn quick-view"><i class="fa-solid fa-eye"></i></button>
-                                {% comment %} <button class="add-to-cart-btn"><i class="fa-solid fa-cart-shopping"></i></button>
-                                <button class="add-to-wishlist-btn"><i class="fa-regular fa-heart"></i></button> {% endcomment %}
+                                <span class="add-cart">
+                                    <input type="hidden" value="1" name="" id="product-quantity" class="w-25 mb-20 product-quantity-{{p.id}}">
+                                    <input type="hidden" class="product-pid-{{p.id}}" value="{{p.pid}}">
+                                    <input type="hidden" class="product-image-{{p.id}}" value="{{p.image.url}}">
+                                    <input type="hidden" class="product-id-{{p.id}}" value="{{ p.id }}">
+                                    <input type="hidden" class="product-title-{{p.id}}" value="{{ p.title }}">
+                                    <button type='submit' class="add-to-cart-btn" class="ec-btn-group add-to-cart-btn" data-index="{{ p.id }}"><i class="fa-solid fa-cart-shopping"></i></button>
+                                </span>
+                                <button class="add-to-wishlist" data-product-item="{{p.id}}" title="Wishlist"><i class="fa-regular fa-heart"></i></button> 
                             </div>
                         </div>
 
@@ -286,8 +307,8 @@
                                 <i class="fa-regular fa-star"></i>
                             </div>
                             <p class="rev-9-single-product__price">
-                                <span class="current-price"></span>
-                                <span class="prev-price text-decoration-line-through"></span>
+                                <span class="current-price">Rs {{ p.price }}</span>
+                                <span class="prev-price text-decoration-line-through">Rs {{ p.old_price}}</span>
                             </p>
                         </div>
                     </div>
@@ -314,8 +335,15 @@
                         <img src="{{ p.image.url }}" alt="Product Image">
                         <div class="rev-9-single-product__actions">
                             <button class="product-view-btn quick-view"><i class="fa-solid fa-eye"></i></button>
-                            {% comment %} <button class="add-to-cart-btn"><i class="fa-solid fa-cart-shopping"></i></button>
-                            <button class="add-to-wishlist-btn"><i class="fa-regular fa-heart"></i></button> {% endcomment %}
+                            <span class="add-cart">
+                                <input type="hidden" value="1" name="" id="product-quantity" class="w-25 mb-20 product-quantity-{{p.id}}">
+                                <input type="hidden" class="product-pid-{{p.id}}" value="{{p.pid}}">
+                                <input type="hidden" class="product-image-{{p.id}}" value="{{p.image.url}}">
+                                <input type="hidden" class="product-id-{{p.id}}" value="{{ p.id }}">
+                                <input type="hidden" class="product-title-{{p.id}}" value="{{ p.title }}">
+                                <button type='submit' class="add-to-cart-btn" class="ec-btn-group add-to-cart-btn" data-index="{{ p.id }}"><i class="fa-solid fa-cart-shopping"></i></button>
+                            </span>
+                            <button class="add-to-wishlist" data-product-item="{{p.id}}" title="Wishlist"><i class="fa-regular fa-heart"></i></button> 
                         </div>
                     </div>
 
@@ -329,8 +357,8 @@
                             <i class="fa-regular fa-star"></i>
                         </div>
                         <p class="rev-9-single-product__price">
-                            <span class="current-price"></span>
-                            <span class="prev-price text-decoration-line-through"></span>
+                            <span class="current-price">Rs {{ p.price }}</span>
+                            <span class="prev-price text-decoration-line-through">Rs {{ p.old_price}}</span>
                         </p>
                     </div>
                 </div>
@@ -347,5 +375,5 @@
 </main>
 
 
-    {% endblock content %}
+{% endblock content %}
    

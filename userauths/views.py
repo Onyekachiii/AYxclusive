@@ -105,7 +105,8 @@ def register_view(request):
         form = UserRegisterForm(request.POST or None)
         if form.is_valid():
             user = form.save(commit=False)
-            user.is_active=False
+            user.first_name = form.cleaned_data['first_name']
+            user.last_name = form.cleaned_data['last_name']
             user.save()
             activateEmail(request, user, form.cleaned_data.get('email'))
             
@@ -120,29 +121,7 @@ def register_view(request):
     }
     return render(request, "userauths/sign-up.html", context)
 
-# class ActivateView(request, uidb64, token):
 
-#     def get_user_from_email_verification_token(self, token: str):
-#         try:
-#             uid = force_str(urlsafe_base64_decode(self))
-#             user = get_user_model().objects.get(pk=uid)
-#         except (TypeError, ValueError, OverflowError,
-#                 get_user_model().DoesNotExist):
-#             return None
-
-#         if user is not None \
-#                 and \
-#                 email_verification_token.check_token(user, token):
-#             return user
-
-#         return None
-
-#     def get(self, request, uidb64, token):
-#         user = self.get_user_from_email_verification(uidb64, token)
-#         user.is_active = True
-#         user.save()
-#         login(request, user)
-#         return redirect('registration_successful')
 
 def activate(request, uidb64, token):
     User = get_user_model()
@@ -165,33 +144,6 @@ def activate(request, uidb64, token):
 
  
 
-
-# To login users
-# def login_view(request):
-#     if request.user.is_authenticated:
-#         messages.warning(request, "You are already logged in.")
-#         return redirect("core:index")
-
-#     if request.method == "POST":
-#         email = request.POST.get("email")
-#         password = request.POST.get("password")
-        
-#         # Authenticate user
-#         user = authenticate(request, email=email, password=password)
-
-#         if user is not None:
-#             # Check if the user is_email_verified attribute is available
-#             if hasattr(user, 'is_email_verified') and not user.is_email_verified:
-#                 messages.warning(request, f"User with {email} is not verified. Check your inbox or spam box.")
-#                 return render(request, 'userauths/sign-in.html')
-
-#             login(request, user)
-#             messages.success(request, f"Welcome {user.first_name}!")
-#             return redirect("core:index")
-#         else:
-#             messages.warning(request, f"Invalid credentials. User with {email} does not exist or incorrect password.")
-
-#     return render(request, "userauths/sign-in.html")      
 
 
 def login_view(request):

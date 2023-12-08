@@ -20,14 +20,16 @@
                                 {% endif %}
                             </div>
                             <div class="part-txt">
-                                <h3>Hi, {{profile.first_name|title}}</h3>
+                                <h3>Hi {{user.username|title}}</h3>
                             </div>
                         </div>
                         <div class="nav flex-column" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                            <button class="nav-link active" id="v-pills-dashboard-tab" data-bs-toggle="pill" data-bs-target="#v-pills-dashboard" type="button" role="tab" aria-controls="v-pills-dashboard" aria-selected="true"><span class="icon"><i class="fa-duotone fa-objects-column"></i></span> <span class="txt">Transactions</span></button>
+                            <button class="nav-link active" id="v-pills-statement-tab" data-bs-toggle="pill" data-bs-target="#v-pills-statement" type="button" role="tab" aria-controls="v-pills-statement" aria-selected="true"><span class="icon"><i class="fa-duotone fa-file-alt"></i></span> <span class="txt">Balance Statement</span></button>
+                            <button class="nav-link" id="v-pills-dashboard-tab" data-bs-toggle="pill" data-bs-target="#v-pills-dashboard" type="button" role="tab" aria-controls="v-pills-dashboard" aria-selected="false"><span class="icon"><i class="fa-duotone fa-objects-column"></i></span> <span class="txt">Transactions</span></button>
                             <button class="nav-link" id="v-pills-quotation-tab" data-bs-toggle="pill" data-bs-target="#v-pills-quotation" type="button" role="tab" aria-controls="v-pills-quotation" aria-selected="false"><span class="icon"><i class="fa-duotone fa-file-alt"></i></span> <span class="txt">Quotations</span></button>
-                            <button class="nav-link" id="v-pills-invoice-tab" data-bs-toggle="pill" data-bs-target="#v-pills-invoice" type="button" role="tab" aria-controls="v-pills-invoice" aria-selected="false"><span class="icon"><i class="fa-duotone fa-file-invoice"></i></span> <span class="txt">Invoices(VAT)</span></button>
+                            <button class="nav-link" id="v-pills-invoice-tab" data-bs-toggle="pill" data-bs-target="#v-pills-invoice" type="button" role="tab" aria-controls="v-pills-invoice" aria-selected="false"><span class="icon"><i class="fa-duotone fa-file-invoice"></i></span> <span class="txt">Invoices</span></button>
                             <button class="nav-link" id="v-pills-receipt-tab" data-bs-toggle="pill" data-bs-target="#v-pills-receipt" type="button" role="tab" aria-controls="v-pills-receipt" aria-selected="false"><span class="icon"><i class="fa-duotone fa-receipt"></i></span> <span class="txt">Receipts</span></button>
+                            <button class="nav-link" id="v-pills-documents-tab" data-bs-toggle="pill" data-bs-target="#v-pills-documents" type="button" role="tab" aria-controls="v-pills-documents" aria-selected="false"><span class="icon"><i class="fa-duotone fa-file-upload"></i></span> <span class="txt">Other Documents</span></button>
                             <button class="nav-link" id="v-pills-wallet-tab" data-bs-toggle="pill" data-bs-target="#v-pills-wallet" type="button" role="tab" aria-controls="v-pills-wallet" aria-selected="false"><span class="icon"><i class="fa-duotone fa-wallet"></i></span> <span class="txt">My Wallet</span></button>
                             <button class="nav-link" id="v-pills-forum-tab" data-bs-toggle="pill" data-bs-target="#v-pills-forum" type="button" role="tab" aria-controls="v-pills-forum" aria-selected="false"><span class="icon"><i class="fa-duotone fa-file-image"></i></span> <span class="txt">Forum</span></button>
                             <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false"><span class="icon"><i class="fa-duotone fa-user-vneck"></i></span> <span class="txt">Manage Profile</span></button>
@@ -37,7 +39,79 @@
                 </div>
                 <div class="col-xl-9 col-lg-8">
                     <div class="tab-content" id="v-pills-tabContent">
-                        <div class="tab-pane fade show active" id="v-pills-dashboard" role="tabpanel" aria-labelledby="v-pills-dashboard-tab" tabindex="0">
+                        <div class="tab-pane fade show active" id="v-pills-statement" role="tabpanel" aria-labelledby="v-pills-statement-tab" tabindex="0">
+                            <h2 class="account-title">{{ user_wallet.user.username|title }}'s Balance Statement</h2>
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <div class="total-balance">
+                                        <div class="top">
+                                            <h4>Outstanding Balance</h4>
+                                            
+                    
+                                        </div>
+                                        {% for statement in statements %}
+                                        <div class="middle">
+                                            <h3>Rs {{ statement.balance_amount }}</h3>
+                                        </div>
+                                        {% endfor %}
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    {% comment %} <div class="chart-panel">
+                                        <div class="custom-legend">
+                                            <div class="single-legend">income</div>
+                                            <div class="single-legend">withdrawals</div>
+                                        </div>
+                                        <div id="overviewChart"></div>
+                                    </div> {% endcomment %}
+                                </div> 
+                                <div class="col-12">
+                                    <div class="table-wrap">
+                                        <div class="table-top">
+                                            <h4 class="title">Balance Statement</h4>
+                                            {% comment %} <form class="search-box">
+                                                <input type="search" placeholder="Search">
+                                                <button type="submit"><i class="fa-regular fa-magnifying-glass"></i></button>
+                                            </form> {% endcomment %}
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Date</th>
+                                                        <th>Description</th>
+                                                        <th>Invoice_no</th>
+                                                        <th>Invoice_amount(Rs)</th>
+                                                        <th>Paid_amount(Rs)</th>
+                                                        <th>Balance(Rs)</th>
+                                                    </tr>
+                                                </thead>
+                                                
+                                                    <tbody>
+                                                        {% for statement in statements %}
+                                                            <tr>
+                                                                <td>{{ statement.date }}</td>
+                                                                <td>
+                                                                    {{ statement.description }}
+                                                                </td>
+                                                                <td>{{ statement.invoice_no }}</td>
+                                                                <td>{{ statement.invoice_amount }}</td>
+                                                                <td>{{ statement.paid_amount }}</td>
+                                                                <td>{{ statement.balance_amount }}</td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                    </tbody>
+                                                
+                                            </table>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="v-pills-dashboard" role="tabpanel" aria-labelledby="v-pills-dashboard-tab" tabindex="0">
                             <h2 class="account-title">Transactions</h2>
                             <div class="table-wrap">
                                 <div class="table-responsive">
@@ -84,6 +158,7 @@
                                 
                             </div>
                         </div>
+                        
                         <div class="tab-pane fade" id="v-pills-quotation" role="tabpanel" aria-labelledby="v-pills-quotation-tab" tabindex="0">
                             <h2 class="account-title">Quotations</h2>
                             <div class="table-wrap">
@@ -103,7 +178,16 @@
                                                 <td><a href="{{ quotation.file.url }}"download><span class="invoice-id">{{ quotation.quotation_number }}</span></a></td>
                                                 <td><span class="date">{{ quotation.quotation_date }}</span></td>
                                                 <td><a href="{{ quotation.file.url }}"download><span class="invoice-id">Download file</span></a></td>
-                                                <td><span class="date">{{ quotation.payment_status }}</span></td>
+                                                <td>
+                                                    {% if not quotation.is_approved %}
+                                                        <form method="post" action="{% url 'core:approve_quotation' quotation.id %}">
+                                                            {% csrf_token %}
+                                                            <button class="def-btn" type="submit">Approve</button>
+                                                        </form>
+                                                    {% else %}
+                                                        <p>Approved</p>
+                                                    {% endif %}
+                                                <td>
                                             </tr>
                                         </tbody>
                                         {% endfor %}
@@ -112,8 +196,9 @@
                                 
                             </div>
                         </div>
+                        
                         <div class="tab-pane fade" id="v-pills-invoice" role="tabpanel" aria-labelledby="v-pills-invoice-tab" tabindex="0">
-                            <h2 class="account-title">Invoices (VAT)</h2>
+                            <h2 class="account-title">Invoices </h2>
                             <div class="table-wrap">
                                 <div class="table-responsive">
                                     <table class="table">
@@ -132,7 +217,7 @@
                                                 <td><a href="{{ invoice.file.url }}"download><span class="invoice-id">{{ invoice.invoice_number }}</span></a></td>
                                                 <td><span class="date">{{ invoice.Invoice_date }}</span></td>
                                                 <td><a href="{{ invoice.file.url }}"download><span class="invoice-id">Download file</span></a></td>
-                                                <td><span class="details">{{ invoice.payment_status }}</span></td>
+                                                <td><span class="invoice"><button class="def-btn" type="button" data-bs-toggle="modal" data-bs-target="#invoiceModal">Proceed</button></span></td>
                                             </tr>
                                         </tbody>
                                         {% endfor %}
@@ -142,6 +227,7 @@
                                 
                             </div>
                         </div>
+
                         <div class="tab-pane fade" id="v-pills-receipt" role="tabpanel" aria-labelledby="v-pills-receipt-tab" tabindex="0">
                             <h2 class="account-title">Receipts</h2>
                             <div class="table-wrap">
@@ -172,13 +258,43 @@
                                 
                             </div>
                         </div>
+
+                        <div class="tab-pane fade" id="v-pills-documents" role="tabpanel" aria-labelledby="v-pills-documents-tab" tabindex="0">
+                            <h2 class="account-title">Other Documents</h2>
+                            <div class="table-wrap">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Document-ID</th>
+                                                <th>Date</th>
+                                                <th>Download</th>
+                                            </tr>
+                                        </thead>
+                                        
+                                        {% for document in documents %}
+                                        <tbody>
+                                            <tr>
+                                                <td><a href="{{ document.file.url }}"download><span class="invoice-id">{{ document.document_number }}</span></a></td>
+                                                <td><span class="date">{{ document.document_date }}</span></td>
+                                                <td><a href="{{ document.file.url }}"download><span class="invoice-id">Download</span></a></td>
+                                            </tr>
+                                        </tbody>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                            </div>
+                        </div>
+
                         <div class="tab-pane fade" id="v-pills-wallet" role="tabpanel" aria-labelledby="v-pills-wallet-tab" tabindex="0">
-                            <h2 class="account-title">{{ user_wallet.user.username }}'s Wallet</h2>
+                            <h2 class="account-title">{{ user_wallet.user.username|title }}'s Wallet</h2>
                             <div class="row g-4">
                                 <div class="col-md-6">
                                     <div class="total-balance">
                                         <div class="top">
-                                            <h4>Total Balance</h4>
+                                            <h4>Wallet Balance</h4>
                                             {% comment %} <div class="tags">
                                                 <span class="tag tag-up"><i class="fa-light fa-arrow-up-right"></i> Rs {{ user_wallet.balance }}</span>
                                                 <span class="tag tag-down"><i class="fa-light fa-arrow-down-left"></i> Rs 700.99</span>
@@ -217,6 +333,7 @@
                                                     <tr>
                                                         <th>Date</th>
                                                         <th>Transfer type</th>
+                                                        <th>Description</th>
                                                         <th>Amount</th>
                                                     </tr>
                                                 </thead>
@@ -228,6 +345,7 @@
                                                                 <td>
                                                                     <div class="details"><a href="" class="product-name">{{ transaction.transaction_type }}</a></div>
                                                                 </td>
+                                                                <td>{{ transaction.description }}</td>
                                                                 <td>Rs{{ transaction.amount }}</td>
                                                             </tr>
                                                         {% endfor %}
@@ -240,6 +358,7 @@
                                 </div>
                             </div>
                         </div>
+                        
                         <div class="tab-pane fade" id="v-pills-forum" role="tabpanel" aria-labelledby="v-pills-forum-tab" tabindex="0">
                             <h2 class="account-title">Forum</h2>
                             <div class="profile-panel">
@@ -278,6 +397,7 @@
                                 </form>
                             </div>
                         </div>
+
                         <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0">
                             <h2 class="account-title">Manage Profile</h2>
                             <div class="profile-panel">
@@ -314,7 +434,65 @@
             </div>
         </div>
 
-
+        {% comment %} <!--------------------------------- INVOICE MODAL START ---------------------------------> {% endcomment %}
+        <div class="invoice-modal modal fade" id="invoiceModal" tabindex="-1" aria-labelledby="invoiceModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="account-title mb-0" id="invoiceModalLabel">User Policies</h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="invoice-wrap">
+                            <div class="invoice-top d-flex justify-content-between align-items-center">
+                                <div class="left">
+                                    <div class="logo"><img src="{% static 'assets/images/logos/AY11.png' %}" alt="LOGO"></div>
+                                    <p>User Policies</p>
+                                </div>
+                                
+                            </div>
+                            <div class="invoice-body">
+                                
+                                <div class="items">
+                                    <div class="table-responsive">
+                                        <table class="table table-borderless">
+                                            <thead>
+                                                <tr>
+                                                    <th>Item ID</th>
+                                                    <th class="text-center">Qty</th>
+                                                    <th>Description</th>
+                                                    <th class="text-end">Amount</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>35130092</td>
+                                                    <td class="text-center">1</td>
+                                                    <td>Revel eCommerce-Multi vendor Ecommerce PSD Template</td>
+                                                    <td class="text-end"><span class="price">$8.00</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="total ms-auto">
+                                        <h5>Invoice Total: <span>USD $8.00</span></h5>
+                                        <p>Paid via Skrill</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="invoice-footer">
+                                <span>THANK YOU FOR YOUR BUSINESS!</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="def-btn">Print <i class="fa-regular fa-print"></i></button>
+                        <button type="button" class="def-btn">Download <i class="fa-regular fa-download"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% comment %} <!--------------------------------- INVOICE MODAL END ---------------------------------> {% endcomment %}
 
 
     </div>

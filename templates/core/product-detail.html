@@ -54,9 +54,9 @@
                                     <i class="fa-solid fa-star-sharp rated"></i>
                                     <i class="fa-solid fa-star-sharp"></i>
                                 </span>
-                                <span class="rating-amount">3 Reviews</span>
+                                {% comment %} <span class="rating-amount">3 Reviews</span> {% endcomment %}
                             </div>
-                            <p class="price"><span>Rs{{ p.old_price }}</span> Rs{{ p.price }}</p>
+                            <p class="price"><span>Rs {{ p.old_price }}</span> Rs {{ p.price }}</p>
                             <ul class="short-details">
                                 <li>Availability: <span>In stock, Custom-made</span></li>
                                 <li>Product Code: <span>{{ p.sku }}</span></li>
@@ -86,10 +86,15 @@
                                 </div>
                             </form>
                             <div class="btn-box">
-                                <button id="addToCart"><span><i class="fa-light fa-cart-shopping"></i></span> add to cart</button>
-                                <button id="addToWishList"><span><i class="fa-light fa-heart"></i></span> add to wishlist</button>
+                                <input type="hidden" value="1" name="" id="product-quantity" class="w-25 mb-20 product-quantity-{{p.id}}">
+                                <input type="hidden" class="product-pid-{{p.id}}" value="{{p.pid}}">
+                                <input type="hidden" class="product-image-{{p.id}}" value="{{p.image.url}}">
+                                <input type="hidden" class="product-id-{{p.id}}" value="{{ p.id }}">
+                                <input type="hidden" class="product-title-{{p.id}}" value="{{ p.title }}">
+                                <button id="addToCart" class="add-to-cart-btn" data-index="{{ p.id }}"><span><i class="fa-light fa-cart-shopping"></i></span> add to cart</button>
+                                <button class="add-to-wishlist" data-product-item="{{p.id}}" title="Wishlist"><span><i class="fa-light fa-heart"></i></span> add to wishlist</button>
                             </div>
-                            <div class="product-share">
+                            {% comment %} <div class="product-share">
                                 <span>Share Link:</span>
                                 <div class="social">
                                     <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
@@ -97,7 +102,7 @@
                                     <a href="#"><i class="fa-brands fa-google-plus-g"></i></a>
                                     <a href="#"><i class="fa-solid fa-rss"></i></a>
                                 </div>
-                            </div>
+                            </div> {% endcomment %}
                         </div>
                     </div>
                 </div>
@@ -107,7 +112,7 @@
                     <div class="nav" id="nav-tab" role="tablist">
                         <button class="nav-link active" id="nav-dscr-tab" data-bs-toggle="tab" data-bs-target="#nav-dscr" type="button" role="tab" aria-controls="nav-dscr" aria-selected="true">Description</button>
                         <button class="nav-link" id="nav-info-tab" data-bs-toggle="tab" data-bs-target="#nav-info" type="button" role="tab" aria-controls="nav-info" aria-selected="false">Information</button>
-                        <button class="nav-link" id="nav-review-tab" data-bs-toggle="tab" data-bs-target="#nav-review" type="button" role="tab" aria-controls="nav-review" aria-selected="false">Reviews</button>
+                        {% comment %} <button class="nav-link" id="nav-review-tab" data-bs-toggle="tab" data-bs-target="#nav-review" type="button" role="tab" aria-controls="nav-review" aria-selected="false">Reviews</button> {% endcomment %}
                     </div>
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
@@ -127,7 +132,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="nav-review" role="tabpanel" aria-labelledby="nav-review-tab" tabindex="0">
+                    {% comment %} <div class="tab-pane fade" id="nav-review" role="tabpanel" aria-labelledby="nav-review-tab" tabindex="0">
                         <div class="product-review">
                             <div class="review-overview">
                                 <div class="left">
@@ -276,8 +281,8 @@
                                 </div>
                                 {% endfor %}
                             </div>
-                        </div>
-                    </div>
+                        </div> 
+                    </div> {% endcomment %}
                 </div>
             </div>
         </div>
@@ -305,12 +310,17 @@
                                 <div class="cart-option cart-option-bottom">
                                     <ul>
                                         <li>
-                                            <a role="button" class="add-to-cart">
+                                            <a role="button" class="add-to-cart add-to-cart-btn" class="ec-btn-group add-to-cart-btn" data-index="{{ p.id }}">
+                                                <input type="hidden" value="1" name="" id="product-quantity" class="w-25 mb-20 product-quantity-{{p.id}}">
+                                                <input type="hidden" class="product-pid-{{p.id}}" value="{{p.pid}}">
+                                                <input type="hidden" class="product-image-{{p.id}}" value="{{p.image.url}}">
+                                                <input type="hidden" class="product-id-{{p.id}}" value="{{ p.id }}">
+                                                <input type="hidden" class="product-title-{{p.id}}" value="{{ p.title }}">
                                                 <i class="fa-light fa-cart-shopping"></i>
                                             </a>
                                         </li>
                                         <li>
-                                            <a role="button" class="add-to-wish">
+                                            <a role="button" class="add-to-wishlist" data-product-item="{{p.id}}" title="Wishlist">
                                                 <i class="fa-light fa-heart"></i>
                                             </a>
                                         </li>
@@ -338,7 +348,14 @@
                                     <i class="fa-solid fa-star-sharp rated"></i>
                                     <i class="fa-solid fa-star-sharp"></i>
                                 </div>
-                                <button class="add-to-cart-btn">Add to Cart</button>
+                                <span class="add-cart">
+                                    <input type="hidden" value="1" name="" id="product-quantity" class="w-25 mb-20 product-quantity-{{p.id}}">
+                                    <input type="hidden" class="product-pid-{{p.id}}" value="{{p.pid}}">
+                                    <input type="hidden" class="product-image-{{p.id}}" value="{{p.image.url}}">
+                                    <input type="hidden" class="product-id-{{p.id}}" value="{{ p.id }}">
+                                    <input type="hidden" class="product-title-{{p.id}}" value="{{ p.title }}">
+                                    <button type='submit' class="add-to-cart-btn" class="ec-btn-group add-to-cart-btn" data-index="{{ p.id }}"><i class="fa-solid fa-cart-shopping"></i></button>
+                                </span>
                             </div>
                         </div>
                         {% endfor %}

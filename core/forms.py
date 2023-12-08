@@ -1,7 +1,8 @@
 from django import forms
 from userauths.models import ContactUs
+from core.models import BalanceStatement
 
-from core.models import ProductReview, ProjectImage
+from core.models import ProductReview, ProjectImage, Document
 
 
 
@@ -21,6 +22,14 @@ class ProjectImageForm(forms.ModelForm):
         
 
 
+class BalanceStatementForm(forms.ModelForm):
+    class Meta:
+        model = BalanceStatement
+        fields = '__all__'
 
 
+class DocumentForm(forms.ModelForm):
+    class Meta:
+        model = Document
+        fields = ['description', 'document_number', 'file']
 

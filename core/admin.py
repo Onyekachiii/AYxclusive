@@ -1,5 +1,5 @@
 from django.contrib import admin
-from core.models import Product, ProductImages, Category, CartOrder, CartOrderProducts, ProductReview, WishList, Address, Quotation, EmailTemplate, Invoice, Receipts, ProjectImage, Wallet, WalletTransaction
+from core.models import Product, ProductImages, Category, CartOrder, CartOrderProducts, ProductReview, WishList, Address, Quotation, Invoice, Receipts, ProjectImage, Wallet, WalletTransaction, BalanceStatement, Document
 # from .utils import send_custom_email
 from django import forms
 from django.shortcuts import HttpResponseRedirect
@@ -23,14 +23,13 @@ class CategoryAdmin(admin.ModelAdmin):
     
     
 class CartOrderAdmin(admin.ModelAdmin):
-    list_editable = ['paid_status', 'product_status']
     list_display = ['user', 'price', 'paid_status', 'order_date', 'product_status']
     
 class CartOrderProductsAdmin(admin.ModelAdmin):
     list_display = ['order', 'invoice_no', 'item', 'image', 'qty', 'price', 'total']
 
-class ProductReviewAdmin(admin.ModelAdmin):
-    list_display = ['user', 'product', 'rating', 'review']
+# class ProductReviewAdmin(admin.ModelAdmin):
+#     list_display = ['user', 'product', 'rating', 'review']
 
 class WishListAdmin(admin.ModelAdmin):
     list_display = ['user', 'product']
@@ -43,7 +42,12 @@ class AddressAdmin(admin.ModelAdmin):
 
 class QuotationAdmin(admin.ModelAdmin):
     
-    list_display = ('user', 'quotation_number', 'payment_status')
+    list_display = ['user', 'quotation_number', 'is_approved']
+
+    def is_approved(self, obj):
+        return obj.approved  # Assuming your Quotation model has an 'approved' field
+    is_approved.boolean = True
+    is_approved.short_description = 'Approved'
 
 
 
@@ -53,9 +57,14 @@ class InvoiceAdmin(admin.ModelAdmin):
 
 
 
+class DocumentAdmin(admin.ModelAdmin):
+    
+    list_display = ('user', 'document_number')
+    
+    
 class ReceiptAdmin(admin.ModelAdmin):
     
-    list_display = ('user', 'receipt_number', 'payment_status')
+    list_display = ('user', 'receipt_number')
     
 
 class ProjectImageAdmin (admin.ModelAdmin):
@@ -79,13 +88,15 @@ class WalletAdmin(admin.ModelAdmin):
         wallet = Wallet.objects.get(pk=wallet_id)
         if request.method == 'POST':
             amount_to_add = Decimal(request.POST['amount'])
+            description = request.POST['description']  # Get the description from the form
             wallet.balance += amount_to_add
             wallet.save()
-            
+
             WalletTransaction.objects.create(
                 user=wallet.user,
                 transaction_type='addition',
-                amount=amount_to_add
+                amount=amount_to_add,
+                description=description  # Save the description in the WalletTransaction model
             )
             return redirect('admin:core_wallet_changelist')
         return render(request, 'admin/add_to_balance.html', {'wallet': wallet})
@@ -94,15 +105,16 @@ class WalletAdmin(admin.ModelAdmin):
         wallet = Wallet.objects.get(pk=wallet_id)
         if request.method == 'POST':
             amount_to_deduct = Decimal(request.POST['amount'])
+            description = request.POST['description']  # Get the description from the form
             wallet.balance -= amount_to_deduct
             wallet.save()
-            
+
             WalletTransaction.objects.create(
                 user=wallet.user,
                 transaction_type='deduction',
-                amount=amount_to_deduct
+                amount=amount_to_deduct,
+                description=description  # Save the description in the WalletTransaction model
             )
-            
             return redirect('admin:core_wallet_changelist')
         return render(request, 'admin/subtract_from_balance.html', {'wallet': wallet})
 
@@ -127,23 +139,39 @@ class WalletAdmin(admin.ModelAdmin):
         if 'subtract_from_balance_button' not in list_display:
             list_display.append('subtract_from_balance_button')
         return list_display
+    
 
+
+class WalletTransactionAdmin(admin.ModelAdmin):
+    list_display = ['user', 'transaction_type', 'amount', 'timestamp', 'get_description']
+
+    def get_description(self, obj):
+        # Assuming you have a description field in your WalletTransaction model
+        return obj.description
+
+    get_description.short_description = 'Description'
+
+
+class BalanceStatementAdmin(admin.ModelAdmin):
+    list_display = ['date', 'description', 'invoice_no', 'invoice_amount', 'paid_amount', 'balance_amount']
 
 
 
 admin.site.register(Wallet, WalletAdmin)
-# admin.site.register(WalletTransaction, WalletTransactionAdmin)
-admin.site.register(EmailTemplate)
+admin.site.register(WalletTransaction, WalletTransactionAdmin)
+# admin.site.register(EmailTemplate)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(CartOrder, CartOrderAdmin)
 admin.site.register(CartOrderProducts, CartOrderProductsAdmin)
-admin.site.register(ProductReview, ProductReviewAdmin)
+# admin.site.register(ProductReview, ProductReviewAdmin)
 admin.site.register(WishList, WishListAdmin)
 admin.site.register(Address, AddressAdmin)
 admin.site.register(Quotation, QuotationAdmin)
 admin.site.register(Invoice, InvoiceAdmin)
 admin.site.register(Receipts, ReceiptAdmin)
 admin.site.register(ProjectImage)
+admin.site.register(BalanceStatement, BalanceStatementAdmin)
+admin.site.register(Document, DocumentAdmin)
 
     

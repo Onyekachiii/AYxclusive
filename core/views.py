@@ -2,19 +2,23 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.template.loader import render_to_string
 from core.forms import ProductReviewForm, ProjectImageForm
-from core.models import Product, Category, ProductImages, ProductReview, Quotation, Invoice,Receipts, ProjectImage, Wallet, WalletTransaction
+from core.models import Product, Category, ProductImages, ProductReview, Quotation, Invoice,Receipts, ProjectImage, Wallet, WalletTransaction, BalanceStatement, Document, WishList, CartOrder, CartOrderProducts
 from django.contrib.auth.decorators import login_required
 from userauths.models import Profile, ContactUs
 from userauths.forms import ProfileForm
 from django.contrib import messages
 from django.http import HttpResponse, JsonResponse
 from decimal import Decimal
+from django.core import serializers
+from django.db.models import Count, Avg
+
 
 # For sending mails
 from django.conf import settings
 from django.core.mail import send_mail
 from django.core import mail
 from django.core.mail.message import EmailMessage
+from django.utils.html import strip_tags
 
 
 
@@ -129,28 +133,6 @@ def filter_product(request):
     return JsonResponse({"data":data})
 
 
-# @login_required
-# def create_transaction(request):
-#     # Debug information
-#     print("Create Transaction View Accessed")
-    
-#     # Create an addition transaction
-#     addition_transaction = WalletTransaction.objects.create(
-#         user=request.user,
-#         transaction_type='addition',
-#         amount=Decimal('1000.00')  # Set the actual amount
-#     )
-#     print(f"Addition Transaction Amount: {addition_transaction.amount}")
-
-#     # Create a deduction transaction
-#     deduction_transaction = WalletTransaction.objects.create(
-#         user=request.user,
-#         transaction_type='deduction',
-#         amount=Decimal('500.00')  # Set the actual amount
-#     )
-#     print(f"Deduction Transaction Amount: {deduction_transaction.amount}")
-
-#     return HttpResponse("Check the console for debug information")
 
 
 @login_required
@@ -185,7 +167,9 @@ def customer_dashboard(request):
         user_wallet = Wallet.objects.get(user=request.user)
         
         transactions = WalletTransaction.objects.filter(user=current_user).order_by('-timestamp')
-
+        statements = BalanceStatement.objects.filter(user=current_user).order_by('-date')
+        documents = Document.objects.filter(user=current_user)
+        
   
         quotations = Quotation.objects.filter(user=request.user)
         invoices = Invoice.objects.filter(user=request.user)
@@ -200,7 +184,9 @@ def customer_dashboard(request):
             'receipts': receipts,
             'image_form': image_form,
             'user_wallet': user_wallet,
-            'transactions': transactions
+            'transactions': transactions,
+            'statements': statements,
+            'documents': documents
         
         
         }
@@ -208,6 +194,37 @@ def customer_dashboard(request):
     
     else:
         return redirect('core:index')
+    
+    
+
+def approve_quotation(request, quotation_id):
+    try:
+        quotation = Quotation.objects.get(id=quotation_id, user=request.user)
+        
+
+        if request.method == 'POST':
+            # Perform the approval action
+            quotation.is_approved = True
+            quotation.save()
+
+            # Optionally, send a message to the Django admin
+            messages.info(request, f"Quotation {quotation.quotation_number} has been approved.")
+
+            # Send email to admin
+            subject = 'Quotation Approved'
+            user_name = request.user.get_full_name()  # Assuming your User model has a get_full_name method
+            message = render_to_string('email/admin_notification_email.html', {'quotation': quotation, 'user_name': user_name})
+            plain_message = strip_tags(message)  # Strip HTML tags for a plain text version
+            from_email = 'testingexclusive123@gmail.com'  # Use your own email here
+            to_email = 'stanleyonyekachiii@yahoo.com'  # Use your admin's email here
+
+            send_mail(subject, plain_message, from_email, [to_email], html_message=message)
+
+        # Redirect or return a response
+        return redirect('core:dashboard')
+
+    except Quotation.DoesNotExist:
+        return HttpResponse("Quotation not found or you don't have permission to approve it.")
 
 
 @login_required
@@ -226,77 +243,147 @@ def upload_image(request):
 
 
 
-# def simple_mail(request):
-    
-#     send_mail(subject='This is your subject', 
-#               message='This is your message', 
-#               from_email='django@mailtrap.club', 
-#               recipient_list=['test.mailtrap1234@gmail.com'],
-#               fail_silently=False
-#               )
-    
-#     return HttpResponse('Message sent')
-
-
-# def message_mail(request):
-    
-#     email= EmailMessage(subject='This is your subject', 
-#               message='This is your message', 
-#               from_email='django@mailtrap.club', 
-#               to=['test.mailtrap1234@gmail.com'],
-#               bcc = ['bcc@anotherbestuser.com'])
-    
-#     email.send()
-    
-#     return HttpResponse('Message sent')
-    
-
-
-
-
-# def send_success_email(data):
-#     subject = 'Thank You for Contacting Us'
-#     message = 'Thank you for contacting us. We will get back to you shortly.'
-#     from_email = 'your_email@example.com'  # Update with your email
-#     to_email = [data['email']]
-
-#     # You can customize the email content based on the form data
-#     context = {'first_name': data['first_name']}
-#     html_message = render_to_string('success_email_template.html', context)
-#     plain_message = strip_tags(html_message)
-
-#     send_mail(subject, plain_message, from_email, to_email, html_message=html_message, fail_silently=True)
-
-# # For contact form
-# def ajax_contact_form(request):
-#     first_name = request.GET['first_name']
-#     last_name = request.GET['last_name']
-#     email = request.GET['email']
-#     phone_number = request.GET['phone_number']
-#     address = request.GET['address']
-#     floor_level = request.GET['floor_level']
-#     furniture_type = request.GET['furniture_type']
-#     description = request.GET['description']
-    
-#     contact = ContactUs.objects.create(
-#         first_name = first_name,
-#         last_name = last_name,
-#         email = email,
-#         phone_number = phone_number,
-#         address = address,
-#         floor_level = floor_level,
-#         furniture_type = furniture_type,
-#         description = description
-#     )
-    
-#     data = {
-#         "bool": True,
-#         "message": "Thank you for reaching out, we will contact you shortly."
-#     }
-#     return JsonResponse({"data":data})
-
-
 
 def projects(request):
     images = ProjectImage.objects.all()
     return render(request, 'core/projects.html', {'images': images})
+
+
+
+# To add to wishlist
+def add_to_wishlist(request):
+    id = request.GET['id']
+    product = Product.objects.get(id=id)
+    
+    context = {}
+    
+    wishlist_count = WishList.objects.filter(user=request.user, product=product).count()
+    print(wishlist_count)
+    
+    if wishlist_count > 0:
+        context = {
+            "bool": True,
+        }
+    else:
+        new_wishlist = WishList.objects.create(
+            product = product,
+            user = request.user
+        )
+        context ={
+            "bool": True,
+        }
+    
+    return JsonResponse(context)
+
+# To view wishlist
+@login_required
+def wishlist_view(request):
+    wishlist = WishList.objects.filter(user=request.user)
+
+    context = {
+        "w" : wishlist,
+    }
+    return render(request, "core/wishlist.html", context)
+
+
+# To remove from wishlist
+@login_required
+def remove_from_wishlist(request):
+    pid = request.GET['id']
+    wishlist = WishList.objects.filter(user=request.user)
+    product = WishList.objects.get(id=pid)
+    product.delete()
+    
+    context = {
+        "bool" : True,
+        "w": wishlist,
+    }
+    wishlist_json = serializers.serialize('json', wishlist)
+    data = render_to_string("core/async/wishlist-list.html", context)
+    return JsonResponse({"data": data, "w": wishlist_json})
+
+
+# To add to cart
+def add_to_cart(request):
+    cart_product = {}
+    cart_product[str(request.GET['id'])] = {
+        'title': request.GET['title'],
+        'price': request.GET['price'],
+        'qty':  request.GET['qty'],
+        'image': request.GET['image'],
+        'pid': request.GET['pid'],
+    }
+    
+    if 'cart_data_obj' in request.session:
+        if str(request.GET['id']) in request.session['cart_data_obj']:
+            cart_data = request.session['cart_data_obj']
+            cart_data[str(request.GET['id'])]['qty'] = int(cart_product[str(request.GET['id'])]['qty'])
+            cart_data.update(cart_data)
+            request.session['cart_data_obj'] = cart_data
+            
+        else:
+            cart_data = request.session['cart_data_obj']
+            cart_data.update(cart_product)
+            request.session['cart_data_obj'] = cart_data
+    
+    else:
+        request.session['cart_data_obj'] = cart_product
+        
+    return JsonResponse({"data":request.session['cart_data_obj'], 'totalcartitems': len(request.session['cart_data_obj'])})
+
+
+# To list products in cart
+@login_required
+def cart_view(request):
+    cart_total_amount = 0
+    if 'cart_data_obj' in request.session:
+        for p_id, item in request.session['cart_data_obj'].items():
+            try:
+                cart_total_amount += int(item['qty']) * float(item['price'])
+            except ValueError:
+            # Handle the case where item['price'] is not a valid float
+                pass
+        return render(request, 'core/cart.html', {"cart_data":request.session['cart_data_obj'], 'totalcartitems': len(request.session['cart_data_obj']), 'cart_total_amount': cart_total_amount})
+    else:
+        messages.warning(request, "Your cart is empty")
+        return redirect('core:index')
+    
+    
+# To delete item from cart
+@login_required
+def delete_item_from_cart(request):
+    product_id = str(request.GET['id'])
+    if 'cart_data_obj' in request.session:
+        if product_id in request.session['cart_data_obj']:
+            cart_data = request.session['cart_data_obj']
+            del request.session['cart_data_obj'][product_id]
+            request.session['cart_data_obj'] = cart_data
+            
+    cart_total_amount = 0
+    if 'cart_data_obj' in request.session:
+        for product_id, item in request.session['cart_data_obj'].items():
+            cart_total_amount += int(item['qty']) * float(item['price']) 
+    
+    context = render_to_string("core/async/cart-list.html", {"cart_data":request.session['cart_data_obj'], 'totalcartitems': len(request.session['cart_data_obj']), 'cart_total_amount': cart_total_amount})
+    return JsonResponse({"data":context, 'totalcartitems': len(request.session['cart_data_obj'])})
+
+
+# To update cart
+@login_required
+def update_cart(request):
+    product_id = str(request.GET['id'])
+    product_qty = int(request.GET['qty'])
+    
+    if 'cart_data_obj' in request.session:
+        if product_id in request.session['cart_data_obj']:
+            cart_data = request.session['cart_data_obj']
+            cart_data[str(request.GET['id'])]['qty'] = product_qty
+            request.session['cart_data_obj'] = cart_data
+            
+    cart_total_amount = 0
+    if 'cart_data_obj' in request.session:
+        for product_id, item in request.session['cart_data_obj'].items():
+            cart_total_amount += int(item['qty']) * float(item['price']) 
+    
+    context = render_to_string("core/async/cart-list.html", {"cart_data":request.session['cart_data_obj'], 'totalcartitems': len(request.session['cart_data_obj']), 'cart_total_amount': cart_total_amount})
+    return JsonResponse({"data":context, 'totalcartitems': len(request.session['cart_data_obj'])})

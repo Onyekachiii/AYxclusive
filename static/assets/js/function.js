@@ -4,53 +4,156 @@ console.log("Hello World from function.js!")
 $(document).ready(function() {
     console.log("I'm in")
 
-    $(document).on("submit", "#contact-form-ajax", function(){
+    // Adding to wishlist
+    $(document).on("click", ".add-to-wishlist", function(){
+        let product_id = $(this).attr("data-product-item")
+        let this_val = $(this)
 
-        // e.preventDefault()
-        console.log("Contact us form submitted")
-    
-        let first_name = $("#first_name").val()
-        let last_name = $("#last_name").val()
-        let email = $("#email").val()
-        let phone_number = $("#phone_number").val()
-        let address = $("#address").val()
-        let floor_level = $("#floor_level").val()
-        let furniture_type = $("#furniture_type").val()
-        let description = $("#description").val()
-    
-        console.log("FIRST NAME: ", first_name)
-        console.log("LAST NAME: ", last_name)
-        console.log("EMAIL: ", email)
-        console.log("PHONE NUMBER: ", phone_number)
-        console.log("ADDRESS: ", address)
-        console.log("FLOOR LEVEL: ", floor_level)
-        console.log("FURNITURE TYPE: ", furniture_type)
-        console.log("DESCRIPTION: ", description)
-    
+        console.log("PRODUCT ID: ", product_id)
+
         $.ajax({
-            url: '/ajax-contact-form',
+            url: '/add-to-wishlist',
             data: {
-                'first_name': first_name,
-                'last_name': last_name,
-                'email': email,
-                'phone_number': phone_number,
-                'address': address,
-                'floor_level': floor_level,
-                'furniture_type': furniture_type,
-                'description': description,
+                'id': product_id,
             },
             dataType: 'json',
             beforeSend: function(){
-                console.log("Sending message...")
+                console.log("Adding to wishlist...")
             },
             success: function(response){
-                console.log("Message sent")
-                $("#contact-form-ajax").hide()
-                $("#message-response").html("Thank you for reaching out, we will contact you shortly.")
+                this_val.html("✓")
+                if (response.boolean === true){
+                    console.log("Added to wishlist")
+                }
+                
+            }
+        })
+
+    
+    })
+
+    // Removing from wishlist
+    $(document).on("click", ".delete-wishlist-product", function(){
+        let wishlist_id = $(this).attr("data-wishlist-product")
+        let this_val = $(this)
+
+        console.log("WISHLIST ID: ", wishlist_id)
+
+        $.ajax({
+            url: "/remove-from-wishlist",
+            data: {
+                'id': wishlist_id,
+            },
+            dataType: 'json',
+            beforeSend: function(){
+                console.log("Removing from wishlist...")
+            },
+            success: function(response){
+                $("#wishlist-list").html(response.data)
+            }
+        });
+    })
+
+
+    $(".add-to-cart-btn").on("click", function(){
+
+        let this_val = $(this)
+        let index = this_val.attr("data-index")
+        let quantity = $(".product-quantity-"+ index).val()
+        let product_title = $(".product-title-"+ index).val()
+        let product_image = $(".product-image-"+ index).val()
+        let product_pid = $(".product-pid-"+ index).val()
+        let product_id = $(".product-id-"+ index).val()
+        let product_price = $(".current-product-price-"+ index).text()
+    
+    
+        console.log("PRODUCT ID: ", product_id);
+        console.log("PRODUCT PID: ", product_pid);
+        console.log("PRODUCT QUANTITY: ", quantity);
+        console.log("PRODUCT IMAGE: ", product_image);
+        console.log("PRODUCT TITLE: ", product_title);
+        console.log("PRODUCT PRICE: ", product_price);
+    
+        $.ajax({
+            url: '/add-to-cart',
+            data: {
+                'id': product_id,
+                'pid': product_pid,
+                'qty': quantity,
+                'image': product_image,
+                'title': product_title,
+                'price': product_price
+            },
+            dataType: 'json',
+            beforeSend: function(){
+                console.log('Adding products to cart...');
+            },
+            success: function(response){
+                this_val.html("✓")
+                console.log('Added products to cart!');
+                $(".cart-items-count").text(response.totalcartitems)
+    
             }
         })
     })
-
+    
+    
+    // To delete items from cart page
+    
+    $(".delete-product").on("click", function(){
+    
+        let product_id = $(this).attr("data-product")
+        let this_val = $(this)
+        console.log("PRODUCT ID: ", product_id)
+    
+        $.ajax({
+            url:"/delete-from-cart",
+            data:{
+                "id":product_id,
+            },
+            dataType:'json',
+            beforeSend:function(){
+                this_val.hide();
+            },
+            success:function(response){
+                this_val.show();
+                $(".cart-items-count").text(response.totalcartitems)
+                $("#cart-list").html(response.data)
+            }
+        })
+    
+    });
+    
+    
+    // To update items from cart page
+    
+    $(".update-product").on("click", function(){
+    
+        let product_id = $(this).attr("data-product")
+        let this_val = $(this)
+        let product_qty = $(".product-qty-"+ product_id).val()
+    
+        console.log("PRODUCT ID: ", product_id);
+        console.log("PRODUCT QTY: ", product_qty);
+    
+        $.ajax({
+            url:'/update-cart',
+            data:{
+                'id':product_id,
+                'qty':product_qty,
+            },
+            dataType:'json',
+            beforeSend:function(){
+                this_val.hide()
+            },
+            success:function(response){
+                this_val.show()
+                $(".cart-items-count").text(response.totalcartitems)
+                $("#cart-list").html(response.data)
+            }
+        })
+    
+    });
 
 
 
@@ -83,6 +186,6 @@ $(document).ready(function() {
     // })
 
 
-    // Info from Contact Us page
+    
 
 });

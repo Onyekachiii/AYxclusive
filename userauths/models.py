@@ -14,7 +14,6 @@ class User(AbstractUser):
     bio = models.CharField(max_length=100, blank=True, null=True)
     house_address = models.CharField(max_length=100, blank=True, null=True)
     phonenumber = models.CharField(max_length=100, default="+230 1234 5678")
-    floorlevel = models.CharField(max_length=100, default="Ground Floor")
     city = models.CharField(max_length=100, default="Port Louis")
     country = models.CharField(max_length=100, default="Mauritius")
     is_email_verified=models.BooleanField(default=False)
@@ -30,8 +29,8 @@ class User(AbstractUser):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(upload_to="image", null=True, blank=True)
-    first_name = models.CharField(max_length=200, default="Firstname")
-    last_name = models.CharField(max_length=200, default="Lastname")
+    first_name = models.CharField(max_length=200, default="")
+    last_name = models.CharField(max_length=200, default="")
     bio = models.CharField(max_length=200, null=True, blank=True)
     phone = models.CharField(max_length=200, null=True, blank=True, default="+230 1234 5678")
     house_address = models.CharField(max_length=500, null=True, blank=True)

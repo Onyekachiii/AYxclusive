@@ -2,6 +2,9 @@ from django.db import models
 from shortuuid.django_fields import ShortUUIDField
 from django.utils.html import mark_safe
 from userauths.models import User, Profile
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 
 # from django.contrib.auth.models import User
 
@@ -85,9 +88,9 @@ class Product(models.Model):
     def __str__ (self):
         return self.title
     
-    # def get_percentage(self):
-    #     new_price = (self.old_price - self.price) / self.old_price * 100
-    #     return new_price
+    def get_percentage(self):
+        new_price = (self.old_price - self.price) / self.old_price * 100
+        return new_price
     
 class ProductImages(models.Model):
     product = models.ForeignKey(Product, related_name="product_images", on_delete=models.SET_NULL, null=True)
@@ -193,17 +196,13 @@ class Address(models.Model):
 # For Quotations
 class Quotation(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    quotation_number = ShortUUIDField(unique=True, length=10, max_length=20, prefix='quo_', alphabet="abc12345678")
+    quotation_number = models.CharField(max_length=20, unique=True)
     file = models.FileField(upload_to='quotations/')
     quotation_date = models.DateTimeField(auto_now_add=True)
     email_subject = models.CharField(max_length=255)
     email_body = models.TextField()
     sent = models.BooleanField(default=False)
-    payment_status = models.CharField(max_length=20, choices=[
-        ('unpaid', 'Unpaid'),
-        ('paid', 'Paid'),
-        ('part_paid', 'Part-Paid'),
-    ], default='unpaid')
+    is_approved = models.BooleanField(default=False)
     
     class Meta:
         verbose_name_plural = "Quotations"
@@ -211,7 +210,7 @@ class Quotation(models.Model):
 
 class Invoice(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    invoice_number = ShortUUIDField(unique=True, length=10, max_length=20, prefix='inv_', alphabet="abc12345678")
+    invoice_number = models.CharField(max_length=20, unique=True)
     file = models.FileField(upload_to='invoices/')
     invoice_date = models.DateTimeField(auto_now_add=True)
     email_subject = models.CharField(max_length=255)
@@ -229,32 +228,39 @@ class Invoice(models.Model):
 
 class Receipts(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    receipt_number = ShortUUIDField(unique=True, length=10, max_length=20, prefix='rct_', alphabet="abc12345678")
+    receipt_number = models.CharField(max_length=20, unique=True)
     file = models.FileField(upload_to='receipts/')
     receipt_date = models.DateTimeField(auto_now_add=True)
     email_subject = models.CharField(max_length=255)
     email_body = models.TextField()
     sent = models.BooleanField(default=False)
-    payment_status = models.CharField(max_length=20, choices=[
-        ('unpaid', 'Unpaid'),
-        ('paid', 'Paid'),
-        ('part_paid', 'Part-Paid'),
-    ], default='unpaid')
     
     class Meta:
         verbose_name_plural = "Receipts"
+        
+        
+class Document(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    description = models.CharField(max_length=255)
+    document_number = models.CharField(max_length=20, unique=True)
+    document_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    file = models.FileField(upload_to='documents/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.document_number} - {self.description}"
 
 
 # For Emails
-class EmailTemplate(models.Model):
-    email_template = models.CharField(max_length=255, unique=True, default='default_template')
-    subject = models.CharField(max_length=255)
-    message = models.TextField()
-    attachment = models.FileField(upload_to='email_attachments/', blank=True, null=True)
+# class EmailTemplate(models.Model):
+#     email_template = models.CharField(max_length=255, unique=True, default='default_template')
+#     subject = models.CharField(max_length=255)
+#     message = models.TextField()
+#     attachment = models.FileField(upload_to='email_attachments/', blank=True, null=True)
      
 
-    def __str__(self):
-        return self.email_template
+#     def __str__(self):
+#         return self.email_template
     
     
 
@@ -265,6 +271,7 @@ class ProjectImage(models.Model):
 
     def __str__(self):
         return self.description
+
 
 
 # For Wallet 
@@ -290,10 +297,38 @@ class WalletTransaction(models.Model):
     transaction_type = models.CharField(max_length=10, choices=TRANSACTION_CHOICES)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     timestamp = models.DateTimeField(auto_now_add=True)
+    description = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return f'{self.user.username} - {self.transaction_type} - {self.amount} - {self.timestamp}'
+    
+
+@receiver(post_save, sender=User)
+def create_wallet_for_user(sender, instance, created, **kwargs):
+    if created:
+        # Check if a Wallet doesn't already exist for the user
+        if not hasattr(instance, 'wallet'):
+            Wallet.objects.create(user=instance)
+
+# Connect the signal receiver
+post_save.connect(create_wallet_for_user, sender=User)
 
 
+class BalanceStatement(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    date = models.DateField()
+    description = models.CharField(max_length=255)
+    invoice_no = models.CharField(max_length=50)
+    invoice_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    paid_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    balance_amount = models.DecimalField(max_digits=10, decimal_places=2)
 
+    def __str__(self):
+        return f"{self.date} - {self.description} - {self.invoice_no}"
+    
+    
+@receiver(post_save, sender=User)
+def create_balance_statement(sender, instance, created, **kwargs):
+    if created:
+        BalanceStatement.objects.create(user=instance)
 
