@@ -39,7 +39,6 @@ class AddressAdmin(admin.ModelAdmin):
     list_display = ['user', 'address', 'status']
     
 
-
 class QuotationAdmin(admin.ModelAdmin):
     
     list_display = ['user', 'quotation_number', 'is_approved']
@@ -50,10 +49,9 @@ class QuotationAdmin(admin.ModelAdmin):
     is_approved.short_description = 'Approved'
 
 
-
 class InvoiceAdmin(admin.ModelAdmin):
     
-    list_display = ('user', 'invoice_number', 'payment_status')
+    list_display = ('user', 'invoice_number', 'amount_to_be_paid')
 
 
 

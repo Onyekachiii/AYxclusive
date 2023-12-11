@@ -12,11 +12,11 @@
             <div class="row justify-content-between align-items-center">
                 <div class="col-lg-6 col-md-9 col-8">
                     <div class="breadcrumb-txt">
-                        <h1>Contact Us</h1>
+                        <h1>Requests</h1>
                         <ul>
                             <li><a href="{% url 'core:index' %}"><i class="fa-regular fa-house"></i></a></li>
                             <li>/</li>
-                            <li>Contact Us </li>
+                            <li>Requests </li>
                         </ul>
                     </div>
                 </div>
@@ -40,15 +40,18 @@
                             <strong>{{ form.errors }}</strong>
                         </div>
                         {% endif %}
-                        <h2>Contact Us</h2>
-                        <p>Drop us a line or two and we will get back to you</p>
-                        <form class="login-form" method="POST" action="">
+                        <h2>Request Custom Made Furniture</h2>
+                        </br>
+                        <p>Need custom made furniture to suit your needs? Tell us about it.</p>
+                        </br>
+                        <form class="login-form" method="post" action="{% url 'userauths:submit_custom_furniture_request' %}">
                             {% csrf_token %}
-                            <div class = form-field mb-30>
-                                {{ form.as_p }}
+                            <div class = form-field mb-30 >
+                                {{ form.as_p}}
+
                             </div>
-                                                        
-                            <button class="def-btn btn-border" type="submit">Submit</button>
+                                
+                            <button class="def-btn btn-border" type="submit">Submit Request</button>
                         </form>
                     </div>
                 </div>

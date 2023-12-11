@@ -113,7 +113,7 @@
             <li><a href="{% url "core:cart" %}" class="m-nav-link"><i class="fa-light fa-cart-shopping"></i></a></li>
             <li><a href="{% url "core:index" %}" class="center"><i class="fa-light fa-house"></i></a></li>
             <li><a href="{% url "core:dashboard" %}" class="m-nav-link"><i class="fa-light fa-user-large"></i></a></li>
-            <li><a href="{% url "core:wishlist" %}" class="dropdown-item">Wishlist Page</a></li>
+            <li><a href="{% url "core:wishlist" %}" class="dropdown-item"><i class="fa-light fa-heart"></i></a></li>
             <li><a role="button" data-target="m-main-menu" class="m-nav-link"><i class="fa-light fa-ellipsis-stroke"></i></a></li>
         </ul>
     </div>
@@ -124,9 +124,9 @@
         <div class="top-header">
             <div class="container">
                 <ul class="top-header-link justify-content-center justify-content-sm-end flex-wrap">
-                    <li><a href="mailto:sales@ayxclusive.com">sales@ayxclusive.com</a></li>
+                    <li><a href="mailto:ay.xclusive@outlook.com">ay.xclusive@outlook.com</a></li>
                     <li><a href="tel:+230 5914 4325">+230 5914 4325</a></li>
-                    {% comment %} <li><a href="#">Track Order</a></li> {% endcomment %}
+                
                 </ul>
             </div>
         </div>
@@ -263,6 +263,10 @@
 {% endblock content %}
 
     {% comment %} <!--------------------------------- FEATURES SECTION START ---------------------------------> {% endcomment %}
+    <div>
+        <a href="{% url 'userauths:custom_furniture_request' %}" class="floating-button">Request Custom Furniture</a>
+    </div>
+    
     <div class="features" id="feature">
         <div class="container">
             <div class="panel panel-shadow px-0">
@@ -374,8 +378,10 @@
                                 <li><a href="{% url 'core:about-us' %}">About Us</a></li>
                                 <li><a href="{% url 'userauths:contact' %}">Contact Us</a></li>
                                 <li><a href="{% url "core:dashboard" %}">Dashboard</a></li>
-                                <li><a href="#">Terms Of Use</a></li>
-                                
+                                <li><a href="{% url "core:terms-and-conditions" %}">Terms Of Use</a></li>
+                                <li><a href="{% url "core:FAQ" %}">FAQ</a></li>
+                                <li><a href="{% url "core:returns-and-cancellations" %}">Returns and cancellations</a></li>
+                                <li><a href="{% url "core:privacy-policy" %}">Privacy Policy</a></li>
                             </ul>
                         </div>
                         <div class="footer-link">
@@ -386,6 +392,8 @@
                                 <li><a href="{% url "core:wishlist" %}">Wishlist</a></li>
                                 <li><a href="{% url "userauths:sign-in" %}">Login</a></li>
                                 <li><a href="{% url "core:dashboard" %}">Personal Info</a></li>
+                                <li><a href="{% url "core:warranty-policy" %}">Warranty Policy</a></li>
+                                <li><a href="{% url "core:refund-policy" %}">Refund Policy</a></li>
                             </ul>
                         </div>
                     </div>

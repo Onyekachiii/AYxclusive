@@ -20,11 +20,13 @@ urlpatterns = [
     
     path('activate/<uidb64>/<token>', views.activate, name='activate'),
     
+    
+    # for custom furniture requests
+    path('custom_furniture_request/', views.custom_furniture_request, name='custom_furniture_request'),
+   path('submit_custom_furniture_request/', views.submit_custom_furniture_request, name='submit_custom_furniture_request'),
+    
 
 
-
-
-  
     
     
 ]

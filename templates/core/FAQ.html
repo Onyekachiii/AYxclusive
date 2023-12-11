@@ -1,0 +1,573 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+
+
+{% comment %} <!--------------------------------- BANNER SECTION START ---------------------------------> {% endcomment %}
+    <div class="banner banner-inner">
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-lg-6 col-md-9 col-8">
+                    <div class="breadcrumb-txt">
+                        <h1>FAQ Page</h1>
+                        <ul>
+                            <li><a href="{% url "core:index" %}"><i class="fa-regular fa-house"></i></a></li>
+                            <li>/</li>
+                            <li>FAQ</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-3 col-4">
+                    <div class="part-img">
+                        <img src="assets/images/breadcrumb-img.png" alt="Image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% comment %} <!--------------------------------- BANNER SECTION END ---------------------------------> {% endcomment %}
+
+
+
+    {% comment %} <!--------------------------------- FAQ SECTION START ---------------------------------> {% endcomment %}
+    <div class="faq py-120">
+        <div class="container">
+            <div class="heading text-center">
+                <h2>COMPANY INFORMATION</h2>
+            </div>
+            <div class="accordion" id="faqAccordion">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                    <span class="txt">What is AY exclusive all about?</span>
+                                    <span class="icon"><i class="fa-regular fa-minus"></i></span>
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <p>At AY Exclusive, we take great pride in delivering personalized solutions to transform your space into a masterpiece. As a dedicated online service provider, our primary focus is to cater to your unique requirements and preferences.
+
+                                        </br></br>
+                                        Here's what sets us apart:
+                                        
+                                        <ul></br>
+                                            <li>Tailored Quotations: Your vision is our priority. We carefully consider your requests and provide bespoke quotations that perfectly align with your needs and budget.</li>
+                                            </br>
+                                            <li>Customized Designs: We believe your space should reflect your personality. Our expert designers craft unique and fitting designs that elevate the aesthetics and functionality of your environment.</li>
+                                            </br>
+                                            <li>Seamless Delivery and Installation: Your convenience matters to us. With our door-to-door delivery and professional installation services, you can enjoy your newly furnished space without any additional hassle or cost.</li>
+                                            </br>
+                                            <li>Modern Age Furnishing: Embracing innovation, we bring the modern age of interior furnishing right to your doorstep. Experience the latest trends and designs that complement contemporary living.</li>
+                                            </br>
+                                        </ul>
+                                        Transform your space with AY Exclusive and let us create a living experience that speaks volumes about you.
+                                        
+                                        </br></br>
+                                        
+                                        Discover the art of personalized furnishing – start your journey with AY Exclusive today!</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    <span class="txt">Where are you located?</span>
+                                    <span class="icon"><i class="fa-regular fa-plus"></i></span>
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <p>At AY Exclusive, we take immense pride in delivering top-notch services directly to your doorstep. In this digital era, we believe in bringing comfort and convenience to our valued customers. From the comfort of your home, you can experience our exceptional range of furniture and interior solutions.
+
+                                        </br>
+
+                                        However, if you prefer a more hands-on experience and wish to witness the true quality of our exquisite furniture without any frills, we extend a warm invitation to visit our workshop. Located in St. Paul Mesnil, just in front of the post office, our workshop is a testament to our commitment to craftsmanship and attention to detail.
+                                        
+                                        </br>
+                                        
+                                        To schedule a visit and explore our workshop, kindly reach out to us at Ay.exclusive@outlook.com, and our team will be delighted to arrange a time that suits your convenience.
+                                        
+                                        </br>
+                                        
+                                        Experience the art of modern furnishing at AY Exclusive - Where your comfort and satisfaction are at the heart of everything we do.
+                                        
+                                        </br>
+                                        
+                                        We look forward to welcoming you!</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="col-md-6">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    <span class="txt">Is your company registered?</span>
+                                    <span class="icon"><i class="fa-regular fa-plus"></i></span>
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <p>Our company is registered under BRN in Mauritius and copyright till 2031. You can find more information About us.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </br></br>
+        <div class="container">
+            <div class="heading text-center">
+                <h2>ORDERING</h2>
+            </div>
+            <div class="accordion" id="faqAccordion">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                    <span class="txt">How do i purchase?</span>
+                                    <span class="icon"><i class="fa-regular fa-minus"></i></span>
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <ul></br>
+                                        <li>Request a Quotation: Share your furnishing requirements with us, and our skilled designers will carefully analyze the space you wish to furnish. Based on your needs, we will present a design proposal that perfectly complements your vision.</li>
+
+                                        </br>
+                                        <li>Receive Your Quotation: Our team of professionals will review the proposed design and provide valuable feedback. We will then send you a detailed quotation directly to your email, ensuring transparency and clarity in the process.</li>
+                                        </br>
+
+                                        <li>3D Design Presentation: Immerse yourself in the creative process with our engaging 3D design presentation. You can either visit our workshop or opt for a convenient meeting at your location. During the presentation, we will collaborate to refine the design according to your preferences, be it material selection, design form, height adjustment, and more.<li>
+                                        </br>
+
+                                        <li>Confirm Your Order: Once you're delighted with the finalized design, we will provide you with an estimated delivery date. If everything suits your requirements, an invoice will be issued, and you can proceed by making a reservation payment of 40% of the total quotation cost.</li>
+                                        </br>
+
+                                        <li>Experience Hassle-Free Delivery: Sit back and relax as we handle the rest! We'll ensure a smooth delivery process, bringing your dream furniture right to your doorstep. Your satisfaction is our top priority, and we take pride in providing a seamless experience.</li>
+                                        </br>
+
+                                        <li>Lastly, if our service exceeds your expectations, we kindly invite you to share your feedback on our Facebook page. Your 5-star rating will motivate us to continue delivering exceptional service to valued customers like you.</li>
+
+                                        </br>
+
+                                        Unlock the AY Exclusive experience today - Your perfect furnishing journey awaits!
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    <span class="txt">What materials do we use?</span>
+                                    <span class="icon"><i class="fa-regular fa-plus"></i></span>
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <p>At AY Exclusive, we take pride in offering a diverse range of materials to cater to our customers' unique needs and preferences. Our selection includes:</p>
+                                        <br>
+                                        <ul>
+
+                                            <li>Laminated Plywood Melamine: This material combines the sturdiness of plywood with a laminated surface, providing durability and ease of maintenance. It comes in various finishes, offering a wide array of design options.</li>
+                                        
+                                        
+                                            <li>Lacquered Surface Plywood Melamine: Offering a sleek and sophisticated look, lacquered surface plywood melamine is perfect for those seeking a contemporary and stylish appeal. It's known for its smooth and matte finish.</li>
+                                        
+                                        
+                                            <li>PVC: PVC, or polyvinyl chloride, is a versatile material that provides a cost-effective option without compromising on quality. It is known for its durability and resistance to moisture, making it ideal for certain applications.</li>
+                                        
+                                        
+                                            <li>Aluminum: We also utilize aluminum for certain components, especially in modern and minimalist designs. Aluminum offers a lightweight yet robust solution with a sleek finish.</li>
+                                        </ul>
+                                            </br>
+                                            Our experienced designers and craftsmen can guide you in selecting the ideal materials based on your budget, the purpose of the furniture, and the desired aesthetics. Whether you seek a budget-friendly solution or a luxurious, high-end finish, we have the materials to match your vision.
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="col-md-6">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    <span class="txt">Are the colours accurate?</span>
+                                    <span class="icon"><i class="fa-regular fa-plus"></i></span>
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <p>Ensuring Your Full Satisfaction: A Note on Color Accuracy</p>
+
+                                        </br></br>
+
+                                    <p>We understand the importance of providing an accurate representation of our products, and we strive to showcase them as faithfully as possible through 3D renderings and pictures. However, it's essential to acknowledge that certain external factors, such as sun rays and interior lighting, can influence how materials appear in images.</p>
+                                        
+                                </br>
+                                        
+                                    <p>While our 3D presentations are designed to closely envision the selected materials and help you visualize the final product, we want to be transparent about the possibility of slight variations between the visuals and reality.</p>
+                                        
+                                </br>
+                                        
+                                    <p>To address this and guarantee that you receive exactly what you envision, we offer the option to request a material sample. If you wish to see and feel the materials firsthand before making a decision, kindly reach out to us via email at sales@ayxclusive.com. We will be more than happy to arrange the delivery of a sample directly to you.</p>
+                                        
+                                        
+                                </br>
+                                    <p>At AY Exclusive, your satisfaction is our utmost priority, and we want you to feel confident in your choices. Rest assured, our team is here to assist you throughout the process, ensuring a delightful and personalized furnishing experience.</p>
+                                        
+                                        
+                                </br>
+                                    <p>Should you have any inquiries or need further assistance, don't hesitate to contact us. We look forward to bringing your furnishing dreams to life with precision and care.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    <span class="txt">Can i cancel my order?</span>
+                                    <span class="icon"><i class="fa-regular fa-plus"></i></span>
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <p>At AY Exclusive, we understand that circumstances may change, and you may need to cancel your order. We are pleased to offer a straightforward order cancellation policy to accommodate your needs.</p>
+
+                                        </br></br>
+
+                                    <ul></br>
+                                        <li>Cancellation Window: Orders can be canceled as long as they have not yet been shipped. If you wish to cancel your order, please contact our dedicated Customer Service team as soon as possible.
+
+                                        </br>
+                                        <li>Restocking or Delivery Fee: In some cases, if the order is canceled after it has already been picked up for delivery, there may be a restocking fee or delivery fee applicable. Our team will provide you with all relevant details and assist you throughout the process.
+                                        </br>
+
+                                        <li>Refund Process: For canceled orders, your refund will be processed into your wallet account. This will allow you to conveniently use the refunded amount for future purchases with AY Exclusive.
+                                    
+                                    </ul></br>
+
+                                        <p>We value your privacy and commitment to providing a secure shopping experience. For further details on our privacy policy and how we handle personal information, we encourage you to review our Privacy Policy page on our website.</p>
+
+
+
+                                        <p>Should you have any questions or need assistance with order cancellation or any other inquiries, our Customer Service team is ready to assist you promptly. Your satisfaction is our priority, and we are dedicated to making your furnishing journey a seamless and enjoyable one.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </br></br>
+        <div class="container">
+            <div class="heading text-center">
+                <h2>DELIVERY</h2>
+            </div>
+            <div class="accordion" id="faqAccordion">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                    <span class="txt">How much is delivery to my location?</span>
+                                    <span class="icon"><i class="fa-regular fa-minus"></i></span>
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body"></br>
+                                    <p>We take immense pride in offering complimentary delivery services for the majority of our products. Your convenience is our priority, and we strive to make the process as seamless as possible.</p>
+                                    </br></br>
+                                    <p>Here's how it works:</p>
+                                    <ul></br></br>
+                                        <li><b>Free Delivery:</b> For most items in our collection, delivery to your doorstep is absolutely free of charge within the Mauritius island. Simply let us know where you want your items delivered, and our efficient delivery team will handle the rest.</li>
+                                    </br>
+
+                                        <li><b>Item-Specific Delivery:</b> For certain select items that may require specialized handling or installation, specific delivery details will be clearly specified on the product page. In such cases, we will work closely with you to ensure the smooth delivery of your order.</li>
+
+                                    </br>
+                                        <p>No matter your location, be it a residential address, office, or any preferred destination, we are fully equipped to deliver to a wide range of locations.</p>
+
+                                    </br>
+                                        <p>At AY Exclusive, we are committed to providing an unparalleled shopping experience, from selecting your ideal furnishings to delivering them right to your doorstep. Sit back, relax, and let us take care of the delivery for you.</p>
+                                    </br>
+                                        <p>If you have any inquiries or specific delivery preferences, our dedicated customer support team is here to assist you. Your satisfaction is our top priority, and we can't wait to deliver exceptional service and furniture to you!</p>
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    <span class="txt">Will my product be assembled for me?</span>
+                                    <span class="icon"><i class="fa-regular fa-plus"></i></span>
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <p>For assemble-yourself furniture, your order will arrive with all the necessary pieces, accompanied by a comprehensive assembly manual. This way, you can easily put together the furniture at your own pace and convenience.</p>
+                                    
+                                    <p>On the other hand, we understand that certain furniture items, such as kitchens, walk-in closets, wardrobes, and pieces that demand specific expertise, may require professional assembly and installation. Rest assured, our highly skilled team is ready to take care of the assembly and installation process for you at no additional cost.</p>
+
+                                    <p>We want you to enjoy your new furniture to its fullest potential, and that's why we go the extra mile to ensure a flawless and expertly executed installation.</p>
+
+                                    <p>Feel free to sit back and relax while our team handles everything for you, ensuring that your furniture is assembled and installed to the highest standards.</p>
+                                </div>
+                            </div>
+                        </div>
+                                                
+                    </div>
+                    <div class="col-md-6">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    <span class="txt">How soon is delivery done?</span>
+                                    <span class="icon"><i class="fa-regular fa-plus"></i></span>
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <p>At AY Exclusive, we take pride in our efficient production process, ensuring that your project is completed with the utmost care and attention to detail. No matter how big the project, our dedicated team works diligently to have it ready within a maximum of 2 weeks from start to finish.</p>
+
+                                    
+
+                                    <p>While we strive to meet our production timeline consistently, delivery may be subject to slight delays due to our schedule and commitments to other valued customers. Rest assured, transparency is vital to us, and we will always communicate the next possible date of delivery before you make any downpayment.</p>
+                                        
+                                        
+                                        
+                                    <p>Your satisfaction is our priority, and we want to provide you with a smooth and enjoyable experience throughout the furnishing process. Our team will keep you informed every step of the way, ensuring you are well-informed and confident in your decision.</p>
+                                        
+                                        
+                                        
+                                    <p>If you have any inquiries or concerns regarding production or delivery timelines, please do not hesitate to reach out to our customer support team. We are here to assist you and make your furnishing journey a delightful one.</p>
+                                        
+                                        
+                                        
+                                    <p>At AY Exclusive, we look forward to bringing your vision to life with precision and efficiency.</p>
+                                        
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </br></br>
+        <div class="container">
+            <div class="heading text-center">
+                <h2>WARRANTY & RETURNS</h2>
+            </div>
+            <div class="accordion" id="faqAccordion">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                    <span class="txt">How do i confirm my product is authentic?</span>
+                                    <span class="icon"><i class="fa-regular fa-minus"></i></span>
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <p>You can confirm your product by making sure you order from our original sites, Each product comes with a QR code. On delivery of product, scan the QR code and it will direct you its respective reference page on our website. Every product is unique and they are treated as such.</p>
+                                
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    <span class="txt">What happens to the registration of the product when i sell it?</span>
+                                    <span class="icon"><i class="fa-regular fa-plus"></i></span>
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <p>Your product can be resold and registration of it will be updated. The new owner needs to have an account with us then leave us a mail requesting for change of ownership. We shall ask few questions to authenticate it is the original product from AY exclusive and we shall update product page and access. </p>
+                                    
+                                   
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    <span class="txt">Do you have warranty on your products?</span>
+                                    <span class="icon"><i class="fa-regular fa-plus"></i></span>
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <p>At AY Exclusive, we take pride in providing exceptional quality and stand behind the craftsmanship of our products. To ensure your confidence in your purchases, each product comes with a comprehensive warranty, which is accounted for and displayed on the product page.</p>
+
+                                    
+
+                                    <p>The warranty countdown is a unique feature that can only be accessed through the owner's account. When you make a purchase, the product's warranty details will be visible to you on the product page. It serves as a convenient reference, allowing you to keep track of the remaining warranty period.</p>
+                                        
+                                        
+                                        
+                                    <p>In the event of an exchange, rest assured that the warranty countdown on the product page will seamlessly transition to the new owner. We believe in transparency and ensuring that our customers' interests are protected throughout their ownership journey.</p>
+                                        
+                                        
+                                        
+                                    <p>Our <a href="{% url 'core:warranty-policy' %}">warranty policy</a> provides coverage for specified periods, offering peace of mind and assurance that your investment is safeguarded against potential manufacturing defects or material issues.</p>
+                                        
+                                        
+                                        
+                                    <p>If you have any questions or need further information about our warranty coverage or any other inquiries, our dedicated customer support team is ready to assist you promptly.</p>
+                                        
+                                    <p>At AY Exclusive, we value your trust in our products and are committed to providing you with a worry-free and delightful furnishing experience.</p>
+                                </div>
+                            </div>
+                        </div>
+                                                
+                    </div>
+                    <div class="col-md-6">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    <span class="txt">Can I return my product once it has been delivered?</span>
+                                    <span class="icon"><i class="fa-regular fa-plus"></i></span>
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <p>Our products are well detailed in terms of materials, dimensions and functionality. Please ask us what more details you need on a product before you place your order. Order can be canceled and money refunded into your wallet before order is marked as delivery in progress. Once order is marked as delivery in progress, and we receive a mail to cancel such order, even though delivery is free, we will deduct delivery fees from the total sum for inconveniency and the balance shall be refunded into your wallet. once order is marked as delivered, it is sealed, order is not refundable. </p>
+                                 
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    <span class="txt">What happens if an item arrives damaged?</span>
+                                    <span class="icon"><i class="fa-regular fa-plus"></i></span>
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <p>Products are to be checked well and good within 24 hours after delivery. If any product is reported to be defected within 24 hours, AY exclusive will take full responsibility of retrieval and delivery of another of our exclusive product. </p>
+
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </br></br>
+        <div class="container">
+            <div class="heading text-center">
+                <h2>PAYMENT & PRICING</h2>
+            </div>
+            <div class="accordion" id="faqAccordion">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                    <span class="txt">What kind of payments do you accept?</span>
+                                    <span class="icon"><i class="fa-regular fa-minus"></i></span>
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <p>You can pay for your exclusive product via bank transfer, juice or means as specified on the invoice or payment gateway. </p>
+                                
+                                </div>
+                            </div>
+                        </div>
+                                                
+                    </div>
+                    <div class="col-md-6">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    <span class="txt">Do you accept payment on delivery?</span>
+                                    <span class="icon"><i class="fa-regular fa-plus"></i></span>
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <p>We do not accept payment on delivery for few reasons</p>
+                                    <ul>
+                                        <li>Our receipt and orders are done on our website, electronic generated and recorded</li>
+                                        <li>Our platform policy is based on payment through your wallet. It helps us maintain order and record of sales</li>
+                                        <li>Products are registered before delivery</li>
+                                    <ul>
+
+                                    <p>Please see How to be exclusive for more details on payment</p>
+                                    
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </br></br>
+        <div class="container">
+            <div class="heading text-center">
+                <h2>SPECIAL ORDER</h2>
+            </div>
+            <div class="accordion" id="faqAccordion">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                    <span class="txt">Do you make custom order?</span>
+                                    <span class="icon"><i class="fa-regular fa-minus"></i></span>
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <p>Yes we make custom design and orders. head to projects and ask for quotation.</p>
+                                
+                                </div>
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+                    <div class="col-md-6">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    <span class="txt">Do you offer discounts?</span>
+                                    <span class="icon"><i class="fa-regular fa-plus"></i></span>
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <p>Our products are fixed prices as they are well considerate relating to the quality and value it carries. Our projects quotation on the other hand can be considered after adjusted to economy taste.</p>
+                                                                       
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        </br></br>
+        <div class= "container">
+            <p>Have more questions, do not hesitate to ask us a click away. Contact Us</p>
+        </div>
+    </div>
+
+
+    {% comment %} <!--------------------------------- FAQ SECTION END ---------------------------------> {% endcomment %}
+
+
+{% endblock content %}

@@ -156,6 +156,29 @@ $(document).ready(function() {
     });
 
 
+    $(document).ready(function () {
+        // Function to check if both checkboxes are checked
+        function areCheckboxesChecked() {
+            return $('#refundCheckbox').prop('checked') && $('#termsCheckbox').prop('checked');
+        }
+
+        // Enable/disable button based on checkbox status
+        $('#refundCheckbox, #termsCheckbox').change(function () {
+            $('#paymentMadeBtn').prop('disabled', !areCheckboxesChecked());
+        });
+
+        // Handle button click
+        $('#paymentMadeBtn').click(function () {
+            if (areCheckboxesChecked()) {
+                // Proceed with payment made action
+                // You can add your logic here
+                alert('Payment Made!');
+            } else {
+                alert('Please check both checkboxes before proceeding.');
+            }
+        });
+    });
+
 
     // $(".filter-checkbox").on("click", function(){
     //     console.log("a checkbox has been clicked")
@@ -189,3 +212,6 @@ $(document).ready(function() {
     
 
 });
+
+                        
+        

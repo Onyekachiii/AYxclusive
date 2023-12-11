@@ -149,6 +149,17 @@ img {
   color: #ffffff;
 }
 
+.floating-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px;
+  background-color: #012f15;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
 .home-2 .def-btn {
   background: #e9b808;
 }

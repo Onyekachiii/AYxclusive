@@ -195,6 +195,12 @@ def customer_dashboard(request):
     else:
         return redirect('core:index')
     
+def display_payment_details(request, invoice_id):
+    print("Invoice ID:", invoice_id)
+    invoice = get_object_or_404(Invoice, pk=invoice_id)
+    print("Invoice Data:", invoice.__dict__)
+
+    return render(request, 'core:dashboard.html', {'invoice': invoice})
     
 
 def approve_quotation(request, quotation_id):
@@ -387,3 +393,52 @@ def update_cart(request):
     
     context = render_to_string("core/async/cart-list.html", {"cart_data":request.session['cart_data_obj'], 'totalcartitems': len(request.session['cart_data_obj']), 'cart_total_amount': cart_total_amount})
     return JsonResponse({"data":context, 'totalcartitems': len(request.session['cart_data_obj'])})
+
+
+def warranty_policy(request):
+    return render(request, 'core/warranty-policy.html')
+
+def refund_policy(request):
+    return render(request, 'core/refund-policy.html')
+
+def returns_and_cancellations(request):
+    return render(request, 'core/returns-and-cancellations.html')
+
+def privacy_policy(request):
+    return render(request, 'core/privacy-policy.html')
+
+def terms_and_conditions(request):
+    return render(request, 'core/terms-and-conditions.html')
+
+def faq_view(request):
+    return render(request, 'core/FAQ.html')
+
+
+def confirm_payment(request, invoice_id):
+
+
+    try:
+        invoice = Invoice.objects.get(id=invoice_id, user=request.user)
+        
+
+        if request.method == 'POST':
+            
+
+            # Optionally, send a message to the Django admin
+            messages.info(request, f"Invoice {invoice.invoice_number} has been approved.")
+
+            # Send email to admin
+            subject = 'Invoice Payment made'
+            user_name = request.user.get_full_name()  # Assuming your User model has a get_full_name method
+            message = render_to_string('email/payment_made_admin_notification.txt', {'invoice': invoice, 'user_name': user_name})
+            plain_message = strip_tags(message)  # Strip HTML tags for a plain text version
+            from_email = 'testingexclusive123@gmail.com'  # Use your own email here
+            to_email = 'stanleyonyekachiii@yahoo.com'  # Use your admin's email here
+
+            send_mail(subject, plain_message, from_email, [to_email], html_message=message)
+
+        # Redirect or return a response
+        return redirect('core:dashboard')
+
+    except Invoice.DoesNotExist:
+        return HttpResponse("Invoice not found or you don't have permission to pay for it.")

@@ -215,9 +215,10 @@
                                         <tbody>
                                             <tr>
                                                 <td><a href="{{ invoice.file.url }}"download><span class="invoice-id">{{ invoice.invoice_number }}</span></a></td>
-                                                <td><span class="date">{{ invoice.Invoice_date }}</span></td>
+                                                <td><span class="date">{{ invoice.invoice_date }}</span></td>
                                                 <td><a href="{{ invoice.file.url }}"download><span class="invoice-id">Download file</span></a></td>
-                                                <td><span class="invoice"><button class="def-btn" type="button" data-bs-toggle="modal" data-bs-target="#invoiceModal">Proceed</button></span></td>
+                                                <td><span class="invoice"><button class="def-btn" type="button" data-bs-toggle="modal" data-bs-target="#invoiceModal">Approve</button></span></td> 
+                                                
                                             </tr>
                                         </tbody>
                                         {% endfor %}
@@ -439,7 +440,7 @@
             <div class="modal-dialog modal-dialog-centered modal-xl">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h2 class="account-title mb-0" id="invoiceModalLabel">User Policies</h2>
+                        <h2 class="account-title mb-0" id="invoiceModalLabel">Approve Invoice and proceed to make payment</h2>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -447,57 +448,72 @@
                             <div class="invoice-top d-flex justify-content-between align-items-center">
                                 <div class="left">
                                     <div class="logo"><img src="{% static 'assets/images/logos/AY11.png' %}" alt="LOGO"></div>
-                                    <p>User Policies</p>
+                                    <p>Please refer to the policies below and check the boxes before proceeding to payment </p>
                                 </div>
                                 
                             </div>
                             <div class="invoice-body">
                                 
                                 <div class="items">
-                                    <div class="table-responsive">
-                                        <table class="table table-borderless">
-                                            <thead>
-                                                <tr>
-                                                    <th>Item ID</th>
-                                                    <th class="text-center">Qty</th>
-                                                    <th>Description</th>
-                                                    <th class="text-end">Amount</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>35130092</td>
-                                                    <td class="text-center">1</td>
-                                                    <td>Revel eCommerce-Multi vendor Ecommerce PSD Template</td>
-                                                    <td class="text-end"><span class="price">$8.00</span></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="termsCheckbox">
+                                        <label class="form-check-label" for="termsCheckbox">
+                                          I agree to the <a href="{% url 'core:terms-and-conditions'%}">"Terms and Conditions"</a>
+                                        </label>
                                     </div>
-                                    <div class="total ms-auto">
-                                        <h5>Invoice Total: <span>USD $8.00</span></h5>
-                                        <p>Paid via Skrill</p>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="refundCheckbox">
+                                        <label class="form-check-label" for="refundCheckbox">
+                                          I agree to the <a href="{% url 'core:refund-policy'%}">"Refund Policy"</a>
+                                        </label>
                                     </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="warrantyCheckbox">
+                                        <label class="form-check-label" for="warrantyCheckbox">
+                                          I agree to the <a href="{% url 'core:warranty-policy'%}">"Warranty Policy"</a>
+                                        </label>
+                                    </div>
+                                      
                                 </div>
                             </div>
                             <div class="invoice-footer">
-                                <span>THANK YOU FOR YOUR BUSINESS!</span>
+                                <span>Proceed to make payment</span>
+                            </div>
+                            
+                            <div class="invoice-body">
+                                <p>Account name: <b>{{ invoice.account_name }}</b></p>
+                                <p>Account number: <b>{{ invoice.account_number }}</b></p>
+                                <p>Amount to be Paid: <b>Rs {{ invoice.amount_to_be_paid }}</b></p>
+                            </div>
+                            
+                            
+                            <div class="invoice-footer">
+                                <span>Please click on the "Payment made" button below after sending payment</span>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="def-btn">Print <i class="fa-regular fa-print"></i></button>
-                        <button type="button" class="def-btn">Download <i class="fa-regular fa-download"></i></button>
+                        {% if invoice %}
+                        <form method="post" action="{% url 'core:confirm_payment' invoice_id=invoice.id %}">
+                            {% csrf_token %}
+                            <!-- Your form fields and other elements -->
+                            <button class="def-btn" type="submit" id="paymentMadeBtn" disabled>Payment made</button>
+                        </form> 
+                        {% else %}
+                            <p> No invoice available <p>
+                        {% endif %}
+                        {% comment %} <button class="def-btn" type="submit" id="paymentMadeBtn" disabled>Payment made</button> {% endcomment %}
                     </div>
+                     
                 </div>
             </div>
         </div>
         {% comment %} <!--------------------------------- INVOICE MODAL END ---------------------------------> {% endcomment %}
 
+        
 
-    </div>
+        
     {% comment %} <!--------------------------------- ACCOUNT END ---------------------------------> {% endcomment %}
-
 
 
 {% endblock content %}

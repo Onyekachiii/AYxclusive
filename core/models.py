@@ -213,8 +213,9 @@ class Invoice(models.Model):
     invoice_number = models.CharField(max_length=20, unique=True)
     file = models.FileField(upload_to='invoices/')
     invoice_date = models.DateTimeField(auto_now_add=True)
-    email_subject = models.CharField(max_length=255)
-    email_body = models.TextField()
+    amount_to_be_paid = models.DecimalField(max_digits=10, decimal_places=2, default="0.00")
+    account_name = models.TextField(default="Assemble Yourself Exclusive furnitures ltd")
+    account_number = models.TextField(default="MCB Acct: 000449502171")
     sent = models.BooleanField(default=False)
     payment_status = models.CharField(max_length=20, choices=[
         ('unpaid', 'Unpaid'),
@@ -224,6 +225,7 @@ class Invoice(models.Model):
     
     class Meta:
         verbose_name_plural = "Invoices"
+            
 
 
 class Receipts(models.Model):
@@ -250,17 +252,6 @@ class Document(models.Model):
     def __str__(self):
         return f"{self.document_number} - {self.description}"
 
-
-# For Emails
-# class EmailTemplate(models.Model):
-#     email_template = models.CharField(max_length=255, unique=True, default='default_template')
-#     subject = models.CharField(max_length=255)
-#     message = models.TextField()
-#     attachment = models.FileField(upload_to='email_attachments/', blank=True, null=True)
-     
-
-#     def __str__(self):
-#         return self.email_template
     
     
 

@@ -1,6 +1,6 @@
 from audioop import reverse
 from django.shortcuts import render, redirect
-from userauths.forms import UserRegisterForm, ContactFormForm
+from userauths.forms import UserRegisterForm, ContactFormForm, CustomFurnitureRequestForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.conf import settings
@@ -15,7 +15,7 @@ from .utils import account_activation_token
 
 from django.contrib.auth.tokens import default_token_generator
 from django.http import HttpResponse
-
+from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site  
 from django.contrib.auth.models import User  
 from django.core.mail import EmailMessage  
@@ -33,23 +33,6 @@ from django.contrib.sites.shortcuts import get_current_site
 
 User = settings.AUTH_USER_MODEL
 
-# def send_activation_email(user, request):
-#     current_site = get_current_site(request)
-#     email_subject = 'Activate your account'
-#     email_body= render_to_string ('userauths/acc_active_email.html',{
-#                                 'user':user,
-#                                 'domain':current_site,
-#                                 'uid':urlsafe_base64_encode(force_bytes(user.pk)),
-#                                 'token': default_token_generator.make_token(user)
-                                
-#     })
-    
-    
-#     email= EmailMessage(subject=email_subject, body=email_body, from_email=settings.EMAIL_FROM_USER, 
-#                         to=[user.email]
-#                         )
-
-#     email.send()
     
 
 def activateEmail(request, user, to_email):
@@ -68,36 +51,6 @@ def activateEmail(request, user, to_email):
     else:
         messages.error(request, f'Problem sending confirmation email to {to_email}, check if you typed it correctly.')
 
-# To register users
-# def register_view(request):
-#     if request.method == "POST":
-#         form = UserRegisterForm(request.POST)
-#         if form.is_valid():
-#             user = form.save(commit=False)
-#             user.is_active = False
-#             inactive_user = send_verification_email(request, form)
-#             # user.save()
-
-#             current_site = get_current_site(request)
-#             mail_subject = 'Activate your account'
-#             message = render_to_string('userauths/acc_active_email.html', {
-#                 'user': user,
-#                 'domain': current_site.domain,
-#                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-#                 'token': default_token_generator.make_token(user),
-#             })
-#             to_email = form.cleaned_data.get('email')
-#             email = EmailMessage(
-#                 mail_subject, message, to=[to_email]
-#             )
-#             email.send()
-
-#             messages.success(request, "Please confirm your email address to complete the registration.")
-#             return redirect('core:index')
-#     else:
-#         form = UserRegisterForm()
-
-#     return render(request, 'userauths/sign-up.html', {'form': form})
 
 
 def register_view(request):
@@ -141,8 +94,6 @@ def activate(request, uidb64, token):
         messages.error(request, 'Activation link is invalid!')
     
     return redirect('core:index')
-
- 
 
 
 
@@ -189,3 +140,32 @@ def contact_us(request):
 
     return render(request, 'userauths/contact_us.html', {'form': form})
 
+@login_required
+def custom_furniture_request(request):
+    user = request.user
+    initial_data = {
+        'first_name': user.first_name,
+        'last_name': user.last_name,
+        'email': user.email,
+        'phone': user.phone,
+    }
+
+    form = CustomFurnitureRequestForm(initial=initial_data)
+
+    return render(request, 'userauths/custom_furniture_request.html', {'form': form})
+
+
+
+def submit_custom_furniture_request(request):
+    if request.method == 'POST':
+        form = CustomFurnitureRequestForm(request.POST)
+        if form.is_valid():
+            # Handle form submission, e.g., send an email, save to the database, etc.
+            # Redirect to a thank-you page or the home page
+            form.save()
+            messages.success(request, f"Thank you for contacting us, we will get back to you shortly!")   
+            return redirect('core:index')
+    else:
+        form = CustomFurnitureRequestForm()
+
+    return render(request, 'userauths:custom_furniture_request', {'form': form})

@@ -1,5 +1,5 @@
 from django.urls import path
-from core.views import index, about_us, category_list_view, product_list_view, product_detail_view, category_product_list_view, customer_dashboard, search_view, filter_product, upload_image, projects, approve_quotation, wishlist_view, add_to_wishlist, remove_from_wishlist, add_to_cart, cart_view, delete_item_from_cart, update_cart
+from core.views import index, about_us, category_list_view, product_list_view, product_detail_view, category_product_list_view, customer_dashboard, search_view, filter_product, upload_image, projects, approve_quotation, wishlist_view, add_to_wishlist, remove_from_wishlist, add_to_cart, cart_view, delete_item_from_cart, update_cart, warranty_policy, refund_policy, returns_and_cancellations, privacy_policy, terms_and_conditions, faq_view, confirm_payment
 
 
 app_name = 'core'
@@ -39,7 +39,7 @@ urlpatterns = [
     path('projects/', projects, name='projects'),
     
     
-     # Wishlist page URL
+    # Wishlist page URL
     path('wishlist/', wishlist_view, name='wishlist'),
     
     # Adding to wishlist
@@ -61,6 +61,28 @@ urlpatterns = [
     # Update items in cart
     path('update-cart/', update_cart, name='update-cart'),
     
+    
+    # Warranty Policy
+    path('warranty-policy/', warranty_policy, name='warranty-policy'),
+    
+    
+    # Refund Policy
+    path('refund-policy/', refund_policy, name='refund-policy'),
+    
+    
+    # Returns and cancellations
+    path('returns-and-cancellations/', returns_and_cancellations, name='returns-and-cancellations'),
+    
+    
+    # Privacy Policy
+    path('privacy-policy/', privacy_policy, name='privacy-policy'),
 
-
+    
+    # Terms and conditions
+    path('terms-and-conditions/', terms_and_conditions, name='terms-and-conditions'),
+    
+    # FAQ
+    path('FAQ/', faq_view, name='FAQ'),
+    
+    path('confirm_payment/<int:invoice_id>/', confirm_payment, name='confirm_payment'),
 ]
