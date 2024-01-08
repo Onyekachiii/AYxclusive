@@ -151,7 +151,7 @@ class WalletTransactionAdmin(admin.ModelAdmin):
 
 
 class BalanceStatementAdmin(admin.ModelAdmin):
-    list_display = ['date', 'description', 'invoice_no', 'invoice_amount', 'paid_amount', 'balance_amount']
+    list_display = ['user', 'date', 'description', 'invoice_no', 'invoice_amount', 'paid_amount', 'balance_amount']
 
 
 

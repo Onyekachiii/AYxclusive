@@ -211,12 +211,12 @@
                                             </tr>
                                         </thead>
                                         
-                                        {% for invoice in invoices %}
+                                        {% for i in invoice %}
                                         <tbody>
                                             <tr>
-                                                <td><a href="{{ invoice.file.url }}"download><span class="invoice-id">{{ invoice.invoice_number }}</span></a></td>
-                                                <td><span class="date">{{ invoice.invoice_date }}</span></td>
-                                                <td><a href="{{ invoice.file.url }}"download><span class="invoice-id">Download file</span></a></td>
+                                                <td><a href="{{ i.file.url }}"download><span class="invoice-id">{{ i.invoice_number }}</span></a></td>
+                                                <td><span class="date">{{ i.invoice_date }}</span></td>
+                                                <td><a href="{{ i.file.url }}"download><span class="invoice-id">Download file</span></a></td>
                                                 <td><span class="invoice"><button class="def-btn" type="button" data-bs-toggle="modal" data-bs-target="#invoiceModal">Approve</button></span></td> 
                                                 
                                             </tr>
@@ -476,14 +476,27 @@
                                       
                                 </div>
                             </div>
+
+                            <script>
+                                $(document).ready(function () {
+                                    // Enable/disable button based on checkbox status
+                                    $('#termsCheckbox, #refundCheckbox, #warrantyCheckbox').change(function () {
+                                        var allChecked = $('#termsCheckbox').prop('checked') && $('#refundCheckbox').prop('checked') && $('#warrantyCheckbox').prop('checked');
+                                        $('#paymentMadeBtn').prop('disabled', !allChecked);
+                                    });
+                                });
+                            </script>
+
                             <div class="invoice-footer">
                                 <span>Proceed to make payment</span>
                             </div>
                             
                             <div class="invoice-body">
-                                <p>Account name: <b>{{ invoice.account_name }}</b></p>
-                                <p>Account number: <b>{{ invoice.account_number }}</b></p>
-                                <p>Amount to be Paid: <b>Rs {{ invoice.amount_to_be_paid }}</b></p>
+                                {% for invoice in invoice %}
+                                    <p>Account name: <b>{{ invoice.account_name }}</b></p>
+                                    <p>Account number: <b>{{ invoice.account_number }}</b></p>
+                                    <p>Amount to be Paid: <b>Rs {{ invoice.amount_to_be_paid }}</b></p>
+                                {% endfor %}
                             </div>
                             
                             
@@ -494,15 +507,15 @@
                     </div>
                     <div class="modal-footer">
                         {% if invoice %}
-                        <form method="post" action="{% url 'core:confirm_payment' invoice_id=invoice.id %}">
+                        <form method="POST" action="">
                             {% csrf_token %}
                             <!-- Your form fields and other elements -->
                             <button class="def-btn" type="submit" id="paymentMadeBtn" disabled>Payment made</button>
-                        </form> 
+                        </form>
                         {% else %}
-                            <p> No invoice available <p>
+                        <p> No invoice available <p>
                         {% endif %}
-                        {% comment %} <button class="def-btn" type="submit" id="paymentMadeBtn" disabled>Payment made</button> {% endcomment %}
+                    
                     </div>
                      
                 </div>

@@ -23,7 +23,7 @@ urlpatterns = [
     
     # for custom furniture requests
     path('custom_furniture_request/', views.custom_furniture_request, name='custom_furniture_request'),
-   path('submit_custom_furniture_request/', views.submit_custom_furniture_request, name='submit_custom_furniture_request'),
+    # path('submit_custom_furniture_request/', views.submit_custom_furniture_request, name='submit_custom_furniture_request'),
     
 
 

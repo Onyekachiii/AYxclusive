@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.conf import settings
 from verify_email.email_handler import send_verification_email
 # from core.utils import send_custom_email
-from userauths.models import ContactUs
+from userauths.models import ContactUs, Profile
 from verify_email.email_handler import send_verification_email
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
@@ -31,12 +31,14 @@ from django.contrib.sites.shortcuts import get_current_site
 
 
 
+
+
 User = settings.AUTH_USER_MODEL
 
     
 
 def activateEmail(request, user, to_email):
-    mail_subject = 'Activate your user account.'
+    mail_subject = 'Activate your AY Exclusive user account.'
     message = render_to_string('userauths/template_activate_account.html', {
         'user': user.username,
         'domain': get_current_site(request).domain,
@@ -50,6 +52,7 @@ def activateEmail(request, user, to_email):
             received activation link to confirm and complete the registration. Note: Check your spam folder.')
     else:
         messages.error(request, f'Problem sending confirmation email to {to_email}, check if you typed it correctly.')
+
 
 
 
@@ -113,7 +116,7 @@ def login_view(request):
             return redirect("core:index")
             
         else:
-            messages.warning(request, f"User with {email} does not exist, Create an account")        
+            messages.warning(request, f"Invalid email and/or password, dont have an account? Create an account")        
     
     return render(request, "userauths/sign-in.html")
     
@@ -142,30 +145,44 @@ def contact_us(request):
 
 @login_required
 def custom_furniture_request(request):
-    user = request.user
-    initial_data = {
-        'first_name': user.first_name,
-        'last_name': user.last_name,
-        'email': user.email,
-        'phone': user.phone,
-    }
+    
+    if request.method == 'POST':
+        form = CustomFurnitureRequestForm(request.POST)
+        if form.is_valid():
+            form.instance.user = request.user
+            form.save()
+            
+            messages.success(request, 'Your custom furniture request has been submitted successfully.')
+            return redirect('core:dashboard')  # Change 'dashboard' to the appropriate URL
+    else:
+        # Get the user's profile
+        user_profile = Profile.objects.get(user=request.user)
 
-    form = CustomFurnitureRequestForm(initial=initial_data)
+        # Prepopulate form fields with user profile data
+        form_data = {
+            'first_name': user_profile.user.first_name,
+            'last_name': user_profile.user.last_name,
+            'email': user_profile.user.email,
+            'phone': user_profile.phone,  # Assuming phone is a field in your Profile model
+        }
+
+        # Create the form and pass the prepopulated data
+        form = CustomFurnitureRequestForm(initial=form_data)
 
     return render(request, 'userauths/custom_furniture_request.html', {'form': form})
 
 
 
-def submit_custom_furniture_request(request):
-    if request.method == 'POST':
-        form = CustomFurnitureRequestForm(request.POST)
-        if form.is_valid():
-            # Handle form submission, e.g., send an email, save to the database, etc.
-            # Redirect to a thank-you page or the home page
-            form.save()
-            messages.success(request, f"Thank you for contacting us, we will get back to you shortly!")   
-            return redirect('core:index')
-    else:
-        form = CustomFurnitureRequestForm()
+# def submit_custom_furniture_request(request):
+#     if request.method == 'POST':
+#         form = CustomFurnitureRequestForm(request.POST)
+#         if form.is_valid():
+#             # Handle form submission, e.g., send an email, save to the database, etc.
+#             # Redirect to a thank-you page or the home page
+#             form.save()
+#             messages.success(request, f"Thank you for contacting us, we will get back to you shortly!")   
+#             return redirect('core:index')
+#     else:
+#         form = CustomFurnitureRequestForm()
 
-    return render(request, 'userauths:custom_furniture_request', {'form': form})
+    # return render(request, 'userauths:custom_furniture_request', {'form': form})

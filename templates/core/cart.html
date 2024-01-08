@@ -110,14 +110,14 @@
                                                     <input class="form-check-input shipping-check" type="radio" name="shippingMode" id="storePickup" checked>
                                                     <span class="sub-input"><i class="fa-regular fa-check"></i></span>
                                                     <label class="form-check-label" for="storePickup">
-                                                        Store pickup (in 20 minutes) - FREE
+                                                        Need the products customized to your taste?
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
                                                     <input class="form-check-input shipping-check" type="radio" name="shippingMode" id="homeDelivery">
                                                     <span class="sub-input"><i class="fa-regular fa-check"></i></span>
                                                     <label class="form-check-label" for="homeDelivery">
-                                                        Delivery at home (2 - 4 day) - $2.00 <span>1206 Sussex Court, Killeen, TX - 76541</span>
+                                                        Delivery at home - <span>(We will send you a quotation soon)</span>
                                                     </label>
                                                 </div>
                                             </div>
@@ -125,9 +125,9 @@
                                         <div class="col-md-6">
                                             <div class="calculate-area">
                                                 <ul>
-                                                    <li>Sub Total <span class="price-txt">$<span class="sub-total">1026</span></span></li>
-                                                    <li>Shipping <span class="price-txt" id="shippingFee"><span class="text-success">Free</span></span></li>
-                                                    <li class="total-price-wrap">Total <span class="price-txt">$<span id="totalPrice">1026</span></span></li>
+                                                    <li>Sub Total <span class="price-txt">$<span class="sub-total">{{ cart_total_amount|floatformat:2 }}</span></span></li>
+                                                    {% comment %} <li>Shipping <span class="price-txt" id="shippingFee"><span class="text-success">Free</span></span></li> {% endcomment %}
+                                                    <li class="total-price-wrap">Total <span class="price-txt">Rs<span id="totalPrice">{{ cart_total_amount|floatformat:2 }}</span></span></li>
                                                 </ul>
                                                 <button class="def-btn tab-next-btn" id="proceedToCheckout">Proceed to checkout <i class="fa-light fa-cart-circle-check"></i></button>
                                             </div>
@@ -478,8 +478,8 @@
                                         <div class="total-clone">
                                             <ul>
                                                 <li>Sub Total <span class="price-txt">$<span class="sub-total-2">1026</span></span></li>
-                                                <li>Shipping <span class="price-txt" id="shippingFee2"><span class="text-success">Free</span></span></li>
-                                                <li class="total-price-wrap">Total <span class="price-txt">$<span id="totalPrice2">1026</span></span></li>
+                                                {% comment %} <li>Shipping <span class="price-txt" id="shippingFee2"><span class="text-success">Free</span></span></li> {% endcomment %}
+                                                <li class="total-price-wrap">Total <span class="price-txt">Rs<span id="totalPrice2">1026</span></span></li>
                                             </ul>
                                         </div>
                                         <div class="payment-option">

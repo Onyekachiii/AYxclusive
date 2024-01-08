@@ -172,7 +172,7 @@ def customer_dashboard(request):
         
   
         quotations = Quotation.objects.filter(user=request.user)
-        invoices = Invoice.objects.filter(user=request.user)
+        invoice = Invoice.objects.filter(user=request.user)
         receipts = Receipts.objects.filter(user=request.user)
     
         context = {
@@ -180,14 +180,13 @@ def customer_dashboard(request):
             'form': form,
             'profile': profile,
             'quotations' : quotations,
-            'invoices': invoices,
+            'invoice': invoice,
             'receipts': receipts,
             'image_form': image_form,
             'user_wallet': user_wallet,
             'transactions': transactions,
             'statements': statements,
             'documents': documents
-        
         
         }
         return render (request, "core/dashboard.html", context)
@@ -201,6 +200,37 @@ def display_payment_details(request, invoice_id):
     print("Invoice Data:", invoice.__dict__)
 
     return render(request, 'core:dashboard.html', {'invoice': invoice})
+
+
+def confirm_payment(request, invoice_id):
+    # if request.method == 'POST':
+    #     invoice_id = request.POST.get('invoice_id')
+
+    try:
+        invoice = Invoice.objects.get(id=invoice_id, user=request.user)
+        
+
+        if request.method == 'POST':
+            
+
+            # Optionally, send a message to the Django admin
+            messages.info(request, f"Invoice {invoice.invoice_number} has been approved.")
+
+            # Send email to admin
+            subject = 'Invoice Payment made'
+            user_name = request.user.get_full_name()  # Assuming your User model has a get_full_name method
+            message = render_to_string('email/payment_made_admin_notification.txt', {'invoice': invoice, 'user_name': user_name})
+            plain_message = strip_tags(message)  # Strip HTML tags for a plain text version
+            from_email = 'testingexclusive123@gmail.com'  # Use your own email here
+            to_email = 'stanleyonyekachiii@yahoo.com'  # Use your admin's email here
+
+            send_mail(subject, plain_message, from_email, [to_email], html_message=message)
+
+        # Redirect or return a response
+        return redirect('core:dashboard')
+
+    except Invoice.DoesNotExist:
+        return HttpResponse("Invoice not found or you don't have permission to pay for it.")
     
 
 def approve_quotation(request, quotation_id):
@@ -231,6 +261,9 @@ def approve_quotation(request, quotation_id):
 
     except Quotation.DoesNotExist:
         return HttpResponse("Quotation not found or you don't have permission to approve it.")
+
+
+
 
 
 @login_required
@@ -344,11 +377,8 @@ def cart_view(request):
     cart_total_amount = 0
     if 'cart_data_obj' in request.session:
         for p_id, item in request.session['cart_data_obj'].items():
-            try:
-                cart_total_amount += int(item['qty']) * float(item['price'])
-            except ValueError:
-            # Handle the case where item['price'] is not a valid float
-                pass
+            if item['qty'] and item['price']:
+                cart_total_amount += int(item['qty']) * float(item['price'])   
         return render(request, 'core/cart.html', {"cart_data":request.session['cart_data_obj'], 'totalcartitems': len(request.session['cart_data_obj']), 'cart_total_amount': cart_total_amount})
     else:
         messages.warning(request, "Your cart is empty")
@@ -394,7 +424,6 @@ def update_cart(request):
     context = render_to_string("core/async/cart-list.html", {"cart_data":request.session['cart_data_obj'], 'totalcartitems': len(request.session['cart_data_obj']), 'cart_total_amount': cart_total_amount})
     return JsonResponse({"data":context, 'totalcartitems': len(request.session['cart_data_obj'])})
 
-
 def warranty_policy(request):
     return render(request, 'core/warranty-policy.html')
 
@@ -412,33 +441,3 @@ def terms_and_conditions(request):
 
 def faq_view(request):
     return render(request, 'core/FAQ.html')
-
-
-def confirm_payment(request, invoice_id):
-
-
-    try:
-        invoice = Invoice.objects.get(id=invoice_id, user=request.user)
-        
-
-        if request.method == 'POST':
-            
-
-            # Optionally, send a message to the Django admin
-            messages.info(request, f"Invoice {invoice.invoice_number} has been approved.")
-
-            # Send email to admin
-            subject = 'Invoice Payment made'
-            user_name = request.user.get_full_name()  # Assuming your User model has a get_full_name method
-            message = render_to_string('email/payment_made_admin_notification.txt', {'invoice': invoice, 'user_name': user_name})
-            plain_message = strip_tags(message)  # Strip HTML tags for a plain text version
-            from_email = 'testingexclusive123@gmail.com'  # Use your own email here
-            to_email = 'stanleyonyekachiii@yahoo.com'  # Use your admin's email here
-
-            send_mail(subject, plain_message, from_email, [to_email], html_message=message)
-
-        # Redirect or return a response
-        return redirect('core:dashboard')
-
-    except Invoice.DoesNotExist:
-        return HttpResponse("Invoice not found or you don't have permission to pay for it.")

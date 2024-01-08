@@ -22,6 +22,8 @@ urlpatterns = [
     # Customer Dashboard
     path('dashboard/', customer_dashboard, name='dashboard'),
     
+    path('confirm_payment/<int:invoice_id>', confirm_payment, name='confirm_payment'),
+    
     # To approve quotations
     path('approve_quotation/<int:quotation_id>/', approve_quotation, name='approve_quotation'),
     
@@ -84,5 +86,5 @@ urlpatterns = [
     # FAQ
     path('FAQ/', faq_view, name='FAQ'),
     
-    path('confirm_payment/<int:invoice_id>/', confirm_payment, name='confirm_payment'),
+    
 ]

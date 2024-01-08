@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="{% static 'assets/vendor/css/flip-clock.css' %}">
     <link rel="stylesheet" href="{% static 'assets/vendor/css/owl.carousel.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+
+    <script src="https://code.tidio.co/your-unique-id.js" async></script>
 </head>
 
 <body class="rev-16-body">
@@ -94,6 +96,9 @@
                 </li>
                 <li class="nav-item">
                     <a href="{% url 'core:projects' %}" class="nav-link">Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'userauths:custom_furniture_request' %}" class="nav-link">Request Custom Furniture</a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pages</a>
@@ -228,6 +233,10 @@
                                                 <a class="nav-link" href="{% url 'core:projects' %}">Projects</a>
                                                 
                                             </li>
+
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="{% url 'userauths:custom_furniture_request' %}">Request Custom Furniture</a>
+                                            </li>
                                         </ul>
                                     </nav>
                                 </div>
@@ -263,8 +272,10 @@
 {% endblock content %}
 
     {% comment %} <!--------------------------------- FEATURES SECTION START ---------------------------------> {% endcomment %}
-    <div>
-        <a href="{% url 'userauths:custom_furniture_request' %}" class="floating-button">Request Custom Furniture</a>
+    <div class="floating-button">
+        {% comment %} <a href="{% url 'userauths:custom_furniture_request' %}" class="floating-button">Request Custom Furniture</a> {% endcomment %}
+        <a href="{% url 'userauths:custom_furniture_request' %}" ><i class="fa solid fa-envelope-open-text"></i>
+        <span>Request Custom Furniture</span></a>
     </div>
     
     <div class="features" id="feature">
@@ -425,7 +436,7 @@
                         </p>
                         
                         <input type="" name="" placeholder="Click here">
-                        <button><a href="{% url 'userauths:contact' %}"><i class="fa-solid fa-paper-plane"></i></a></button>
+                        <button><a href="{% url 'userauths:custom_furniture_request' %}"><i class="fa-solid fa-paper-plane"></i></a></button>
                         
                     </div>
                 </div>

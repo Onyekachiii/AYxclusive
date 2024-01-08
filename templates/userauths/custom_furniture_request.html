@@ -44,7 +44,7 @@
                         </br>
                         <p>Need custom made furniture to suit your needs? Tell us about it.</p>
                         </br>
-                        <form class="login-form" method="post" action="{% url 'userauths:submit_custom_furniture_request' %}">
+                        <form class="login-form" method="post" action="">
                             {% csrf_token %}
                             <div class = form-field mb-30 >
                                 {{ form.as_p}}

@@ -151,8 +151,19 @@ img {
 
 .floating-button {
   position: fixed;
-  bottom: 20px;
+  bottom: 60px;
   right: 20px;
+  padding: 10px;
+  background-color: #012f15;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.floating-button-2{
+  position: fixed;
+  bottom: 60px;
+  left: 20px;
   padding: 10px;
   background-color: #012f15;
   color: #fff;
@@ -7172,6 +7183,23 @@ div.product-title a:hover {
   .single-product h6 {
     font-size: 12px;
   }
+}
+
+/* Add this to your CSS file or style tag */
+.custom-furniture-request {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.custom-furniture-request i {
+  font-size: 24px; /* Adjust the size of the icon */
+  margin-bottom: 5px;
+}
+
+.custom-furniture-request span {
+  font-size: 12px; /* Adjust the size of the text */
 }
 
 /*----- INDEX-6 CATEGORIES -----*/

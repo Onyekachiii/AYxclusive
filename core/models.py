@@ -1,3 +1,4 @@
+from datetime import timezone
 from django.db import models
 from shortuuid.django_fields import ShortUUIDField
 from django.utils.html import mark_safe
@@ -225,6 +226,9 @@ class Invoice(models.Model):
     
     class Meta:
         verbose_name_plural = "Invoices"
+        
+    def __str__(self):
+        return f"Invoice {self.id}"
             
 
 
@@ -307,12 +311,12 @@ post_save.connect(create_wallet_for_user, sender=User)
 
 class BalanceStatement(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    date = models.DateField()
+    date = models.DateTimeField(auto_now_add=True)
     description = models.CharField(max_length=255)
     invoice_no = models.CharField(max_length=50)
-    invoice_amount = models.DecimalField(max_digits=10, decimal_places=2)
-    paid_amount = models.DecimalField(max_digits=10, decimal_places=2)
-    balance_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    invoice_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    paid_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    balance_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     def __str__(self):
         return f"{self.date} - {self.description} - {self.invoice_no}"
