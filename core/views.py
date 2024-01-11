@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.template.loader import render_to_string
-from core.forms import ProductReviewForm, ProjectImageForm
+from core.forms import CartOrderForm, ProductReviewForm, ProjectImageForm
 from core.models import Product, Category, ProductImages, ProductReview, Quotation, Invoice,Receipts, ProjectImage, Wallet, WalletTransaction, BalanceStatement, Document, WishList, CartOrder, CartOrderProducts
 from django.contrib.auth.decorators import login_required
 from userauths.models import Profile, ContactUs
@@ -423,6 +423,84 @@ def update_cart(request):
     
     context = render_to_string("core/async/cart-list.html", {"cart_data":request.session['cart_data_obj'], 'totalcartitems': len(request.session['cart_data_obj']), 'cart_total_amount': cart_total_amount})
     return JsonResponse({"data":context, 'totalcartitems': len(request.session['cart_data_obj'])})
+
+
+# To checkout
+@login_required
+def checkout_view(request):
+    cart_total_amount = 0
+    total_amount = 0
+
+    # Initializing the form variable
+    form = CartOrderForm()
+
+    # Checking if cart_data_obj is in session
+    if 'cart_data_obj' in request.session:
+        for product_id, item in request.session['cart_data_obj'].items():
+            total_amount += int(item['qty']) * float(item['price'])
+
+        # Creating order objects
+        order = CartOrder.objects.create(
+            user=request.user,
+            price=total_amount,
+        )
+
+        # Getting total amount for the cart
+        for product_id, item in request.session['cart_data_obj'].items():
+            cart_total_amount += int(item['qty']) * float(item['price'])
+
+            cart_order_products = CartOrderProducts.objects.create(
+                order=order,
+                item=item['title'],
+                image=item['image'],
+                qty=item['qty'],
+                price=item['price'],
+                total=float(item['qty']) * float(item['price']),
+            )
+
+    if request.method == 'POST':
+        form = CartOrderForm(request.POST)
+
+        if form.is_valid():
+            form.instance.user = request.user
+            form.save()
+            
+            request.session.pop('cart_data_obj', None)
+
+            messages.success(request, 'Your cart order request has been submitted successfully.')
+            return redirect('core:index')
+
+    else:
+        # Get the user's profile
+        user_profile = Profile.objects.get(user=request.user)
+
+        # Prepopulate form fields with user profile data
+        form_data = {
+            'first_name': user_profile.user.first_name,
+            'last_name': user_profile.user.last_name,
+            'email': user_profile.user.email,
+            'phone': user_profile.phone,  # Assuming phone is a field in your Profile model
+        }
+
+        # Update the form with the prepopulated data
+        form = CartOrderForm(initial=form_data)
+
+    return render(request, 'core/checkout.html', {'cart_data': request.session['cart_data_obj'],
+                                                   'totalcartitems': len(request.session['cart_data_obj']),
+                                                   'cart_total_amount': cart_total_amount,
+                                                   'form': form})
+
+
+@login_required
+def order_completed_view(request):
+    cart_total_amount = 0
+    if 'cart_data_obj' in request.session:
+        for product_id, item in request.session['cart_data_obj'].items():
+            cart_total_amount += int(item['qty']) * float(item['price'])
+    
+    return render(request, 'core/order-completed.html',{'cart_data':request.session['cart_data_obj'],'totalcartitems':len(request.session['cart_data_obj']),'cart_total_amount':cart_total_amount})
+
+
 
 def warranty_policy(request):
     return render(request, 'core/warranty-policy.html')

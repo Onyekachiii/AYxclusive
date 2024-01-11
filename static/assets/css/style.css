@@ -149,6 +149,21 @@ img {
   color: #ffffff;
 }
 
+.cart-form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+
+
+/* Add a border to form fields */
+.form-field {
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  padding: 8px;
+  width: 100%; /* Ensure the form fields take up the entire width of the container */
+}
+
 .floating-button {
   position: fixed;
   bottom: 60px;
@@ -16476,6 +16491,7 @@ div.product-title a:hover {
 }
 .tab-section .tab-contents .billing-details .form-row .form-col-10 {
   width: 100%;
+  
 }
 .tab-section .tab-contents .billing-details .form-row .form-col-5 {
   width: calc(50% - 15px);

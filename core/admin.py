@@ -1,5 +1,5 @@
 from django.contrib import admin
-from core.models import Product, ProductImages, Category, CartOrder, CartOrderProducts, ProductReview, WishList, Address, Quotation, Invoice, Receipts, ProjectImage, Wallet, WalletTransaction, BalanceStatement, Document
+from core.models import CartOrderRequest, Product, ProductImages, Category, CartOrder, CartOrderProducts, ProductReview, WishList, Address, Quotation, Invoice, Receipts, ProjectImage, Wallet, WalletTransaction, BalanceStatement, Document
 # from .utils import send_custom_email
 from django import forms
 from django.shortcuts import HttpResponseRedirect
@@ -26,10 +26,11 @@ class CartOrderAdmin(admin.ModelAdmin):
     list_display = ['user', 'price', 'paid_status', 'order_date', 'product_status']
     
 class CartOrderProductsAdmin(admin.ModelAdmin):
-    list_display = ['order', 'invoice_no', 'item', 'image', 'qty', 'price', 'total']
+    list_display = ['order', 'image', 'qty', 'price', 'total']
+    
+class CartOrderRequestAdmin(admin.ModelAdmin):
+    list_display = ['user', 'email', 'phone', 'delivery_address']
 
-# class ProductReviewAdmin(admin.ModelAdmin):
-#     list_display = ['user', 'product', 'rating', 'review']
 
 class WishListAdmin(admin.ModelAdmin):
     list_display = ['user', 'product']
@@ -162,6 +163,7 @@ admin.site.register(Product, ProductAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(CartOrder, CartOrderAdmin)
 admin.site.register(CartOrderProducts, CartOrderProductsAdmin)
+admin.site.register(CartOrderRequest, CartOrderRequestAdmin)
 # admin.site.register(ProductReview, ProductReviewAdmin)
 admin.site.register(WishList, WishListAdmin)
 admin.site.register(Address, AddressAdmin)

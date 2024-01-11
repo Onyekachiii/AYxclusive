@@ -1,5 +1,5 @@
 from django.urls import path
-from core.views import index, about_us, category_list_view, product_list_view, product_detail_view, category_product_list_view, customer_dashboard, search_view, filter_product, upload_image, projects, approve_quotation, wishlist_view, add_to_wishlist, remove_from_wishlist, add_to_cart, cart_view, delete_item_from_cart, update_cart, warranty_policy, refund_policy, returns_and_cancellations, privacy_policy, terms_and_conditions, faq_view, confirm_payment
+from core.views import checkout_view, index, about_us, category_list_view, order_completed_view, product_list_view, product_detail_view, category_product_list_view, customer_dashboard, search_view, filter_product, upload_image, projects, approve_quotation, wishlist_view, add_to_wishlist, remove_from_wishlist, add_to_cart, cart_view, delete_item_from_cart, update_cart, warranty_policy, refund_policy, returns_and_cancellations, privacy_policy, terms_and_conditions, faq_view, confirm_payment
 
 
 app_name = 'core'
@@ -53,6 +53,12 @@ urlpatterns = [
     
     #Add to cart URL
     path('add-to-cart/', add_to_cart, name='add-to-cart'),
+    
+    # checkout url
+    path('checkout/', checkout_view, name='checkout'),
+    
+    # Order Completed
+    path('order-completed/', order_completed_view, name='order-completed'),
     
     # Cart page URL
     path('cart/', cart_view, name='cart'),

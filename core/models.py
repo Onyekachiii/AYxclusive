@@ -121,8 +121,8 @@ class CartOrder(models.Model):
         
 
 class CartOrderProducts(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     order = models.ForeignKey(CartOrder, on_delete=models.CASCADE)
-    invoice_no = models.CharField(max_length=200)
     product_status = models.CharField(max_length=200)
     item = models.CharField(max_length=200)
     image = models.CharField(max_length=200)
@@ -139,6 +139,20 @@ class CartOrderProducts(models.Model):
     
     def order_img(self):
         return mark_safe('<img src="/media/%s" width="50" height="50" />' %(self.image))
+    
+
+class CartOrderRequest(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    email = models.EmailField()
+    phone = models.CharField(max_length=15)
+    delivery_address = models.TextField()
+    delivery_floor_level = models.CharField(max_length=50)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.first_name} - {self.timestamp}"
     
     
 

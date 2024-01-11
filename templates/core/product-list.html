@@ -149,7 +149,7 @@
                                 <div class="part-txt">
                                     <h4 class="product-name"><a href="{% url 'core:product-detail' p.pid %}"><b>{{ p.title }}</b></a></h4>
                                     <p class="dscr">{{ p.description }}</p>
-                                    <p class="price"><span>Rs {{ p.old_price }}</span>Rs {{ p.price }}</p>
+                                    <p class="price"><span>Rs {{ p.old_price }}</span> <p class="current-product-price-{{ p.id }}" id="current-product-price-{{ p.id }}">Rs {{ p.price }}</p></p>
                                     
                                     <span class="add-cart">
                                         <input type="hidden" value="1" name="" id="product-quantity" class="w-25 mb-20 product-quantity-{{p.id}}">

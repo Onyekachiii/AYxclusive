@@ -1,30 +1,5 @@
-{% extends 'partials/base.html' %}
-{% load static %}
-{% block content %} 
-
-{% comment %} <!--------------------------------- BANNER SECTION START ---------------------------------> {% endcomment %}
-    <div class="banner banner-inner">
-        <div class="container">
-            <div class="row justify-content-between align-items-center">
-                <div class="col-lg-6 col-md-9 col-8">
-                    <div class="breadcrumb-txt">
-                        <h1>Shopping Cart</h1>
-                        <ul>
-                            <li><a href="index.html"><i class="fa-regular fa-house"></i></a></li>
-                            <li>/</li>
-                            <li>Cart</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-3 col-4">
-                    <div class="part-img">
-                        <img src="{% static 'assets/images/breadcrumb-img.png' %}" alt="Image">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    {% comment %} <!--------------------------------- BANNER SECTION END ---------------------------------> {% endcomment %}
+<main class="main-content" id="cart-list">
+   
 
 
 
@@ -58,7 +33,6 @@
                                                 <th>Product Name</th>
                                                 <th>Price</th>
                                                 <th>Quantity</th>
-                                                <th>Refresh</th>
                                                 <th>Total</th>
                                                 <th>Action</th>
                                             </tr>
@@ -75,42 +49,62 @@
                                                 <td><span class="price-txt">Rs <span class="main-price">{{ item.price }}</span></span></td>
                                                 <td>
                                                     <div class="product-count cart-product-count">
-                                                        <div class="quantity rapper-quantity">
-                                                            <input type="number" placeholder= "Qty" class="w-30 product-qty-{{ product_id }}" value= {{ item.qty }} name="" id="">
-                                                        </div>  
-
+                                                        <div class="quantity rapper-quantity product-qty-{{ product_id }}" value= {{ item.qty }}>
+                                                            <input type="number" min="1" max="100" step="1" value="1" readonly>
+                                                            <div class="quantity-nav">
+                                                                <div class="quantity-button quantity-down">
+                                                                    <i class="fa-solid fa-minus"></i>
+                                                                </div>
+                                                                <div class="quantity-button quantity-up">
+                                                                    <i class="fa-solid fa-plus"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </td>
-                                                <td>
-                                                    <button class="update-product" id="update-product" data-product="{{ product_id }}" ><i class="fa-light fa-refresh"></i></button>
-                                                </td>
                                                 <td><span class="price-txt">Rs <span class="total-price">{% widthratio item.price 1 item.qty %}</span></span></td>
-                                                <td><button class="delete-product" id="delete-product" data-product="{{ product_id }}" ><i class="fa-light fa-trash-can"></i></button></td>
+                                                <td><button class="cart-delete delete-product" data-product="{{ product_id }}"><i class="fa-light fa-trash-can"></i></button></td>
                                             </tr>
                                             {% endfor %}
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-                            {% comment %} <div class="btn-box"> {% endcomment %}
-                                
-                                {% comment %} <button class="def-btn" id="cartUpdate" disabled>Update Cart</button> {% endcomment %}
-                            {% comment %} </div> {% endcomment %}
+                            <div class="btn-box">
+                                <a href="{% url 'core:product-list' %}" class="def-btn">Continue Shopping</a>
+                                <button class="def-btn" id="cartUpdate" disabled>Update Cart</button>
+                            </div>
                             <div class="cart-total-panel">
-                                <h3 class="title" style="text-align: center;">Cart Total</h3>
+                                <h3 class="title">Cart Total</h3>
                                 <div class="panel-body">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <a href="{% url 'core:product-list' %}" class="def-btn">Continue Shopping</a>
+                                            <h4 class="sub-title">Choose Shipping Mode:</h4>
+                                            <div class="shipping-mode">
+                                                <div class="form-check">
+                                                    <input class="form-check-input shipping-check" type="radio" name="shippingMode" id="storePickup" checked>
+                                                    <span class="sub-input"><i class="fa-regular fa-check"></i></span>
+                                                    <label class="form-check-label" for="storePickup">
+                                                        Need the products customized to your taste?
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input shipping-check" type="radio" name="shippingMode" id="homeDelivery">
+                                                    <span class="sub-input"><i class="fa-regular fa-check"></i></span>
+                                                    <label class="form-check-label" for="homeDelivery">
+                                                        Delivery at home - <span>(We will send you a quotation soon)</span>
+                                                    </label>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="calculate-area">
                                                 <ul>
-                                                    <li>Sub Total <span class="price-txt">Rs <span class="sub-total">{{ cart_total_amount|floatformat:2 }}</span></span></li>
+                                                    <li>Sub Total <span class="price-txt">$<span class="sub-total">{{ cart_total_amount|floatformat:2 }}</span></span></li>
                                                     {% comment %} <li>Shipping <span class="price-txt" id="shippingFee"><span class="text-success">Free</span></span></li> {% endcomment %}
-                                                    <li class="total-price-wrap">Total <span class="price-txt">Rs <span id="totalPrice">{{ cart_total_amount|floatformat:2 }}</span></span></li>
+                                                    <li class="total-price-wrap">Total <span class="price-txt">Rs<span id="totalPrice">{{ cart_total_amount|floatformat:2 }}</span></span></li>
                                                 </ul>
-                                                <button class="def-btn tab-next-btn" ><a href="{% url 'core:checkout' %}">Proceed to place your order </a> <i class="fa-light fa-cart-circle-check"></i></button>
+                                                <button class="def-btn tab-next-btn" id="proceedToCheckout">Proceed to checkout <i class="fa-light fa-cart-circle-check"></i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -122,7 +116,5 @@
             </div>
         </div>
     </div>
-    {% comment %} <!--------------------------------- CART SECTION END ---------------------------------> {% endcomment %}
 
-
-{% endblock content %}
+</main>
