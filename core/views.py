@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.template.loader import render_to_string
-from core.forms import CartOrderForm, ProductReviewForm, ProjectImageForm
+from core.forms import CartOrderRequestForm, ProductReviewForm, ProjectImageForm
 from core.models import Product, Category, ProductImages, ProductReview, Quotation, Invoice,Receipts, ProjectImage, Wallet, WalletTransaction, BalanceStatement, Document, WishList, CartOrder, CartOrderProducts
 from django.contrib.auth.decorators import login_required
 from userauths.models import Profile, ContactUs
@@ -432,7 +432,7 @@ def checkout_view(request):
     total_amount = 0
 
     # Initializing the form variable
-    form = CartOrderForm()
+    form = CartOrderRequestForm()
 
     # Checking if cart_data_obj is in session
     if 'cart_data_obj' in request.session:
@@ -451,6 +451,7 @@ def checkout_view(request):
 
             cart_order_products = CartOrderProducts.objects.create(
                 order=order,
+                invoice_no = "INVOICE_NO-" + str(order.id),
                 item=item['title'],
                 image=item['image'],
                 qty=item['qty'],
@@ -459,7 +460,7 @@ def checkout_view(request):
             )
 
     if request.method == 'POST':
-        form = CartOrderForm(request.POST)
+        form = CartOrderRequestForm(request.POST)
 
         if form.is_valid():
             form.instance.user = request.user
@@ -468,7 +469,7 @@ def checkout_view(request):
             request.session.pop('cart_data_obj', None)
 
             messages.success(request, 'Your cart order request has been submitted successfully.')
-            return redirect('core:index')
+            return render('core/order-completed.html')
 
     else:
         # Get the user's profile
@@ -483,7 +484,7 @@ def checkout_view(request):
         }
 
         # Update the form with the prepopulated data
-        form = CartOrderForm(initial=form_data)
+        form = CartOrderRequestForm(initial=form_data)
 
     return render(request, 'core/checkout.html', {'cart_data': request.session['cart_data_obj'],
                                                    'totalcartitems': len(request.session['cart_data_obj']),

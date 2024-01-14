@@ -34,7 +34,7 @@ class DocumentForm(forms.ModelForm):
         fields = ['description', 'document_number', 'file']
         
         
-class CartOrderForm(forms.ModelForm):
+class CartOrderRequestForm(forms.ModelForm):
     first_name = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "First name"}))
     last_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Last name'}))
     email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder': 'Email'}))

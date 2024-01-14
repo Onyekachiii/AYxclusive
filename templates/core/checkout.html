@@ -59,12 +59,13 @@
                                         {% endif %}
                                         <h3 class="title">Customer Details</h3>
                                         <form class="form-row" method="POST">
+                                            {% csrf_token %}
                                             <div class='form-col-10'>
                                                 <div class='form-control'>
                                                     {{ form.as_p}}
                                                 </div>
                                             </div>
-                                            
+                                            <button class="def-btn  btn-success" id="palceOrder" type="submit">Place Order<i class="fa-light fa-truck-arrow-right"></i></button>
                                         </form>
                                     </div>
                                 </div>
@@ -80,7 +81,7 @@
                                             </ul>
                                         </div>
                                         
-                                        <button class="def-btn palce-order tab-next-btn btn-success" id="palceOrder" type="submit"><a href="{% url 'core:order-completed' %}">Place Order </a><i class="fa-light fa-truck-arrow-right"></i></button>
+                                        
                                     </div>
                                 </div>
                             </div>

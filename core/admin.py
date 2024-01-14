@@ -26,10 +26,11 @@ class CartOrderAdmin(admin.ModelAdmin):
     list_display = ['user', 'price', 'paid_status', 'order_date', 'product_status']
     
 class CartOrderProductsAdmin(admin.ModelAdmin):
-    list_display = ['order', 'image', 'qty', 'price', 'total']
+    list_display = ['invoice_no', 'item', 'image', 'qty', 'price', 'total']
+    
     
 class CartOrderRequestAdmin(admin.ModelAdmin):
-    list_display = ['user', 'email', 'phone', 'delivery_address']
+    list_display = ['user', 'email', 'phone', 'invoice_no', 'delivery_address', 'delivery_floor_level']
 
 
 class WishListAdmin(admin.ModelAdmin):
