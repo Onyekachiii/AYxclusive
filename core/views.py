@@ -435,8 +435,9 @@ def checkout_view(request):
     form = CartOrderRequestForm()
 
     # Checking if cart_data_obj is in session
-    if 'cart_data_obj' in request.session:
-        for product_id, item in request.session['cart_data_obj'].items():
+    cart_data_obj = request.session.get('cart_data_obj', None)
+    if cart_data_obj:
+        for product_id, item in cart_data_obj.items():
             total_amount += int(item['qty']) * float(item['price'])
 
         # Creating order objects
@@ -446,18 +447,20 @@ def checkout_view(request):
         )
 
         # Getting total amount for the cart
-        for product_id, item in request.session['cart_data_obj'].items():
+        for product_id, item in cart_data_obj.items():
             cart_total_amount += int(item['qty']) * float(item['price'])
 
             cart_order_products = CartOrderProducts.objects.create(
                 order=order,
-                invoice_no = "INVOICE_NO-" + str(order.id),
+                invoice_no="INVOICE_NO-" + str(order.id),
                 item=item['title'],
                 image=item['image'],
                 qty=item['qty'],
                 price=item['price'],
                 total=float(item['qty']) * float(item['price']),
             )
+
+        
 
     if request.method == 'POST':
         form = CartOrderRequestForm(request.POST)
@@ -466,10 +469,14 @@ def checkout_view(request):
             form.instance.user = request.user
             form.save()
             
-            request.session.pop('cart_data_obj', None)
+            # Clear the cart_data_obj from the session after processing
+            del request.session['cart_data_obj']
 
             messages.success(request, 'Your cart order request has been submitted successfully.')
-            return render('core/order-completed.html')
+            return redirect('core/order-completed')
+        
+        
+
 
     else:
         # Get the user's profile
@@ -486,20 +493,16 @@ def checkout_view(request):
         # Update the form with the prepopulated data
         form = CartOrderRequestForm(initial=form_data)
 
-    return render(request, 'core/checkout.html', {'cart_data': request.session['cart_data_obj'],
-                                                   'totalcartitems': len(request.session['cart_data_obj']),
+    return render(request, 'core/checkout.html', {'cart_data': cart_data_obj,
+                                                   'totalcartitems': len(cart_data_obj),
                                                    'cart_total_amount': cart_total_amount,
                                                    'form': form})
 
 
 @login_required
 def order_completed_view(request):
-    cart_total_amount = 0
-    if 'cart_data_obj' in request.session:
-        for product_id, item in request.session['cart_data_obj'].items():
-            cart_total_amount += int(item['qty']) * float(item['price'])
     
-    return render(request, 'core/order-completed.html',{'cart_data':request.session['cart_data_obj'],'totalcartitems':len(request.session['cart_data_obj']),'cart_total_amount':cart_total_amount})
+    return render(request, 'core/order-completed.html')
 
 
 

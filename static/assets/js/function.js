@@ -92,7 +92,8 @@ $(document).ready(function() {
                 this_val.html("✓")
                 console.log('Added products to cart!');
                 $(".cart-items-count").text(response.totalcartitems)
-    
+                his_val.attr('disabled',false);
+
             }
         })
     })

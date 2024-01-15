@@ -492,11 +492,11 @@
                             </div>
                             
                             <div class="invoice-body">
-                                {% for invoice in invoice %}
+                                {% if invoice %}
                                     <p>Account name: <b>{{ invoice.account_name }}</b></p>
                                     <p>Account number: <b>{{ invoice.account_number }}</b></p>
                                     <p>Amount to be Paid: <b>Rs {{ invoice.amount_to_be_paid }}</b></p>
-                                {% endfor %}
+                                {% endif %}
                             </div>
                             
                             
@@ -509,7 +509,7 @@
                         {% if invoice %}
                         <form method="POST" action="">
                             {% csrf_token %}
-                            <!-- Your form fields and other elements -->
+                            
                             <button class="def-btn" type="submit" id="paymentMadeBtn" disabled>Payment made</button>
                         </form>
                         {% else %}

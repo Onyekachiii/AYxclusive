@@ -115,7 +115,6 @@ class CartOrder(models.Model):
     paid_status = models.BooleanField(default=False)
     order_date = models.DateTimeField(auto_now_add=True)
     product_status = models.CharField(choices=STATUS_CHOICE, max_length=30, default="processing")
-    # total = models.DecimalField(max_digits=10, decimal_places=2, default=1.99, null=True, blank=True)
     
     class Meta:
         verbose_name_plural = "Cart Order"
@@ -147,7 +146,7 @@ class CartOrderRequest(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     email = models.EmailField()
-    invoice_no = models.ForeignKey(CartOrderProducts, on_delete=models.CASCADE, default=0)
+    # invoice_no = models.ForeignKey(CartOrderProducts, on_delete=models.CASCADE)
     phone = models.CharField(max_length=15)
     delivery_address = models.TextField()
     delivery_floor_level = models.CharField(max_length=50)

@@ -161,8 +161,7 @@
                                     <button class="search-open rev-8-search-open"><i class="fa-solid fa-magnifying-glass"></i></button>
                                 </li>
                                 <li>
-                                    <span class="product-amount">{{ cart.count }}</span>
-                                    <a href="{% url "core:cart" %}"><i class="fas fa-shopping-cart"></i></a>
+                                    <span class="product-amount cart-items-count">{{ request.session.cart_data_obj|length }}</span><a href="{% url "core:cart" %}"><i class="fas fa-shopping-cart"></i></a>
                                 </li>
                                 <li><span class="product-amount">{{ wishlist.count }}</span><a href="{% url "core:wishlist" %}"><i class="fas fa-heart"></i></a></li>
                                 {% if request.user.is_authenticated %}

@@ -32,7 +32,7 @@
     <div class="register py-120">
         <div class="container">
             <div class="row justify-content-around">
-                <div class="col-xl-5 col-md-6">
+                <div class="col-xl-7 col-md-6">
                     
                     <div class="author-area">
                         {% if form.errors %}
@@ -46,7 +46,7 @@
                         </br>
                         <form class="login-form" method="post" action="">
                             {% csrf_token %}
-                            <div class = form-field mb-30 >
+                            <div>
                                 {{ form.as_p}}
 
                             </div>

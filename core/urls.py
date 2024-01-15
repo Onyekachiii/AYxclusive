@@ -58,7 +58,7 @@ urlpatterns = [
     path('checkout/', checkout_view, name='checkout'),
     
     # Order Completed
-    path('order-completed/', order_completed_view, name='order-completed'),
+    path('checkout/core/order-completed/', order_completed_view, name='order-completed'),
     
     # Cart page URL
     path('cart/', cart_view, name='cart'),
