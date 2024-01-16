@@ -58,22 +58,13 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    {% comment %} <div class="chart-panel">
-                                        <div class="custom-legend">
-                                            <div class="single-legend">income</div>
-                                            <div class="single-legend">withdrawals</div>
-                                        </div>
-                                        <div id="overviewChart"></div>
-                                    </div> {% endcomment %}
+                                    
                                 </div> 
                                 <div class="col-12">
                                     <div class="table-wrap">
                                         <div class="table-top">
                                             <h4 class="title">Balance Statement</h4>
-                                            {% comment %} <form class="search-box">
-                                                <input type="search" placeholder="Search">
-                                                <button type="submit"><i class="fa-regular fa-magnifying-glass"></i></button>
-                                            </form> {% endcomment %}
+                                            
                                         </div>
                                         <div class="table-responsive">
                                             <table class="table">
@@ -211,14 +202,20 @@
                                             </tr>
                                         </thead>
                                         
-                                        {% for i in invoice %}
+                                        {% for invoice in invoices %}
                                         <tbody>
                                             <tr>
-                                                <td><a href="{{ i.file.url }}"download><span class="invoice-id">{{ i.invoice_number }}</span></a></td>
-                                                <td><span class="date">{{ i.invoice_date }}</span></td>
-                                                <td><a href="{{ i.file.url }}"download><span class="invoice-id">Download file</span></a></td>
-                                                <td><span class="invoice"><button class="def-btn" type="button" data-bs-toggle="modal" data-bs-target="#invoiceModal">Approve</button></span></td> 
-                                                
+                                                <td><a href="{{ invoice.file.url }}"download><span class="invoice-id">{{ invoice.invoice_number }}</span></a></td>
+                                                <td><span class="date">{{ invoice.invoice_date }}</span></td>
+                                                <td><a href="{{ invoice.file.url }}"download><span class="invoice-id">Download file</span></a></td>
+                                                <td>
+                                                    {% if invoice.payment_status == "paid" %}
+                                                        <span class="invoice"><b>Paid</b></span>
+                                                    {% else %}
+                                                        <button class="def-btn approve" type="button" data-bs-toggle="modal" data-bs-target="#invoiceModal" data-invoice-id="{{ invoice.id }}" data-invoice-url="{% url 'core:invoice-details' invoice.id %}">Approve</button>
+                                                    {% endif %}
+                                                </td>
+                                                                                                
                                             </tr>
                                         </tbody>
                                         {% endfor %}
@@ -448,35 +445,32 @@
                             <div class="invoice-top d-flex justify-content-between align-items-center">
                                 <div class="left">
                                     <div class="logo"><img src="{% static 'assets/images/logos/AY11.png' %}" alt="LOGO"></div>
-                                    <p>Please refer to the policies below and check the boxes before proceeding to payment </p>
+                                    <p>Please refer to the policies below and check the boxes before proceeding to payment</p>
                                 </div>
-                                
                             </div>
                             <div class="invoice-body">
-                                
                                 <div class="items">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" id="termsCheckbox">
                                         <label class="form-check-label" for="termsCheckbox">
-                                          I agree to the <a href="{% url 'core:terms-and-conditions'%}">"Terms and Conditions"</a>
+                                            I agree to the <a href="{% url 'core:terms-and-conditions'%}"><b>"Terms and Conditions"</b></a> (Click on the link to view Terms and Conditions)
                                         </label>
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" id="refundCheckbox">
                                         <label class="form-check-label" for="refundCheckbox">
-                                          I agree to the <a href="{% url 'core:refund-policy'%}">"Refund Policy"</a>
+                                            I agree to the <a href="{% url 'core:refund-policy'%}"><b>"Refund Policy"</b></a> (Click on the link to view Refund Policy)
                                         </label>
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" id="warrantyCheckbox">
                                         <label class="form-check-label" for="warrantyCheckbox">
-                                          I agree to the <a href="{% url 'core:warranty-policy'%}">"Warranty Policy"</a>
+                                            I agree to the <a href="{% url 'core:warranty-policy'%}"><b>"Warranty Policy"</b></a> (Click on the link to view Warranty Policy)
                                         </label>
                                     </div>
-                                      
                                 </div>
                             </div>
-
+        
                             <script>
                                 $(document).ready(function () {
                                     // Enable/disable button based on checkbox status
@@ -486,41 +480,41 @@
                                     });
                                 });
                             </script>
-
+        
                             <div class="invoice-footer">
                                 <span>Proceed to make payment</span>
                             </div>
-                            
+        
                             <div class="invoice-body">
-                                {% if invoice %}
-                                    <p>Account name: <b>{{ invoice.account_name }}</b></p>
-                                    <p>Account number: <b>{{ invoice.account_number }}</b></p>
-                                    <p>Amount to be Paid: <b>Rs {{ invoice.amount_to_be_paid }}</b></p>
-                                {% endif %}
+                                <div class="items">
+                                    <div id="invoiceDetails">
+                                        <!-- Invoice details will be dynamically inserted here -->
+                                        <p>Account name: <b>{{ invoice.account_name }}</b></p>
+                                        <p>Account number: <b>{{ invoice.account_number}}</b></p>
+                                        <p>Amount to be Paid: <b>Rs {{ invoice.amount_to_be_paid }}</b></p>
+                                    </div>
+                                </div>
                             </div>
-                            
                             
                             <div class="invoice-footer">
-                                <span>Please click on the "Payment made" button below after sending payment</span>
+                                <span>Click on the button below after making payment</span>
                             </div>
+                            {% comment %} <button class="def-btn"><a href="{% url 'core:invoice-details' %}" ><i class="fa solid fa-arrow-right"></i></button> {% endcomment %}
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        {% if invoice %}
-                        <form method="POST" action="">
-                            {% csrf_token %}
-                            
-                            <button class="def-btn" type="submit" id="paymentMadeBtn" disabled>Payment made</button>
-                        </form>
-                        {% else %}
-                        <p> No invoice available <p>
-                        {% endif %}
+
                     
+
+                    <div class="modal-footer">
+                        <form method="POST" action="{% url 'core:payment-confirmation' invoice_id=invoice.id %}" id="paymentForm">
+                            {% csrf_token %}
+                            <button class="def-btn paymentMadeBtn" type="submit" id="paymentMadeBtn" disabled>Payment made</button>
+                        </form>
                     </div>
-                     
                 </div>
             </div>
         </div>
+        
         {% comment %} <!--------------------------------- INVOICE MODAL END ---------------------------------> {% endcomment %}
 
         

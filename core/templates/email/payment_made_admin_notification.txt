@@ -1,6 +1,9 @@
 Payment Confirmation
 
 Invoice Number: {{ invoice.invoice_number }}
+
 Username: {{ invoice.user.username }}
+
 User Email: {{ invoice.user.email }}
-Amount: {{ invoice.amount }}
+
+Amount: {{ invoice.amount_to_be_paid }}

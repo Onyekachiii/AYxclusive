@@ -172,14 +172,19 @@ def customer_dashboard(request):
         
   
         quotations = Quotation.objects.filter(user=request.user)
-        invoice = Invoice.objects.filter(user=request.user)
+        
+        invoices = Invoice.objects.filter(user=request.user)
         receipts = Receipts.objects.filter(user=request.user)
+        
+        if invoices.exists():
+            invoice = invoices.first()
     
         context = {
             'user': current_user,
             'form': form,
             'profile': profile,
             'quotations' : quotations,
+            'invoices': invoices,
             'invoice': invoice,
             'receipts': receipts,
             'image_form': image_form,
@@ -189,49 +194,61 @@ def customer_dashboard(request):
             'documents': documents
         
         }
+        
+        invoice_id = request.GET.get('invoice_id')
+        if invoice_id:
+            try:
+                invoice = Invoice.objects.get(id=invoice_id, user=request.user)
+                context['invoice'] = invoice
+            except Invoice.DoesNotExist:
+            # Handle the case where the invoice doesn't exist
+                pass
         return render (request, "core/dashboard.html", context)
     
     else:
         return redirect('core:index')
     
-def display_payment_details(request, invoice_id):
-    print("Invoice ID:", invoice_id)
+    
+def invoice_details(request, invoice_id):
     invoice = get_object_or_404(Invoice, pk=invoice_id)
-    print("Invoice Data:", invoice.__dict__)
+    data = {
+        'invoice_number': invoice.invoice_number,
+        'invoice_date': str(invoice.invoice_date),
+        'account_name': invoice.account_name,
+        'account_number': invoice.account_number,
+        'amount_to_be_paid': invoice.amount_to_be_paid,
+        
+    }
+    return JsonResponse(data)
 
-    return render(request, 'core:dashboard.html', {'invoice': invoice})
 
-
-def confirm_payment(request, invoice_id):
-    # if request.method == 'POST':
-    #     invoice_id = request.POST.get('invoice_id')
-
+def payment_confirmation(request, invoice_id):
     try:
         invoice = Invoice.objects.get(id=invoice_id, user=request.user)
-        
 
         if request.method == 'POST':
-            
-
             # Optionally, send a message to the Django admin
             messages.info(request, f"Invoice {invoice.invoice_number} has been approved.")
 
             # Send email to admin
             subject = 'Invoice Payment made'
-            user_name = request.user.get_full_name()  # Assuming your User model has a get_full_name method
+            user_name = request.user.get_full_name()
             message = render_to_string('email/payment_made_admin_notification.txt', {'invoice': invoice, 'user_name': user_name})
-            plain_message = strip_tags(message)  # Strip HTML tags for a plain text version
-            from_email = 'testingexclusive123@gmail.com'  # Use your own email here
-            to_email = 'stanleyonyekachiii@yahoo.com'  # Use your admin's email here
+            plain_message = strip_tags(message)
+            from_email = 'testingexclusive123@gmail.com'
+            to_email = 'stanleyonyekachiii@yahoo.com'
 
             send_mail(subject, plain_message, from_email, [to_email], html_message=message)
 
-        # Redirect or return a response
-        return redirect('core:dashboard')
+            # return JsonResponse({'status': 'success'})
+
+        # Render the payment confirmation page
+        return render(request, 'core/payment-confirmation.html')
 
     except Invoice.DoesNotExist:
-        return HttpResponse("Invoice not found or you don't have permission to pay for it.")
-    
+        return JsonResponse({'status': 'error', 'message': 'Invoice not found or you do not have permission to pay for it.'})
+
+
 
 def approve_quotation(request, quotation_id):
     try:
@@ -436,6 +453,10 @@ def checkout_view(request):
 
     # Checking if cart_data_obj is in session
     cart_data_obj = request.session.get('cart_data_obj', None)
+    
+    if cart_data_obj is None:
+        cart_data_obj = {} 
+        
     if cart_data_obj:
         for product_id, item in cart_data_obj.items():
             total_amount += int(item['qty']) * float(item['price'])
@@ -468,6 +489,17 @@ def checkout_view(request):
         if form.is_valid():
             form.instance.user = request.user
             form.save()
+            
+
+            # Send email to admin
+            subject = 'New Order from Cart'
+            user_name = request.user.get_full_name()  # Assuming your User model has a get_full_name method
+            message = render_to_string('email/new_cart_order.html', {'order': order, 'user_name': user_name})
+            plain_message = strip_tags(message)  # Strip HTML tags for a plain text version
+            from_email = 'testingexclusive123@gmail.com'  # Use your own email here
+            to_email = 'stanleyonyekachiii@yahoo.com'  # Use your admin's email here
+
+            send_mail(subject, plain_message, from_email, [to_email], html_message=message)
             
             # Clear the cart_data_obj from the session after processing
             del request.session['cart_data_obj']

@@ -1,5 +1,5 @@
 from django.urls import path
-from core.views import checkout_view, index, about_us, category_list_view, order_completed_view, product_list_view, product_detail_view, category_product_list_view, customer_dashboard, search_view, filter_product, upload_image, projects, approve_quotation, wishlist_view, add_to_wishlist, remove_from_wishlist, add_to_cart, cart_view, delete_item_from_cart, update_cart, warranty_policy, refund_policy, returns_and_cancellations, privacy_policy, terms_and_conditions, faq_view, confirm_payment
+from core.views import checkout_view, invoice_details, index, about_us, category_list_view, order_completed_view, payment_confirmation, product_list_view, product_detail_view, category_product_list_view, customer_dashboard, search_view, filter_product, upload_image, projects, approve_quotation, wishlist_view, add_to_wishlist, remove_from_wishlist, add_to_cart, cart_view, delete_item_from_cart, update_cart, warranty_policy, refund_policy, returns_and_cancellations, privacy_policy, terms_and_conditions, faq_view
 
 
 app_name = 'core'
@@ -22,7 +22,9 @@ urlpatterns = [
     # Customer Dashboard
     path('dashboard/', customer_dashboard, name='dashboard'),
     
-    path('confirm_payment/<int:invoice_id>', confirm_payment, name='confirm_payment'),
+    path('invoice-details/<int:invoice_id>/', invoice_details, name='invoice-details'),
+    
+    path('payment-confirmation/<int:invoice_id>/', payment_confirmation, name='payment-confirmation'),
     
     # To approve quotations
     path('approve_quotation/<int:quotation_id>/', approve_quotation, name='approve_quotation'),
@@ -34,7 +36,6 @@ urlpatterns = [
     path('filter-products/', filter_product, name='filter-product'),
     
     
-    # path('ajax-contact-form/', ajax_contact_form, name='ajax-contact-form'),
     
     # To upload images from Forum page
     path('dashboard/upload/', upload_image, name='upload_image'),

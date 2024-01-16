@@ -158,35 +158,119 @@ $(document).ready(function() {
     
     });
 
+ 
 
+    $(document).ready(function () {
+        var modal = new bootstrap.Modal(document.getElementById('invoiceModal'));
+        var invoiceDetailsElement = document.getElementById('invoiceDetails');
+    
+        // Attach event listener to approve buttons
+        $('.def-btn.approve').on('click', function () {
+            var invoiceId = $(this).data('invoice-id');
+            var invoiceUrl = $(this).data('invoice-url');
+            console.log('Button clicked. Invoice ID:', invoiceId);
+            console.log('Invoice URL:', invoiceUrl);
+    
+            // Fetch and display invoice details
+            console.log('Fetching invoice details...');
+            fetch(invoiceUrl)
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Fetched data:', data);
+    
+                    if (!invoiceDetailsElement) {
+                        console.error('Invoice details element is null.');
+                        return;
+                    }
+    
+                    // Update the modal content with the fetched details
+                    invoiceDetailsElement.innerHTML = `
+                        <p>Account name: <b>${data.account_name}</b></p>
+                        <p>Account number: <b>${data.account_number}</b></p>
+                        <p>Amount to be Paid: <b>Rs ${data.amount_to_be_paid}</b></p>
+                    `;
+    
+                    modal.show();
+                })
+                .catch(error => console.error('Error fetching invoice details:', error));
+        });
+    });
+    
+
+    // $(document).ready(function () {
+    //     // Function to check if both checkboxes are checked
+    //     function areCheckboxesChecked() {
+    //         return $('#refundCheckbox').prop('checked') && $('#termsCheckbox').prop('checked');
+    //     }
+    
+    //     // Enable/disable button based on checkbox status
+    //     $('#refundCheckbox, #termsCheckbox').change(function () {
+    //         $('#paymentMadeBtn').prop('disabled', !areCheckboxesChecked());
+    //     });
+    
+    //     // Handle button click
+    //     $('#paymentMadeBtn').click(function () {
+    //         if (areCheckboxesChecked()) {
+    //             // Log payload data before sending AJAX request
+    //             var payloadData = {
+    //                 csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val(),
+    //             };
+    
+    //             // Get the invoice ID (replace 'your_invoice_id_field' with the correct field)
+    //             var invoiceId = $('#your_invoice_id_field').val();
+                
+    //             // Include invoice_id in the payload data
+    //             payloadData.invoice_id = invoiceId;
+    
+    //             console.log('AJAX Request Payload:', payloadData);
+    
+    //             // Send email and handle redirection
+    //             sendPaymentConfirmation(payloadData);
+    //         } else {
+    //             alert('Please check the checkboxes before proceeding.');
+    //         }
+    //     });
+    
+    //     // Function to send payment confirmation email and handle redirection
+    //     function sendPaymentConfirmation(payloadData) {
+    //         // AJAX request to send email
+    //         $.ajax({
+    //             url: '/send-payment-confirmation/',
+    //             type: 'POST',
+    //             data: payloadData,
+    //             success: function (response) {
+    //                 // Redirect to payment confirmation page using invoice_id from the response
+    //                 window.location.href = '/payment-confirmation/' + response.invoice_id + '/';
+    //             },
+    //             error: function (error) {
+    //                 console.error('Error sending payment confirmation email:', error);
+    //                 alert('An error occurred. Please try again later.');
+    //             }
+    //         });
+    //     }
+    // });
+    
+    
     $(document).ready(function () {
         // Function to check if both checkboxes are checked
         function areCheckboxesChecked() {
             return $('#refundCheckbox').prop('checked') && $('#termsCheckbox').prop('checked');
         }
-
+    
         // Enable/disable button based on checkbox status
         $('#refundCheckbox, #termsCheckbox').change(function () {
             $('#paymentMadeBtn').prop('disabled', !areCheckboxesChecked());
         });
-
-        // Handle button click
-        $('#paymentMadeBtn').click(function () {
-            if (areCheckboxesChecked()) {
-                // Proceed with payment made action
-                // You can add your logic here
-                alert('Payment Made!');
-            } else {
-                alert('Please check both checkboxes before proceeding.');
-            }
-        });
     });
+    
 
 
-
+    
+    
+    
+    
     
 
 });
 
-                        
-        
+

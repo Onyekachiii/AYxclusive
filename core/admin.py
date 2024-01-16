@@ -59,7 +59,7 @@ class QuotationAdmin(admin.ModelAdmin):
 
 class InvoiceAdmin(admin.ModelAdmin):
     
-    list_display = ('user', 'invoice_number', 'amount_to_be_paid')
+    list_display = ('user', 'invoice_number', 'amount_to_be_paid', 'payment_status')
 
 
 
