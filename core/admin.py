@@ -165,11 +165,11 @@ class BalanceStatementAdmin(admin.ModelAdmin):
 
 admin.site.register(Wallet, WalletAdmin)
 admin.site.register(WalletTransaction, WalletTransactionAdmin)
-# admin.site.register(EmailTemplate)
+
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(CartOrder, CartOrderAdmin)
-# admin.site.register(CartOrderProducts, CartOrderProductsInline)
+
 admin.site.register(CartOrderRequest, CartOrderRequestAdmin)
 # admin.site.register(ProductReview, ProductReviewAdmin)
 admin.site.register(WishList, WishListAdmin)

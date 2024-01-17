@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from userauths.models import User, Profile, ContactUs, CustomFurnitureRequest
+from userauths.models import SiteVisitRequest, User, Profile, ContactUs, CustomFurnitureRequest
 
 
 class UserRegisterForm(UserCreationForm):
@@ -64,3 +64,17 @@ class CustomFurnitureRequestForm(forms.ModelForm):
     class Meta:
         model = CustomFurnitureRequest
         fields = ['first_name', 'last_name', 'email', 'phone', 'delivery_address', 'delivery_floor_level', 'uploads', 'description']
+        
+
+class SiteVisitRequestForm(forms.ModelForm):
+    first_name = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "First name"}))
+    last_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Last name'}))
+    email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder': 'Email'}))
+    whatsapp_phone = forms.CharField(widget=forms.TextInput(attrs={"placeholder": " Whatsapp Phone"}))
+    address = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "Address"}))
+    convenient_day_of_visit = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}),input_formats=['%m/%d/%Y'])
+    
+    
+    class Meta:
+        model = SiteVisitRequest
+        fields = ['first_name', 'last_name', 'email', 'whatsapp_phone', 'address', 'convenient_day_of_visit']

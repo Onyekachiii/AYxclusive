@@ -1,0 +1,69 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %}
+
+<main>
+
+
+
+    {% comment %} <!--------------------------------- BANNER SECTION START ---------------------------------> {% endcomment %}
+    <div class="banner banner-inner">
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-lg-6 col-md-9 col-8">
+                    <div class="breadcrumb-txt">
+                        <h1>Requests</h1>
+                        <ul>
+                            <li><a href="{% url 'core:index' %}"><i class="fa-regular fa-house"></i></a></li>
+                            <li>/</li>
+                            <li>Requests </li>
+                        </ul>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    {% comment %} <!--------------------------------- BANNER SECTION END ---------------------------------> {% endcomment %}
+
+
+
+    {% comment %} <!--------------------------------- REGISTER SECTION START ---------------------------------> {% endcomment %}
+    <div class="register py-120">
+        <div class="container">
+            <div class="row justify-content-around">
+                <div class="col-xl-7 col-md-6">
+                    
+                    <div class="author-area">
+                        {% if form.errors %}
+                        <div class="alert alert-danger">
+                            <strong>{{ form.errors }}</strong>
+                        </div>
+                        {% endif %}
+                        <h2>Request Site Visit</h2>
+                        </br>
+                        <p>Need us to come take measurements and discuss your new furniture?</p>
+                        </br>
+                        <form class="login-form" method="post" action="">
+                            {% csrf_token %}
+                            <div>
+                                {{ form.as_p}}
+
+                            </div>
+                                
+                            <button class="def-btn btn-border" type="submit">Submit Request</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% comment %} <!--------------------------------- REGISTER SECTION END ---------------------------------> {% endcomment %}
+
+
+
+
+</main>
+
+
+{% endblock content %}

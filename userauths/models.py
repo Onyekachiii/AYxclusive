@@ -90,4 +90,18 @@ class CustomFurnitureRequest(models.Model):
         return f"{self.first_name} - {self.timestamp}"
     
     
+class SiteVisitRequest(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    email = models.EmailField()
+    whatsapp_phone = models.CharField(max_length=15)
+    address = models.TextField()
+    convenient_day_of_visit = models.DateField()
+    
+
+    def __str__(self):
+        return f"SiteVisitRequest #{self.id}"
+    
+    
 

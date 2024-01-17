@@ -1,6 +1,6 @@
 from audioop import reverse
 from django.shortcuts import render, redirect
-from userauths.forms import UserRegisterForm, ContactFormForm, CustomFurnitureRequestForm
+from userauths.forms import SiteVisitRequestForm, UserRegisterForm, ContactFormForm, CustomFurnitureRequestForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.conf import settings
@@ -170,6 +170,34 @@ def custom_furniture_request(request):
         form = CustomFurnitureRequestForm(initial=form_data)
 
     return render(request, 'userauths/custom_furniture_request.html', {'form': form})
+
+
+@login_required
+def site_visit_request(request):
+    
+    if request.method == 'POST':
+        form = SiteVisitRequestForm(request.POST)
+        if form.is_valid():
+            form.instance.user = request.user
+            form.save()
+            
+            messages.success(request, 'Your site visit request has been submitted successfully.')
+            return redirect('core:dashboard')  # Change 'dashboard' to the appropriate URL
+    else:
+        # Get the user's profile
+        user_profile = Profile.objects.get(user=request.user)
+
+        # Prepopulate form fields with user profile data
+        form_data = {
+            'first_name': user_profile.user.first_name,
+            'last_name': user_profile.user.last_name,
+            'email': user_profile.user.email,
+        }
+
+        # Create the form and pass the prepopulated data
+        form = SiteVisitRequestForm(initial=form_data)
+
+    return render(request, 'userauths/site_visit_request.html', {'form': form})
 
 
 
