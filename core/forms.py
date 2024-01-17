@@ -1,6 +1,6 @@
 from django import forms
 from userauths.models import ContactUs
-from core.models import BalanceStatement, CartOrderRequest
+from core.models import BalanceStatement, CartOrderRequest, Comment
 
 from core.models import ProductReview, ProjectImage, Document
 
@@ -48,3 +48,8 @@ class CartOrderRequestForm(forms.ModelForm):
         model = CartOrderRequest
         fields = ['first_name', 'last_name', 'email', 'phone', 'delivery_address', 'delivery_floor_level', 'description']
 
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['text', 'image']

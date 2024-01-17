@@ -72,9 +72,13 @@ class SiteVisitRequestForm(forms.ModelForm):
     email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder': 'Email'}))
     whatsapp_phone = forms.CharField(widget=forms.TextInput(attrs={"placeholder": " Whatsapp Phone"}))
     address = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "Address"}))
-    convenient_day_of_visit = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}),input_formats=['%m/%d/%Y'])
+    convenient_day_of_visit = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}),input_formats=['%Y-%m-%d'])
     
     
     class Meta:
         model = SiteVisitRequest
         fields = ['first_name', 'last_name', 'email', 'whatsapp_phone', 'address', 'convenient_day_of_visit']
+        widgets = {
+            'convenient_day_of_visit': forms.DateInput(attrs={'type': 'date'}),
+        }
+        input_formats = ['%Y-%m-%d']

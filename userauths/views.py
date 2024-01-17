@@ -28,6 +28,7 @@ from django.core.mail import send_mail
 from django.core import mail
 from django.core.mail.message import EmailMessage
 from django.contrib.sites.shortcuts import get_current_site
+from django.utils.html import strip_tags
 
 
 
@@ -152,6 +153,16 @@ def custom_furniture_request(request):
             form.instance.user = request.user
             form.save()
             
+            # Send email to admin
+            subject = 'New Custom Furniture Request'
+            user_name = request.user.get_full_name()  # Assuming your User model has a get_full_name method
+            message = render_to_string('email/custom_furniture_request_email.html', {'custom_furniture_request': custom_furniture_request, 'user_name': user_name})
+            plain_message = strip_tags(message)  # Strip HTML tags for a plain text version
+            from_email = 'testingexclusive123@gmail.com'  # Use your own email here
+            to_email = 'stanleyonyekachiii@yahoo.com'  # Use your admin's email here
+
+            send_mail(subject, plain_message, from_email, [to_email], html_message=message)
+            
             messages.success(request, 'Your custom furniture request has been submitted successfully.')
             return redirect('core:dashboard')  # Change 'dashboard' to the appropriate URL
     else:
@@ -181,6 +192,16 @@ def site_visit_request(request):
             form.instance.user = request.user
             form.save()
             
+            # Send email to admin
+            subject = 'New Site Visit Request'
+            user_name = request.user.get_full_name()  # Assuming your User model has a get_full_name method
+            message = render_to_string('email/site_visit_request_email.html', {'custom_furniture_request': custom_furniture_request, 'user_name': user_name})
+            plain_message = strip_tags(message)  # Strip HTML tags for a plain text version
+            from_email = 'testingexclusive123@gmail.com'  # Use your own email here
+            to_email = 'stanleyonyekachiii@yahoo.com'  # Use your admin's email here
+
+            send_mail(subject, plain_message, from_email, [to_email], html_message=message)
+            
             messages.success(request, 'Your site visit request has been submitted successfully.')
             return redirect('core:dashboard')  # Change 'dashboard' to the appropriate URL
     else:
@@ -201,16 +222,3 @@ def site_visit_request(request):
 
 
 
-# def submit_custom_furniture_request(request):
-#     if request.method == 'POST':
-#         form = CustomFurnitureRequestForm(request.POST)
-#         if form.is_valid():
-#             # Handle form submission, e.g., send an email, save to the database, etc.
-#             # Redirect to a thank-you page or the home page
-#             form.save()
-#             messages.success(request, f"Thank you for contacting us, we will get back to you shortly!")   
-#             return redirect('core:index')
-#     else:
-#         form = CustomFurnitureRequestForm()
-
-    # return render(request, 'userauths:custom_furniture_request', {'form': form})

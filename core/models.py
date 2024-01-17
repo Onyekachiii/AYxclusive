@@ -270,18 +270,28 @@ class Document(models.Model):
 
     def __str__(self):
         return f"{self.document_number} - {self.description}"
+    
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    image = models.ForeignKey('ProjectImage', on_delete=models.CASCADE, related_name='image_comments')
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
-    
-    
+    def __str__(self):
+        return f"{self.user.username} - {self.created_at}"
 
 class ProjectImage(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='project_images/')
     description = models.TextField()
+    comments = models.ManyToManyField(Comment, related_name='project_comments', blank=True)
 
     def __str__(self):
         return self.description
 
+
+    
+    
 # For Wallet 
 
 

@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.template.loader import render_to_string
-from core.forms import CartOrderRequestForm, ProductReviewForm, ProjectImageForm
-from core.models import Product, Category, ProductImages, ProductReview, Quotation, Invoice,Receipts, ProjectImage, Wallet, WalletTransaction, BalanceStatement, Document, WishList, CartOrder, CartOrderProducts
+from core.forms import CartOrderRequestForm, CommentForm, ProductReviewForm, ProjectImageForm
+from core.models import Comment, Product, Category, ProductImages, ProductReview, Quotation, Invoice,Receipts, ProjectImage, Wallet, WalletTransaction, BalanceStatement, Document, WishList, CartOrder, CartOrderProducts
 from django.contrib.auth.decorators import login_required
 from userauths.models import Profile, ContactUs
 from userauths.forms import ProfileForm
@@ -299,10 +299,27 @@ def upload_image(request):
 
 
 
-
 def projects(request):
     images = ProjectImage.objects.all()
-    return render(request, 'core/projects.html', {'images': images})
+    
+    # Fetch comments for all images
+    comments = Comment.objects.filter(image__in=images)
+
+    # Create a dictionary to store comments for each image
+    image_comments = {image.id: [] for image in images}
+    for comment in comments:
+        image_comments[comment.image_id].append(comment)
+    comment_form = CommentForm()
+
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.user = request.user
+            comment.image_id = request.POST.get('image_id')
+            comment.save()
+    
+    return render(request, 'core/projects.html', {'images': images, 'comment_form': comment_form})
 
 
 

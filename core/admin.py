@@ -74,7 +74,7 @@ class ReceiptAdmin(admin.ModelAdmin):
     
 
 class ProjectImageAdmin (admin.ModelAdmin):
-    list_display = ('user' )
+    list_display = ('user', 'comments')
 
 
 class WalletAdmin(admin.ModelAdmin):

@@ -44,13 +44,25 @@
                         <div class="product-col col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-6">
                             <div class="single-product-card">
                                 <div class="part-img">
-                                    {% comment %} <span class="off-tag">{{ p.get_percentage|floatformat:0 }}</span> {% endcomment %}
                                     <img src="{{ image.image.url }}" alt="Product">
-
                                 </div>
                                 <div class="part-txt">
-                                    <h4 class="product-name">{{ image.description }}</a></h4>
-                                    {% comment %} <p class="dscr">{{ p.description }}</p> {% endcomment %}
+                                    <h4 class="product-name">{{ image.description }}</h4>
+                                    
+                                    {% comment %} <!-- Display existing comments for the current image -->
+                                    <ul>
+                                        {% for comment in image_comments.image.id %}
+                                            <li>{{ comment.text }} - {{ comment.user.username }}</li>
+                                        {% endfor %}
+                                    </ul>
+                    
+                                    <!-- Form to add a new comment -->
+                                    <form method="post" action="{% url 'core:projects' %}">
+                                        {% csrf_token %}
+                                        {{ comment_form.as_p }}
+                                        <input type="hidden" name="image_id" value="{{ image.id }}">
+                                        <button type="submit">Add Comment</button>
+                                    </form> {% endcomment %}
                                 </div>
                             </div>
                         </div>
