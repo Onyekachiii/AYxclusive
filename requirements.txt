@@ -1,0 +1,15 @@
+asgiref
+dj-database-url
+django
+django-database-url
+gunicorn
+psycopg2
+sqlparse
+whitenoise
+django-jazzmin
+django-taggit
+django-ckeditor
+django-paypal
+django-crispy-forms
+django-shortuuidfield
+pillow

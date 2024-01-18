@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.template.loader import render_to_string
 from core.forms import CartOrderRequestForm, CommentForm, ProductReviewForm, ProjectImageForm
-from core.models import Comment, Product, Category, ProductImages, ProductReview, Quotation, Invoice,Receipts, ProjectImage, Wallet, WalletTransaction, BalanceStatement, Document, WishList, CartOrder, CartOrderProducts
+from core.models import Comment, PrivacyPolicy, Product, Category, ProductImages, ProductReview, Quotation, Invoice,Receipts, ProjectImage, RefundPolicy, ReturnsAndCancellations, TermsAndConditions, Wallet, WalletTransaction, BalanceStatement, Document, WarrantyPolicy, WishList, CartOrder, CartOrderProducts
 from django.contrib.auth.decorators import login_required
 from userauths.models import Profile, ContactUs
 from userauths.forms import ProfileForm
@@ -153,7 +153,6 @@ def customer_dashboard(request):
             form = ProfileForm(instance=profile)
     
         
-    
         image_form = ProjectImageForm()
         if request.method == 'POST':
             form = ProjectImageForm(request.POST, request.FILES)
@@ -227,23 +226,34 @@ def payment_confirmation(request, invoice_id):
         invoice = Invoice.objects.get(id=invoice_id, user=request.user)
 
         if request.method == 'POST':
-            # Optionally, send a message to the Django admin
-            messages.info(request, f"Invoice {invoice.invoice_number} has been approved.")
+            # Handle proof of invoice file upload
+            proof_of_invoice_file = request.FILES.get('proof_of_invoice')
+            if proof_of_invoice_file:
+                invoice.proof_of_invoice.save(proof_of_invoice_file.name, proof_of_invoice_file)
+            
+                # Optionally, send a message to the Django admin
+                messages.info(request, f"Invoice {invoice.invoice_number} has been approved.")
 
-            # Send email to admin
-            subject = 'Invoice Payment made'
-            user_name = request.user.get_full_name()
-            message = render_to_string('email/payment_made_admin_notification.txt', {'invoice': invoice, 'user_name': user_name})
-            plain_message = strip_tags(message)
-            from_email = 'testingexclusive123@gmail.com'
-            to_email = 'stanleyonyekachiii@yahoo.com'
+                # Send email to admin
+                subject = 'Invoice Payment made'
+                user_name = request.user.get_full_name()
+                message = render_to_string('email/payment_made_admin_notification.txt', {'invoice': invoice, 'user_name': user_name})
+                plain_message = strip_tags(message)
+                from_email = 'testingexclusive123@gmail.com'
+                to_email = 'stanleyonyekachiii@yahoo.com'
 
-            send_mail(subject, plain_message, from_email, [to_email], html_message=message)
+                send_mail(subject, plain_message, from_email, [to_email], html_message=message)
 
-            # return JsonResponse({'status': 'success'})
+                # return JsonResponse({'status': 'success'})
+
+                # Render the payment confirmation page
+                return redirect('core:dashboard')
+            else:
+                messages.error(request, "Invalid proof of invoice.")
+        
 
         # Render the payment confirmation page
-        return render(request, 'core/payment-confirmation.html')
+        return render(request, 'core/payment-confirmation.html', { 'invoice': invoice})
 
     except Invoice.DoesNotExist:
         return JsonResponse({'status': 'error', 'message': 'Invoice not found or you do not have permission to pay for it.'})
@@ -406,14 +416,26 @@ def add_to_cart(request):
 
 
 # To list products in cart
+def clean_price_string(price_string):
+    return ''.join(char for char in price_string if char.isdigit() or char == '.')
+
 @login_required
 def cart_view(request):
     cart_total_amount = 0
+
     if 'cart_data_obj' in request.session:
         for p_id, item in request.session['cart_data_obj'].items():
             if item['qty'] and item['price']:
-                cart_total_amount += int(item['qty']) * float(item['price'])   
-        return render(request, 'core/cart.html', {"cart_data":request.session['cart_data_obj'], 'totalcartitems': len(request.session['cart_data_obj']), 'cart_total_amount': cart_total_amount})
+                # Clean the price string before conversion
+                cleaned_price_string = clean_price_string(item['price'])
+
+                try:
+                    cart_total_amount += int(item['qty']) * float(cleaned_price_string)
+                except ValueError:
+                    messages.error(request, f"Invalid price format for item {p_id}. Please check your cart.")
+                    return redirect('core:index')
+
+        return render(request, 'core/cart.html', {"cart_data": request.session['cart_data_obj'], 'totalcartitems': len(request.session['cart_data_obj']), 'cart_total_amount': cart_total_amount})
     else:
         messages.warning(request, "Your cart is empty")
         return redirect('core:index')
@@ -556,19 +578,26 @@ def order_completed_view(request):
 
 
 def warranty_policy(request):
-    return render(request, 'core/warranty-policy.html')
+    warranty_policy_content = WarrantyPolicy.objects.first()
+    return render(request, 'core/warranty-policy.html', {'content': warranty_policy_content})
 
 def refund_policy(request):
-    return render(request, 'core/refund-policy.html')
+    refund_policy_content = RefundPolicy.objects.first()
+
+    return render(request, 'core/refund-policy.html', {'content': refund_policy_content})
 
 def returns_and_cancellations(request):
-    return render(request, 'core/returns-and-cancellations.html')
+    returns_and_cancellations_content = ReturnsAndCancellations.objects.first()
+    return render(request, 'core/returns-and-cancellations.html', {'content': returns_and_cancellations_content})
 
 def privacy_policy(request):
-    return render(request, 'core/privacy-policy.html')
+    privacy_policy_content = PrivacyPolicy.objects.first()
+    return render(request, 'core/privacy-policy.html', {'content': privacy_policy_content})
 
 def terms_and_conditions(request):
-    return render(request, 'core/terms-and-conditions.html')
+    terms_and_conditions_content = TermsAndConditions.objects.first()
+
+    return render(request, 'core/terms-and-conditions.html', {'content': terms_and_conditions_content})
 
 def faq_view(request):
     return render(request, 'core/FAQ.html')

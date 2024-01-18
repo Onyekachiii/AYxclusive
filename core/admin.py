@@ -1,5 +1,5 @@
 from django.contrib import admin
-from core.models import CartOrderRequest, Product, ProductImages, Category, CartOrder, CartOrderProducts, ProductReview, WishList, Address, Quotation, Invoice, Receipts, ProjectImage, Wallet, WalletTransaction, BalanceStatement, Document
+from core.models import CartOrderRequest, Comment, PrivacyPolicy, Product, ProductImages, Category, CartOrder, CartOrderProducts, RefundPolicy, ReturnsAndCancellations, TermsAndConditions, WarrantyPolicy, WishList, Address, Quotation, Invoice, Receipts, ProjectImage, Wallet, WalletTransaction, BalanceStatement, Document
 # from .utils import send_custom_email
 from django import forms
 from django.shortcuts import HttpResponseRedirect
@@ -73,9 +73,14 @@ class ReceiptAdmin(admin.ModelAdmin):
     list_display = ('user', 'receipt_number')
     
 
-class ProjectImageAdmin (admin.ModelAdmin):
-    list_display = ('user', 'comments')
+class CommentInline(admin.TabularInline):  # or admin.StackedInline for a different layout
+    model = Comment
+    extra = 1
 
+class ProjectImageAdmin (admin.ModelAdmin):
+    inlines = [CommentInline]
+    list_display = ('user', 'comments')
+    
 
 class WalletAdmin(admin.ModelAdmin):
     list_display = ['user', 'balance']
@@ -171,7 +176,7 @@ admin.site.register(Category, CategoryAdmin)
 admin.site.register(CartOrder, CartOrderAdmin)
 
 admin.site.register(CartOrderRequest, CartOrderRequestAdmin)
-# admin.site.register(ProductReview, ProductReviewAdmin)
+admin.site.register(Comment)
 admin.site.register(WishList, WishListAdmin)
 admin.site.register(Address, AddressAdmin)
 admin.site.register(Quotation, QuotationAdmin)
@@ -180,5 +185,11 @@ admin.site.register(Receipts, ReceiptAdmin)
 admin.site.register(ProjectImage)
 admin.site.register(BalanceStatement, BalanceStatementAdmin)
 admin.site.register(Document, DocumentAdmin)
+
+admin.site.register(TermsAndConditions)
+admin.site.register(RefundPolicy)
+admin.site.register(WarrantyPolicy)
+admin.site.register(ReturnsAndCancellations)
+admin.site.register(PrivacyPolicy)
 
     

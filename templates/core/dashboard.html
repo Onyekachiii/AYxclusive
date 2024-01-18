@@ -137,8 +137,7 @@
                                                 <td><span class="invoice-id">{{ receipt.receipt_number }}</span></td>
                                                 <td><span class="date">{{ receipt.receipt_date }}</span></td>
                                                 <td><a href="{{ receipt.file.url }}"download><span class="invoice-id">Download file</span></a></td>
-                                                <td><span class="status"><span class="paid">{{receipt.payment_status}}</span></span></td>
-                                            </tr>
+                                                
                                             {% endfor %}
                                            
                                            
@@ -236,7 +235,7 @@
                                                 <th>Receipt-ID</th>
                                                 <th>Date</th>
                                                 <th>Document</th>
-                                                <th>Status</th>
+                                                
                                             </tr>
                                         </thead>
                                         
@@ -246,7 +245,7 @@
                                                 <td><a href="{{ receipt.file.url }}"download><span class="invoice-id">{{ receipt.receipt_number }}</span></a></td>
                                                 <td><span class="date">{{ receipt.receipt_date }}</span></td>
                                                 <td><a href="{{ receipt.file.url }}"download><span class="invoice-id">Download</span></a></td>
-                                                <td><span class="details">{{ receipt.payment_status }}</span></td>
+                                                
                                             </tr>
                                         </tbody>
                                         {% endfor %}
@@ -453,19 +452,19 @@
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" id="termsCheckbox">
                                         <label class="form-check-label" for="termsCheckbox">
-                                            I agree to the <a href="{% url 'core:terms-and-conditions'%}"><b>"Terms and Conditions"</b></a> (Click on the link to view Terms and Conditions)
+                                            I agree to the <a href="{% url 'core:terms-and-conditions'%}" target="_blank"><b>"Terms and Conditions"</b></a> (Click on the link to view Terms and Conditions)
                                         </label>
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" id="refundCheckbox">
                                         <label class="form-check-label" for="refundCheckbox">
-                                            I agree to the <a href="{% url 'core:refund-policy'%}"><b>"Refund Policy"</b></a> (Click on the link to view Refund Policy)
+                                            I agree to the <a href="{% url 'core:refund-policy'%}" target="_blank"><b>"Refund Policy"</b></a> (Click on the link to view Refund Policy)
                                         </label>
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" id="warrantyCheckbox">
                                         <label class="form-check-label" for="warrantyCheckbox">
-                                            I agree to the <a href="{% url 'core:warranty-policy'%}"><b>"Warranty Policy"</b></a> (Click on the link to view Warranty Policy)
+                                            I agree to the <a href="{% url 'core:warranty-policy'%}" target="_blank"><b>"Warranty Policy"</b></a> (Click on the link to view Warranty Policy)
                                         </label>
                                     </div>
                                 </div>
@@ -497,9 +496,15 @@
                             </div>
                             
                             <div class="invoice-footer">
-                                <span>Click on the button below after making payment</span>
+                                <span>Please upload proof of payment & click on the button below after making payment</span>
                             </div>
-                            {% comment %} <button class="def-btn"><a href="{% url 'core:invoice-details' %}" ><i class="fa solid fa-arrow-right"></i></button> {% endcomment %}
+                            <div class="invoice-body">
+                                <div class="mb-3">
+                                    <label for="proofOfInvoice" class="form-label">Upload Proof of Payment</label>
+                                    <input type="file" class="form-control" id="proofOfInvoice" name="proof_of_invoice">
+                                </div>
+                            </div>
+                            
                         </div>
                     </div>
 

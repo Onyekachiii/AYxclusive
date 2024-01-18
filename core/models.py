@@ -233,6 +233,7 @@ class Invoice(models.Model):
     account_name = models.TextField(default="Assemble Yourself Exclusive furnitures ltd")
     account_number = models.TextField(default="MCB Acct: 000449502171")
     sent = models.BooleanField(default=False)
+    proof_of_invoice = models.FileField(upload_to='proof_of_invoices/', blank=True, null=True)
     payment_status = models.CharField(max_length=20, choices=[
         ('unpaid', 'Unpaid'),
         ('paid', 'Paid'),
@@ -350,3 +351,51 @@ def create_balance_statement(sender, instance, created, **kwargs):
     if created:
         BalanceStatement.objects.create(user=instance)
 
+
+class TermsAndConditions(models.Model):
+    content = models.TextField()
+    
+    class Meta:
+        verbose_name_plural = "Terms and Conditions"
+
+    def __str__(self):
+        return "Terms and Conditions"
+    
+
+class RefundPolicy(models.Model):
+    content = models.TextField()
+    
+    class Meta:
+        verbose_name_plural = "Refund Policy"
+
+    def __str__(self):
+        return "Refund Policy"
+    
+    
+class WarrantyPolicy(models.Model):
+    content = models.TextField()
+    
+    class Meta:
+        verbose_name_plural = "Warranty Policy"
+
+    def __str__(self):
+        return "Warranty Policy"
+    
+class ReturnsAndCancellations(models.Model):
+    content = models.TextField()
+    
+    class Meta:
+        verbose_name_plural = "Returns and Cancellations"
+
+    def __str__(self):
+        return "Returns and Cancellations"
+    
+
+class PrivacyPolicy(models.Model):
+    content = models.TextField()
+    
+    class Meta:
+        verbose_name_plural = "Privacy Policy"
+
+    def __str__(self):
+        return "Privacy Policy"

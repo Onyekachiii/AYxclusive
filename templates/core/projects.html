@@ -64,6 +64,21 @@
                                         <button type="submit">Add Comment</button>
                                     </form> {% endcomment %}
                                 </div>
+                                <div>
+                                    <h5>Comments:</h5>
+                                    <ul>
+                                        {% for comment in image.comments.all %}
+                                            <li>{{ comment.user.username }} - {{ comment.text }}</li>
+                                        {% endfor %}
+                                    </ul>
+                            
+                                    <form method="post" action="{% url 'core:projects' %}">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="image_id" value="{{ image.id }}">
+                                        {{ comment_form }}
+                                        <button type="submit">Add Comment</button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                         {% endfor %}

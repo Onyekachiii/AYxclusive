@@ -53,3 +53,9 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['text', 'image']
+        
+
+# class ProofOfInvoiceForm(forms.ModelForm):
+#     class Meta:
+#         model = Invoice
+#         fields = ['proof_of_invoice']

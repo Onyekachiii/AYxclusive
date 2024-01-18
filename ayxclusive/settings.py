@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+from datetime import timedelta
 from pathlib import Path
 import os
 
@@ -180,3 +181,4 @@ PASSWORD_RESET_TIMEOUT = 86400
 VERIFICATION_SUCCESS_TEMPLATE = None
 
 LOGIN_URL = 'userauths:sign-in'
+

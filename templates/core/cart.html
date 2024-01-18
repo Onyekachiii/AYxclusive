@@ -39,11 +39,11 @@
                             <span class="sl-no">01</span>
                         </button>
                         <button class="single-nav" data-tab="checkOutTab" disabled>
-                            <span class="txt">Check Out</span>
+                            <span class="txt">Place Request</span>
                             <span class="sl-no">02</span>
                         </button>
                         <button class="single-nav" data-tab="orderCompletedTab" disabled>
-                            <span class="txt">Order Completed</span>
+                            <span class="txt">Request Completed</span>
                             <span class="sl-no">03</span>
                         </button>
                     </div>
@@ -110,7 +110,7 @@
                                                     {% comment %} <li>Shipping <span class="price-txt" id="shippingFee"><span class="text-success">Free</span></span></li> {% endcomment %}
                                                     <li class="total-price-wrap">Total <span class="price-txt">Rs <span id="totalPrice">{{ cart_total_amount|floatformat:2 }}</span></span></li>
                                                 </ul>
-                                                <button class="def-btn tab-next-btn" ><a href="{% url 'core:checkout' %}">Proceed to place your order </a> <i class="fa-light fa-cart-circle-check"></i></button>
+                                                <button class="def-btn tab-next-btn" ><a href="{% url 'core:checkout' %}">Proceed to place your request </a> <i class="fa-light fa-cart-circle-check"></i></button>
                                             </div>
                                         </div>
                                     </div>

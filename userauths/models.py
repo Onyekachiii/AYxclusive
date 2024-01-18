@@ -85,6 +85,7 @@ class CustomFurnitureRequest(models.Model):
     delivery_floor_level = models.CharField(max_length=50)
     timestamp = models.DateTimeField(auto_now_add=True)
     uploads = models.ImageField(upload_to="images", null=True, blank=True)
+    
 
     def __str__(self):
         return f"{self.first_name} - {self.timestamp}"
@@ -103,5 +104,6 @@ class SiteVisitRequest(models.Model):
     def __str__(self):
         return f"SiteVisitRequest #{self.id}"
     
-    
+
+
 
