@@ -58,12 +58,7 @@ class CustomFurnitureRequestForm(forms.ModelForm):
     delivery_address = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "Delivery Address"}))
     delivery_floor_level = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "Delivery Floor Level"}))
     uploads = forms.ImageField(required=False, widget=forms.FileInput(attrs={"placeholder": "Uploads"}))
-    description = forms.CharField(widget=forms.TextInput(attrs={"placeholder": "Description"}))
-    
-    
-    class Meta:
-        model = CustomFurnitureRequest
-        fields = ['first_name', 'last_name', 'email', 'phone', 'delivery_address', 'delivery_floor_level', 'uploads', 'description']
+    description = forms.CharField(widget=forms.Textarea(attrs={"placeholder": "Furniture Type, Dimensions, Materials, etc.", "class": "custom-description-field"}))
         
 
 class SiteVisitRequestForm(forms.ModelForm):

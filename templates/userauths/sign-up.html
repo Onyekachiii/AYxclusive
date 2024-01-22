@@ -36,9 +36,9 @@
                     
                     <div class="author-area">
                         {% if form.errors %}
-                        <div class="alert alert-danger">
-                            <strong>{{ form.errors }}</strong>
-                        </div>
+                            <div class="alert alert-danger">
+                                <strong>{{ form.errors }}</strong>
+                            </div>
                         {% endif %}
                         <h2>Register</h2>
                         <p>Have access to exclusive deals as a member of the family</p>
@@ -54,15 +54,17 @@
                             {{ form.house_address }}
                             {{ form.city }}
                             {{ form.country }}
+                            {{ form.agree_to_terms }}
                             <div class="form-check">
-                                <input class="form-check-input shipping-check" type="checkbox" name="shippingMode" id="agreeToTerm">
+                                <input class="form-check-input shipping-check" type="checkbox" name="agreeToTerm" id="agreeToTerm">
                                 <span class="sub-input"><i class="fa-regular fa-check"></i></span>
                                 <label class="form-check-label" for="agreeToTerm">
-                                    Agree to the <a href="#">Terms and Conditions</a>
+                                    Agree to the <a href="{% url "core:terms-and-conditions" %}" target="_blank">Terms and Conditions</a>
                                 </label>
                             </div>
                             <button class="def-btn btn-border">Register</button>
                         </form>
+                    </div>
                         <br>
                         <div>
                             <span>Already have an account? <a href="{% url 'userauths:sign-in' %}">Login</a></span>

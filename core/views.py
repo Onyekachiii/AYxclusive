@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.template.loader import render_to_string
-from core.forms import CartOrderRequestForm, CommentForm, ProductReviewForm, ProjectImageForm
-from core.models import Comment, PrivacyPolicy, Product, Category, ProductImages, ProductReview, Quotation, Invoice,Receipts, ProjectImage, RefundPolicy, ReturnsAndCancellations, TermsAndConditions, Wallet, WalletTransaction, BalanceStatement, Document, WarrantyPolicy, WishList, CartOrder, CartOrderProducts
+from core.forms import CartOrderRequestForm, CommentForm, PaymentConfirmationForm, ProductReviewForm, ProjectImageForm
+from core.models import Comment, PrivacyPolicy, Product, Category, ProductImages, ProductReview, Quotation, Invoice,Receipts, ProjectImage, RefundPolicy, ReturnsAndCancellations, TermsAndConditions, Wallet, WalletTransaction, BalanceStatement, Document, WalletUsage, WarrantyPolicy, WishList, CartOrder, CartOrderProducts
 from django.contrib.auth.decorators import login_required
 from userauths.models import Profile, ContactUs
 from userauths.forms import ProfileForm
@@ -167,12 +167,15 @@ def customer_dashboard(request):
         
         transactions = WalletTransaction.objects.filter(user=current_user).order_by('-timestamp')
         statements = BalanceStatement.objects.filter(user=current_user).order_by('-date')
+        overall_balance = current_user.get_user_balance()
         documents = Document.objects.filter(user=current_user)
         
   
         quotations = Quotation.objects.filter(user=request.user)
         
         invoices = Invoice.objects.filter(user=request.user)
+        payment_confirmation_form = PaymentConfirmationForm()
+        # proof_of_invoice_form = ProofOfInvoiceForm()
         receipts = Receipts.objects.filter(user=request.user)
         
         if invoices.exists():
@@ -190,7 +193,10 @@ def customer_dashboard(request):
             'user_wallet': user_wallet,
             'transactions': transactions,
             'statements': statements,
-            'documents': documents
+            'overall_balance': overall_balance,
+            'documents': documents,
+            # 'proof_of_invoice_form': proof_of_invoice_form,
+            'payment_confirmation_form': payment_confirmation_form,
         
         }
         
@@ -226,11 +232,14 @@ def payment_confirmation(request, invoice_id):
         invoice = Invoice.objects.get(id=invoice_id, user=request.user)
 
         if request.method == 'POST':
-            # Handle proof of invoice file upload
-            proof_of_invoice_file = request.FILES.get('proof_of_invoice')
-            if proof_of_invoice_file:
-                invoice.proof_of_invoice.save(proof_of_invoice_file.name, proof_of_invoice_file)
+            form = PaymentConfirmationForm(request.POST, request.FILES)
+            # proof_of_invoice_form = ProofOfInvoiceForm(request.POST, request.FILES)
             
+            if form.is_valid():
+                # Save proof of invoice file to the invoice
+                invoice.proof_of_invoice = form.cleaned_data['proof_of_invoice']
+                invoice.save()
+
                 # Optionally, send a message to the Django admin
                 messages.info(request, f"Invoice {invoice.invoice_number} has been approved.")
 
@@ -249,29 +258,41 @@ def payment_confirmation(request, invoice_id):
                 # Render the payment confirmation page
                 return redirect('core:dashboard')
             else:
-                messages.error(request, "Invalid proof of invoice.")
-        
+                messages.error(request, "Invalid form submission.")
+        else:
+            form = PaymentConfirmationForm()
 
         # Render the payment confirmation page
-        return render(request, 'core/payment-confirmation.html', { 'invoice': invoice})
+        return render(request, 'core/payment-confirmation.html', {'invoice': invoice, 'form': form})
 
     except Invoice.DoesNotExist:
         return JsonResponse({'status': 'error', 'message': 'Invoice not found or you do not have permission to pay for it.'})
 
 
-
+@login_required
 def approve_quotation(request, quotation_id):
     try:
         quotation = Quotation.objects.get(id=quotation_id, user=request.user)
-        
 
         if request.method == 'POST':
+            amount_used = request.POST.get('amount_used')
+            
+            # Validate the amount_used (add your own validation logic)
+            
             # Perform the approval action
             quotation.is_approved = True
             quotation.save()
 
+            # Create a WalletUsage record
+            wallet_usage = WalletUsage.objects.create(user=request.user, quotation=quotation, amount_used=amount_used)
+
+            # Deduct the amount from the wallet
+            wallet = Wallet.objects.get(user=request.user)
+            wallet.balance -= wallet_usage.amount_used
+            wallet.save()
+
             # Optionally, send a message to the Django admin
-            messages.info(request, f"Quotation {quotation.quotation_number} has been approved.")
+            messages.info(request, f"Quotation {quotation.quotation_number} has been approved with wallet usage.")
 
             # Send email to admin
             subject = 'Quotation Approved'

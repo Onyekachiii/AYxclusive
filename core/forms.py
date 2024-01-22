@@ -1,6 +1,6 @@
 from django import forms
 from userauths.models import ContactUs
-from core.models import BalanceStatement, CartOrderRequest, Comment
+from core.models import BalanceStatement, CartOrderRequest, Comment, Invoice, WalletUsage
 
 from core.models import ProductReview, ProjectImage, Document
 
@@ -19,6 +19,12 @@ class ProjectImageForm(forms.ModelForm):
     class Meta:
         model = ProjectImage
         fields = ['image', 'description']
+        
+
+class WalletUsageForm(forms.ModelForm):
+    class Meta:
+        model = WalletUsage
+        fields = ['amount_used']
         
 
 
@@ -55,7 +61,14 @@ class CommentForm(forms.ModelForm):
         fields = ['text', 'image']
         
 
-# class ProofOfInvoiceForm(forms.ModelForm):
-#     class Meta:
-#         model = Invoice
-#         fields = ['proof_of_invoice']
+
+
+class PaymentConfirmationForm(forms.Form):
+    proof_of_invoice = forms.FileField(label='Proof of Payment', required=True)
+    
+    
+class ProofOfInvoiceForm(forms.ModelForm):
+    proof_of_payment = forms.FileField(label='Proof of Payment', required=True)
+    class Meta:
+        model = Invoice
+        fields = ['proof_of_invoice']

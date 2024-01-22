@@ -294,8 +294,6 @@ class ProjectImage(models.Model):
     
     
 # For Wallet 
-
-
 class Wallet(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
@@ -303,6 +301,15 @@ class Wallet(models.Model):
 
     def __str__(self):
         return f"{self.user.username}'s Wallet"
+    
+
+class WalletUsage(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    quotation = models.ForeignKey('Quotation', on_delete=models.CASCADE)
+    amount_used = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
+
+    def __str__(self):
+        return f"Wallet Usage for {self.quotation.quotation_number} - {self.amount_used}"
 
 
 
@@ -334,7 +341,7 @@ post_save.connect(create_wallet_for_user, sender=User)
 
 
 class BalanceStatement(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     description = models.CharField(max_length=255)
     invoice_no = models.CharField(max_length=50)
@@ -344,6 +351,13 @@ class BalanceStatement(models.Model):
 
     def __str__(self):
         return f"{self.date} - {self.description} - {self.invoice_no}"
+    
+def get_user_balance(self):
+    balance_statements = self.balancestatement_set.all()
+    overall_balance = sum(statement.balance_amount for statement in balance_statements)
+    return overall_balance
+
+User.add_to_class("get_user_balance", get_user_balance)
     
     
 @receiver(post_save, sender=User)

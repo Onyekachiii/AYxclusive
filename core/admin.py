@@ -5,8 +5,9 @@ from django import forms
 from django.shortcuts import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import path, reverse
-from django.utils.html import format_html
+from django.utils.html import format_html, mark_safe
 from decimal import Decimal
+
 
 
 
@@ -59,8 +60,14 @@ class QuotationAdmin(admin.ModelAdmin):
 
 class InvoiceAdmin(admin.ModelAdmin):
     
-    list_display = ('user', 'invoice_number', 'amount_to_be_paid', 'payment_status')
+    list_display = ('user', 'invoice_number', 'amount_to_be_paid', 'payment_status', 'proof_of_invoice_display')
+    
+    def proof_of_invoice_display(self, obj):
+        if obj.proof_of_invoice:
+            return mark_safe('<a href="{0}" target="_blank">View Proof of Invoice</a>'.format(obj.proof_of_invoice.url))
+        return 'No proof of invoice'
 
+    proof_of_invoice_display.short_description = 'Proof of Invoice'
 
 
 class DocumentAdmin(admin.ModelAdmin):

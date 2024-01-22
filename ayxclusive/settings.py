@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-from datetime import timedelta
+
 from pathlib import Path
 import os
 
@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    'django_advanced_password_validation',
     
     # custom apps
     'core',
@@ -104,16 +106,28 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME': 'django_advanced_password_validation.advanced_password_validation.ContainsDigitsValidator',
+        'OPTIONS': {
+            'min_digits': 1
+        }
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME': 'django_advanced_password_validation.advanced_password_validation.ContainsUppercaseValidator',
+        'OPTIONS': {
+            'min_uppercase': 1
+        }
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME': 'django_advanced_password_validation.advanced_password_validation.ContainsLowercaseValidator',
+        'OPTIONS': {
+            'min_lowercase': 1
+        }
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME': 'django_advanced_password_validation.advanced_password_validation.ContainsSpecialCharactersValidator',
+        'OPTIONS': {
+            'min_characters': 1
+        }
     },
 ]
 

@@ -45,15 +45,15 @@
                                 <div class="col-md-6">
                                     <div class="total-balance">
                                         <div class="top">
-                                            <h4>Outstanding Balance</h4>
+                                            <h4>Overall Outstanding Balance</h4>
                                             
                     
                                         </div>
-                                        {% for statement in statements %}
+                                        
                                         <div class="middle">
-                                            <h3>Rs {{ statement.balance_amount }}</h3>
+                                            <h3>Rs {{ overall_balance }}</h3>
                                         </div>
-                                        {% endfor %}
+                                        
                                         
                                     </div>
                                 </div>
@@ -170,10 +170,14 @@
                                                 <td><a href="{{ quotation.file.url }}"download><span class="invoice-id">Download file</span></a></td>
                                                 <td>
                                                     {% if not quotation.is_approved %}
-                                                        <form method="post" action="{% url 'core:approve_quotation' quotation.id %}">
+                                                    <p>Quotation ID: {{ quotation.id }}</p>
+                                                    <button class="def-btn approve" type="button" data-bs-toggle="modal" data-bs-target="#quotationModal"{{ quotation.id }} >Approve</button>
+                                                        {% comment %} <form method="post" action="{% url 'core:approve_quotation' quotation.id %}">
                                                             {% csrf_token %}
                                                             <button class="def-btn" type="submit">Approve</button>
-                                                        </form>
+                                                        </form> {% endcomment %}
+
+
                                                     {% else %}
                                                         <p>Approved</p>
                                                     {% endif %}
@@ -470,15 +474,15 @@
                                 </div>
                             </div>
         
-                            <script>
+                            {% comment %} <script>
                                 $(document).ready(function () {
                                     // Enable/disable button based on checkbox status
-                                    $('#termsCheckbox, #refundCheckbox, #warrantyCheckbox').change(function () {
-                                        var allChecked = $('#termsCheckbox').prop('checked') && $('#refundCheckbox').prop('checked') && $('#warrantyCheckbox').prop('checked');
+                                    $('#id_termsCheckbox, #id_refundCheckbox, #id_warrantyCheckbox').change(function () {
+                                        var allChecked = $('#id_termsCheckbox').prop('checked') && $('#id_refundCheckbox').prop('checked') && $('#id_warrantyCheckbox').prop('checked');
                                         $('#paymentMadeBtn').prop('disabled', !allChecked);
                                     });
                                 });
-                            </script>
+                            </script> {% endcomment %}
         
                             <div class="invoice-footer">
                                 <span>Proceed to make payment</span>
@@ -500,8 +504,8 @@
                             </div>
                             <div class="invoice-body">
                                 <div class="mb-3">
-                                    <label for="proofOfInvoice" class="form-label">Upload Proof of Payment</label>
-                                    <input type="file" class="form-control" id="proofOfInvoice" name="proof_of_invoice">
+                                    <label for="id_proof_of_invoice" class="form-label">Upload Proof of Payment</label>
+                                    {{ payment_confirmation_form.proof_of_invoice }}
                                 </div>
                             </div>
                             
@@ -511,8 +515,12 @@
                     
 
                     <div class="modal-footer">
-                        <form method="POST" action="{% url 'core:payment-confirmation' invoice_id=invoice.id %}" id="paymentForm">
+                        <form method="POST" action="{% url 'core:payment-confirmation' invoice_id=invoice.id %}" enctype="multipart/form-data">
                             {% csrf_token %}
+                            {{ payment_confirmation_form.management_form }}
+                            {{ payment_confirmation_form.non_field_errors }}
+                            {{ payment_confirmation_form.proof_of_invoice.errors }}
+                            
                             <button class="def-btn paymentMadeBtn" type="submit" id="paymentMadeBtn" disabled>Payment made</button>
                         </form>
                     </div>
@@ -523,7 +531,47 @@
         {% comment %} <!--------------------------------- INVOICE MODAL END ---------------------------------> {% endcomment %}
 
         
-
+        {% comment %} <!--------------------------------- QUOTATION MODAL START ---------------------------------> {% endcomment %}
+        <div class="quotation-modal modal fade" id="quotationModal" tabindex="-1" aria-labelledby="quotationModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="account-title mb-0" id="invoiceModalLabel">Approve Quotation</h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="invoice-wrap">
+                            <div class="invoice-top d-flex justify-content-between align-items-center">
+                                <div class="left">
+                                    <div class="logo"><img src="{% static 'assets/images/logos/AY11.png' %}" alt="LOGO"></div>
+                                    <p>Would you like to use part of the money in your wallet ?</p>
+                                </div>
+                            </div>
+                            <div class="invoice-body">
+                                <div class="items">
+                                    {% if quotation.id %}
+                                        {{ wallet_usage_form.as_p }}
+                                    {% else %}
+                                        <p>No Quotation selected</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        {% if quotation.id %}
+                            <form method="post" action="{% url 'core:approve_quotation' quotation.id %}">
+                                {% csrf_token %}
+                                <button class="def-btn" type="submit">Approve</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        {% comment %} <!--------------------------------- QUOTATION MODAL END ---------------------------------> {% endcomment %}
         
     {% comment %} <!--------------------------------- ACCOUNT END ---------------------------------> {% endcomment %}
 
