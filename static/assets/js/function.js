@@ -161,10 +161,15 @@ $(document).ready(function() {
  
 
     $(document).ready(function () {
-        var modal = new bootstrap.Modal(document.getElementById('invoiceModal'));
-        var invoiceDetailsElement = document.getElementById('invoiceDetails');
+        // Declare modal globally
+        var modalInvoice = new bootstrap.Modal(document.getElementById('invoiceModal'));
+        var modalQuotation = new bootstrap.Modal(document.getElementById('quotationModal'));
     
-        // Attach event listener to approve buttons
+        var invoiceDetailsElement = document.getElementById('invoiceDetails');
+        var agreementCheckbox = document.getElementById('termsCheckbox');
+        var paymentMadeBtn = document.getElementById('paymentMadeBtn');
+    
+        // Attach event listener to approve buttons for invoices
         $('.def-btn.approve').on('click', function () {
             var invoiceId = $(this).data('invoice-id');
             var invoiceUrl = $(this).data('invoice-url');
@@ -190,81 +195,126 @@ $(document).ready(function() {
                         <p>Amount to be Paid: <b>Rs ${data.amount_to_be_paid}</b></p>
                     `;
     
-                    modal.show();
+                    // Show the modal
+                    modalInvoice.show();
+    
+                    console.log('Modal displayed. Waiting for form submission...');
+    
+                    // Enable/disable "Payment made" button based on checkbox state
+                    paymentMadeBtn.disabled = !agreementCheckbox.checked;
                 })
                 .catch(error => console.error('Error fetching invoice details:', error));
         });
-    });
     
-
-    // $(document).ready(function () {
-    //     // Function to check if both checkboxes are checked
-    //     function areCheckboxesChecked() {
-    //         return $('#refundCheckbox').prop('checked') && $('#termsCheckbox').prop('checked');
-    //     }
+        // Attach event listener to agreement checkbox for invoices
+        agreementCheckbox.addEventListener('change', function () {
+            // Enable/disable "Payment made" button based on checkbox state
+            paymentMadeBtn.disabled = !this.checked;
+        });
     
-    //     // Enable/disable button based on checkbox status
-    //     $('#refundCheckbox, #termsCheckbox').change(function () {
-    //         $('#paymentMadeBtn').prop('disabled', !areCheckboxesChecked());
-    //     });
-    
-    //     // Handle button click
-    //     $('#paymentMadeBtn').click(function () {
-    //         if (areCheckboxesChecked()) {
-    //             // Log payload data before sending AJAX request
-    //             var payloadData = {
-    //                 csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val(),
-    //             };
-    
-    //             // Get the invoice ID (replace 'your_invoice_id_field' with the correct field)
-    //             var invoiceId = $('#your_invoice_id_field').val();
-                
-    //             // Include invoice_id in the payload data
-    //             payloadData.invoice_id = invoiceId;
-    
-    //             console.log('AJAX Request Payload:', payloadData);
-    
-    //             // Send email and handle redirection
-    //             sendPaymentConfirmation(payloadData);
-    //         } else {
-    //             alert('Please check the checkboxes before proceeding.');
-    //         }
-    //     });
-    
-    //     // Function to send payment confirmation email and handle redirection
-    //     function sendPaymentConfirmation(payloadData) {
-    //         // AJAX request to send email
-    //         $.ajax({
-    //             url: '/send-payment-confirmation/',
-    //             type: 'POST',
-    //             data: payloadData,
-    //             success: function (response) {
-    //                 // Redirect to payment confirmation page using invoice_id from the response
-    //                 window.location.href = '/payment-confirmation/' + response.invoice_id + '/';
-    //             },
-    //             error: function (error) {
-    //                 console.error('Error sending payment confirmation email:', error);
-    //                 alert('An error occurred. Please try again later.');
-    //             }
-    //         });
-    //     }
-    // });
-    
-    
-    $(document).ready(function () {
-        // Function to check if both checkboxes are checked
+        // Function to check if both checkboxes are checked for invoices
         function areCheckboxesChecked() {
             return $('#refundCheckbox').prop('checked') && $('#termsCheckbox').prop('checked');
         }
     
-        // Enable/disable button based on checkbox status
+        // Enable/disable button based on checkbox status for invoices
         $('#refundCheckbox, #termsCheckbox').change(function () {
             $('#paymentMadeBtn').prop('disabled', !areCheckboxesChecked());
         });
+    
+        // Attach event listener to approve buttons for quotations
+        $('.def-btn.approve2').on('click', function () {
+            var quotationId = $(this).data('quotation-id');
+            console.log('Button clicked. Quotation ID:', quotationId);
+    
+            // Fetch and display quotation details
+            console.log('Fetching quotation details...');
+            fetchQuotationDetails(quotationId);
+        });
+    
+        var quotationDetailsElement = document.getElementById('quotation-details');
+    
+        function fetchQuotationDetails(quotationId) {
+            // Fetch details using quotationId
+            fetch('/quotation-details/' + quotationId)
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Fetched quotation details:', data);
+    
+                    if (!quotationDetailsElement) {
+                        console.error('Quotation details element is null.');
+                        return;
+                    }
+    
+                    // Update the modal content with the fetched details
+                    quotationDetailsElement.innerHTML = `
+                        <p>Quotation ID: <b>${data.quotation_id}</b></p>
+                        <p>Quotation Number: <b>${data.quotation_number}</b></p>
+    
+                        <!-- Include the WalletUsageForm HTML here -->
+                        <form id="walletUsageForm" data-quotation-id="${data.quotation_id}">
+                            <!-- Add your form fields here -->
+                            <div>
+                                <label for="id_amount_used">Amount to use from wallet:</label>
+                                <input type="text" name="amount_used" id="id_amount_used">
+                            </div>
+                            <button class="def-btn" type="submit">Submit</button>
+                        </form>
+                    `;
+    
+                    // Show the modal
+                    modalQuotation.show();
+    
+                    // Add event listener for form submission
+                    const walletUsageForm = document.getElementById('walletUsageForm');
+                    walletUsageForm.addEventListener('submit', function (event) {
+                        event.preventDefault();  // Ensure this line is present
+    
+                        // Handle form submission logic here
+                        const amountUsed = document.getElementById('id_amount_used').value;
+                        submitWalletUsageForm(data.quotation_id, amountUsed);
+                    });
+                })
+                .catch(error => console.error('Error fetching quotation details:', error));
+        }
+    
+        function submitWalletUsageForm(quotationId, amountUsed) {
+            // Submit the form data using fetch
+            fetch('/approve-quotation/' + quotationId + '/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken'),
+                },
+                body: JSON.stringify({ amount_used: amountUsed }),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Success:', data);
+                    // Optionally, update the modal content or handle any additional UI updates
+    
+                    // Close the modal or perform other actions as needed
+                    modalQuotation.hide();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    // Handle errors or display error messages
+                });
+        }
+    
+        // Helper function to get CSRF token from cookies
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
     });
     
-
-
     
     
     

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from core.models import CartOrderRequest, Comment, PrivacyPolicy, Product, ProductImages, Category, CartOrder, CartOrderProducts, RefundPolicy, ReturnsAndCancellations, TermsAndConditions, WarrantyPolicy, WishList, Address, Quotation, Invoice, Receipts, ProjectImage, Wallet, WalletTransaction, BalanceStatement, Document
+from core.models import CartOrderRequest, Comment, PrivacyPolicy, Product, ProductImages, Category, CartOrder, CartOrderProducts, RefundPolicy, ReturnsAndCancellations, TermsAndConditions, WalletUsage, WarrantyPolicy, WishList, Address, Quotation, Invoice, Receipts, ProjectImage, Wallet, WalletTransaction, BalanceStatement, Document
 # from .utils import send_custom_email
 from django import forms
 from django.shortcuts import HttpResponseRedirect
@@ -56,6 +56,12 @@ class QuotationAdmin(admin.ModelAdmin):
         return obj.approved  # Assuming your Quotation model has an 'approved' field
     is_approved.boolean = True
     is_approved.short_description = 'Approved'
+    
+    
+    
+@admin.register(WalletUsage)
+class WalletUsageAdmin(admin.ModelAdmin):
+    list_display = ['user', 'quotation', 'amount_used']
 
 
 class InvoiceAdmin(admin.ModelAdmin):
@@ -84,9 +90,14 @@ class CommentInline(admin.TabularInline):  # or admin.StackedInline for a differ
     model = Comment
     extra = 1
 
-class ProjectImageAdmin (admin.ModelAdmin):
+class ProjectImageAdmin(admin.ModelAdmin):
     inlines = [CommentInline]
-    list_display = ('user', 'comments')
+    list_display = ('user', 'description', 'is_approved')  # Include is_approved in the list display
+    actions = ['approve_images']
+
+    def approve_images(self, request, queryset):
+        queryset.update(is_approved=True)
+    approve_images.short_description = "Approve selected images"
     
 
 class WalletAdmin(admin.ModelAdmin):

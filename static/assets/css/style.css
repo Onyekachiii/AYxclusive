@@ -175,6 +175,10 @@ img {
   border-radius: 5px;
 }
 
+.hidden-input {
+  display: none;
+}
+
 
 .home-2 .def-btn {
   background: #e9b808;

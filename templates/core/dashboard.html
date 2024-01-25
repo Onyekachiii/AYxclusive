@@ -170,12 +170,8 @@
                                                 <td><a href="{{ quotation.file.url }}"download><span class="invoice-id">Download file</span></a></td>
                                                 <td>
                                                     {% if not quotation.is_approved %}
-                                                    <p>Quotation ID: {{ quotation.id }}</p>
-                                                    <button class="def-btn approve" type="button" data-bs-toggle="modal" data-bs-target="#quotationModal"{{ quotation.id }} >Approve</button>
-                                                        {% comment %} <form method="post" action="{% url 'core:approve_quotation' quotation.id %}">
-                                                            {% csrf_token %}
-                                                            <button class="def-btn" type="submit">Approve</button>
-                                                        </form> {% endcomment %}
+                                                    
+                                                    <button class="def-btn approve2" type="button" data-bs-toggle="modal" data-bs-target="#quotationModal" data-quotation-id="{{ quotation.id }}">Approve</button>
 
 
                                                     {% else %}
@@ -296,37 +292,22 @@
                                     <div class="total-balance">
                                         <div class="top">
                                             <h4>Wallet Balance</h4>
-                                            {% comment %} <div class="tags">
-                                                <span class="tag tag-up"><i class="fa-light fa-arrow-up-right"></i> Rs {{ user_wallet.balance }}</span>
-                                                <span class="tag tag-down"><i class="fa-light fa-arrow-down-left"></i> Rs 700.99</span>
-                                            </div> {% endcomment %}
+                                            
                                         </div>
                                         <div class="middle">
                                             <h3>Rs {{ user_wallet.balance }}</h3>
                                         </div>
-                                        {% comment %} <div class="btn-box">
-                                            <a href="#" class="def-btn">Deposit</a>
-                                            <a href="#" class="def-btn">Withdraw</a>
-                                        </div> {% endcomment %}
+                                        
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    {% comment %} <div class="chart-panel">
-                                        <div class="custom-legend">
-                                            <div class="single-legend">income</div>
-                                            <div class="single-legend">withdrawals</div>
-                                        </div>
-                                        <div id="overviewChart"></div>
-                                    </div> {% endcomment %}
+                                    
                                 </div> 
                                 <div class="col-12">
                                     <div class="table-wrap">
                                         <div class="table-top">
                                             <h4 class="title">Transfer History</h4>
-                                            {% comment %} <form class="search-box">
-                                                <input type="search" placeholder="Search">
-                                                <button type="submit"><i class="fa-regular fa-magnifying-glass"></i></button>
-                                            </form> {% endcomment %}
+                                            
                                         </div>
                                         <div class="table-responsive">
                                             <table class="table">
@@ -454,19 +435,19 @@
                             <div class="invoice-body">
                                 <div class="items">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="termsCheckbox">
+                                        <input class="form-check-input" type="checkbox" id="termsCheckbox" required>
                                         <label class="form-check-label" for="termsCheckbox">
                                             I agree to the <a href="{% url 'core:terms-and-conditions'%}" target="_blank"><b>"Terms and Conditions"</b></a> (Click on the link to view Terms and Conditions)
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="refundCheckbox">
+                                        <input class="form-check-input" type="checkbox" id="refundCheckbox" required>
                                         <label class="form-check-label" for="refundCheckbox">
                                             I agree to the <a href="{% url 'core:refund-policy'%}" target="_blank"><b>"Refund Policy"</b></a> (Click on the link to view Refund Policy)
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="warrantyCheckbox">
+                                        <input class="form-check-input" type="checkbox" id="warrantyCheckbox" required>
                                         <label class="form-check-label" for="warrantyCheckbox">
                                             I agree to the <a href="{% url 'core:warranty-policy'%}" target="_blank"><b>"Warranty Policy"</b></a> (Click on the link to view Warranty Policy)
                                         </label>
@@ -474,15 +455,7 @@
                                 </div>
                             </div>
         
-                            {% comment %} <script>
-                                $(document).ready(function () {
-                                    // Enable/disable button based on checkbox status
-                                    $('#id_termsCheckbox, #id_refundCheckbox, #id_warrantyCheckbox').change(function () {
-                                        var allChecked = $('#id_termsCheckbox').prop('checked') && $('#id_refundCheckbox').prop('checked') && $('#id_warrantyCheckbox').prop('checked');
-                                        $('#paymentMadeBtn').prop('disabled', !allChecked);
-                                    });
-                                });
-                            </script> {% endcomment %}
+                        
         
                             <div class="invoice-footer">
                                 <span>Proceed to make payment</span>
@@ -504,8 +477,13 @@
                             </div>
                             <div class="invoice-body">
                                 <div class="mb-3">
-                                    <label for="id_proof_of_invoice" class="form-label">Upload Proof of Payment</label>
-                                    {{ payment_confirmation_form.proof_of_invoice }}
+                                    <form method="POST" action="{% url 'core:payment-confirmation' invoice_id=invoice.id %}" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <label for="id_proof_of_invoice" class="form-label">Upload Proof of Payment</label>
+                                        {{ payment_confirmation_form.proof_of_invoice }}
+                                        
+                                        <button class="def-btn paymentMadeBtn" type="submit" id="paymentMadeBtn" disabled>Payment made</button>
+                                    </form>
                                 </div>
                             </div>
                             
@@ -515,14 +493,7 @@
                     
 
                     <div class="modal-footer">
-                        <form method="POST" action="{% url 'core:payment-confirmation' invoice_id=invoice.id %}" enctype="multipart/form-data">
-                            {% csrf_token %}
-                            {{ payment_confirmation_form.management_form }}
-                            {{ payment_confirmation_form.non_field_errors }}
-                            {{ payment_confirmation_form.proof_of_invoice.errors }}
-                            
-                            <button class="def-btn paymentMadeBtn" type="submit" id="paymentMadeBtn" disabled>Payment made</button>
-                        </form>
+                        
                     </div>
                 </div>
             </div>
@@ -532,7 +503,7 @@
 
         
         {% comment %} <!--------------------------------- QUOTATION MODAL START ---------------------------------> {% endcomment %}
-        <div class="quotation-modal modal fade" id="quotationModal" tabindex="-1" aria-labelledby="quotationModalLabel" aria-hidden="true">
+        <div class="modal fade" id="quotationModal{{ quotation.id }}" tabindex="-1" aria-labelledby="quotationModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-xl">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -540,17 +511,32 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+                    
                         <div class="invoice-wrap">
                             <div class="invoice-top d-flex justify-content-between align-items-center">
                                 <div class="left">
                                     <div class="logo"><img src="{% static 'assets/images/logos/AY11.png' %}" alt="LOGO"></div>
-                                    <p>Would you like to use part of the money in your wallet ?</p>
+                                    </br>
+                                    <p>Would you like to use part of the money in your wallet?</p>
+                                    <p><b>Your Wallet Balance: Rs {{ user_wallet.balance }}</b></p>
                                 </div>
                             </div>
-                            <div class="invoice-body">
-                                <div class="items">
+                            <div class="">
+                                <div class="items" id="quotation-details">
                                     {% if quotation.id %}
-                                        {{ wallet_usage_form.as_p }}
+                                        <p>Quotation ID: {{ quotation.id }}</p>
+                                        {% if wallet_usage_form %}
+                                            <form method="post" action="{% url 'core:approve_quotation' quotation.id %}">
+                                                {% csrf_token %}
+                                                <div class="mb-3">
+                                                    {{ wallet_usage_form.amount_used.label_tag }}
+                                                    {{ wallet_usage_form.amount_used }}
+                                                </div>
+                                                <button class="def-btn" type="submit">Approve</button>
+                                            </form>
+                                        {% else %}
+                                            <p>Wallet Usage Form is not available</p>
+                                        {% endif %}
                                     {% else %}
                                         <p>No Quotation selected</p>
                                     {% endif %}
@@ -558,14 +544,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        {% if quotation.id %}
-                            <form method="post" action="{% url 'core:approve_quotation' quotation.id %}">
-                                {% csrf_token %}
-                                <button class="def-btn" type="submit">Approve</button>
-                            </form>
-                        {% endif %}
-                    </div>
+                    
                 </div>
             </div>
         </div>

@@ -18,7 +18,7 @@ class ProductReviewForm(forms.ModelForm):
 class ProjectImageForm(forms.ModelForm):
     class Meta:
         model = ProjectImage
-        fields = ['image', 'description']
+        fields = ['image', 'description', 'is_approved']
         
 
 class WalletUsageForm(forms.ModelForm):
@@ -26,7 +26,6 @@ class WalletUsageForm(forms.ModelForm):
         model = WalletUsage
         fields = ['amount_used']
         
-
 
 class BalanceStatementForm(forms.ModelForm):
     class Meta:
@@ -56,19 +55,12 @@ class CartOrderRequestForm(forms.ModelForm):
 
 
 class CommentForm(forms.ModelForm):
+    image_id = forms.IntegerField(widget=forms.HiddenInput())
     class Meta:
         model = Comment
-        fields = ['text', 'image']
-        
-
+        fields = ['text']
 
 
 class PaymentConfirmationForm(forms.Form):
     proof_of_invoice = forms.FileField(label='Proof of Payment', required=True)
     
-    
-class ProofOfInvoiceForm(forms.ModelForm):
-    proof_of_payment = forms.FileField(label='Proof of Payment', required=True)
-    class Meta:
-        model = Invoice
-        fields = ['proof_of_invoice']

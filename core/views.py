@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.template.loader import render_to_string
-from core.forms import CartOrderRequestForm, CommentForm, PaymentConfirmationForm, ProductReviewForm, ProjectImageForm
+from core.forms import CartOrderRequestForm, CommentForm, PaymentConfirmationForm, ProductReviewForm, ProjectImageForm, WalletUsageForm
 from core.models import Comment, PrivacyPolicy, Product, Category, ProductImages, ProductReview, Quotation, Invoice,Receipts, ProjectImage, RefundPolicy, ReturnsAndCancellations, TermsAndConditions, Wallet, WalletTransaction, BalanceStatement, Document, WalletUsage, WarrantyPolicy, WishList, CartOrder, CartOrderProducts
 from django.contrib.auth.decorators import login_required
 from userauths.models import Profile, ContactUs
@@ -159,6 +159,8 @@ def customer_dashboard(request):
             if form.is_valid():
                 image_instance = form.save(commit=False)
                 image_instance.user = request.user
+                # Set is_approved to False by default
+                image_instance.is_approved = False
                 image_instance.save()
                 return redirect('core:projects')
             
@@ -175,17 +177,18 @@ def customer_dashboard(request):
         
         invoices = Invoice.objects.filter(user=request.user)
         payment_confirmation_form = PaymentConfirmationForm()
-        # proof_of_invoice_form = ProofOfInvoiceForm()
         receipts = Receipts.objects.filter(user=request.user)
         
         if invoices.exists():
             invoice = invoices.first()
+            
     
         context = {
             'user': current_user,
             'form': form,
             'profile': profile,
             'quotations' : quotations,
+            'quotation': None,
             'invoices': invoices,
             'invoice': invoice,
             'receipts': receipts,
@@ -195,10 +198,24 @@ def customer_dashboard(request):
             'statements': statements,
             'overall_balance': overall_balance,
             'documents': documents,
-            # 'proof_of_invoice_form': proof_of_invoice_form,
             'payment_confirmation_form': payment_confirmation_form,
         
         }
+        
+        quotation_id = request.GET.get('quotation_id')
+
+        # Move this block after defining 'quotation_id'
+        quotation_id = request.GET.get('quotation_id')
+        print("quotation_id:", quotation_id)  # Debugging line
+        if quotation_id:
+            try:
+                quotation = Quotation.objects.get(id=quotation_id, user=request.user)
+                context['quotation'] = quotation
+            except Quotation.DoesNotExist:
+                # Handle the case where the quotation doesn't exist
+                pass
+        
+        print("context:", context)  # Debugging line
         
         invoice_id = request.GET.get('invoice_id')
         if invoice_id:
@@ -210,7 +227,7 @@ def customer_dashboard(request):
                 pass
         return render (request, "core/dashboard.html", context)
     
-    else:
+    else: 
         return redirect('core:index')
     
     
@@ -233,7 +250,7 @@ def payment_confirmation(request, invoice_id):
 
         if request.method == 'POST':
             form = PaymentConfirmationForm(request.POST, request.FILES)
-            # proof_of_invoice_form = ProofOfInvoiceForm(request.POST, request.FILES)
+            
             
             if form.is_valid():
                 # Save proof of invoice file to the invoice
@@ -256,29 +273,33 @@ def payment_confirmation(request, invoice_id):
                 # return JsonResponse({'status': 'success'})
 
                 # Render the payment confirmation page
-                return redirect('core:dashboard')
+                return render(request, 'core/payment-confirmation.html', {'invoice': invoice, 'form': form})
+                
             else:
                 messages.error(request, "Invalid form submission.")
         else:
             form = PaymentConfirmationForm()
 
         # Render the payment confirmation page
-        return render(request, 'core/payment-confirmation.html', {'invoice': invoice, 'form': form})
+        return redirect('core:dashboard')
 
     except Invoice.DoesNotExist:
         return JsonResponse({'status': 'error', 'message': 'Invoice not found or you do not have permission to pay for it.'})
 
 
+
 @login_required
 def approve_quotation(request, quotation_id):
-    try:
-        quotation = Quotation.objects.get(id=quotation_id, user=request.user)
+    quotation = get_object_or_404(Quotation, id=quotation_id, user=request.user)
 
-        if request.method == 'POST':
-            amount_used = request.POST.get('amount_used')
-            
-            # Validate the amount_used (add your own validation logic)
-            
+    # Check if the Quotation is not approved and is associated with the user
+    if not quotation.is_approved and quotation.user == request.user:
+        # Instantiate the WalletUsageForm
+        wallet_usage_form = WalletUsageForm(request.POST or None)
+
+        if request.method == 'POST' and wallet_usage_form.is_valid():
+            amount_used = wallet_usage_form.cleaned_data['amount_used']
+
             # Perform the approval action
             quotation.is_approved = True
             quotation.save()
@@ -293,7 +314,7 @@ def approve_quotation(request, quotation_id):
 
             # Optionally, send a message to the Django admin
             messages.info(request, f"Quotation {quotation.quotation_number} has been approved with wallet usage.")
-
+            
             # Send email to admin
             subject = 'Quotation Approved'
             user_name = request.user.get_full_name()  # Assuming your User model has a get_full_name method
@@ -304,15 +325,34 @@ def approve_quotation(request, quotation_id):
 
             send_mail(subject, plain_message, from_email, [to_email], html_message=message)
 
-        # Redirect or return a response
-        return redirect('core:dashboard')
+            # Redirect or return a response
+            print(quotation.id)
+            return redirect('core:dashboard')
+    
+        context = {
+            'quotation': quotation,
+            'wallet_usage_form': wallet_usage_form,
+        }
+        return render(request, 'core/dashboard.html', context)
 
-    except Quotation.DoesNotExist:
+
+    else:
         return HttpResponse("Quotation not found or you don't have permission to approve it.")
 
 
 
-
+def quotation_details(request, quotation_id):
+    try:
+        quotation = get_object_or_404(Quotation, id=quotation_id)
+        # Modify this based on your actual Quotation model structure
+        data = {
+            'quotation_id': quotation.id,
+            'quotation_number': quotation.quotation_number,
+            # Add other details as needed
+        }
+        return JsonResponse(data)
+    except Quotation.DoesNotExist:
+        return JsonResponse({'error': 'Quotation not found'}, status=404)
 
 @login_required
 def upload_image(request):
@@ -329,17 +369,14 @@ def upload_image(request):
     return render(request, 'upload_image.html', {'image_form': image_form})   
 
 
-
 def projects(request):
-    images = ProjectImage.objects.all()
-    
-    # Fetch comments for all images
+    images = ProjectImage.objects.filter(is_approved=True)
     comments = Comment.objects.filter(image__in=images)
 
-    # Create a dictionary to store comments for each image
     image_comments = {image.id: [] for image in images}
     for comment in comments:
-        image_comments[comment.image_id].append(comment)
+        image_comments[comment.image_id].append(comment) 
+
     comment_form = CommentForm()
 
     if request.method == 'POST':
@@ -347,10 +384,10 @@ def projects(request):
         if comment_form.is_valid():
             comment = comment_form.save(commit=False)
             comment.user = request.user
-            comment.image_id = request.POST.get('image_id')
+            comment.image_id = request.POST.get('image_id')  # Retrieve 'image_id' from the form
             comment.save()
-    
-    return render(request, 'core/projects.html', {'images': images, 'comment_form': comment_form})
+
+    return render(request, 'core/projects.html', {'images': images, 'comment_form': comment_form, 'image_comments': image_comments})
 
 
 
@@ -408,6 +445,7 @@ def remove_from_wishlist(request):
 
 
 # To add to cart
+@login_required
 def add_to_cart(request):
     cart_product = {}
     cart_product[str(request.GET['id'])] = {

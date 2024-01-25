@@ -214,7 +214,7 @@ class Quotation(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     quotation_number = models.CharField(max_length=20, unique=True)
     file = models.FileField(upload_to='quotations/')
-    quotation_date = models.DateTimeField(auto_now_add=True)
+    quotation_date = models.DateField(auto_now_add=True)
     email_subject = models.CharField(max_length=255)
     email_body = models.TextField()
     sent = models.BooleanField(default=False)
@@ -274,22 +274,23 @@ class Document(models.Model):
     
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    image = models.ForeignKey('ProjectImage', on_delete=models.CASCADE, related_name='image_comments')
+    image = models.ForeignKey('ProjectImage', on_delete=models.CASCADE, related_name='image_comments', null=True, blank=True)
     text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.user.username} - {self.created_at}"
-
+    
+    
 class ProjectImage(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='project_images/')
     description = models.TextField()
     comments = models.ManyToManyField(Comment, related_name='project_comments', blank=True)
+    is_approved = models.BooleanField(default=False)  # New field
 
     def __str__(self):
         return self.description
-
 
     
     

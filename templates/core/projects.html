@@ -1,6 +1,9 @@
 {% extends 'partials/base.html' %}
 {% load static %}
+{% load custom_filters %}
 {% block content %}
+
+
 
 
     {% comment %} <!--------------------------------- BANNER SECTION START ---------------------------------> {% endcomment %}
@@ -41,46 +44,35 @@
                     </div>
                     <div class="row g-lg-4 g-3">
                         {% for image in images %}
-                        <div class="product-col col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-6">
-                            <div class="single-product-card">
-                                <div class="part-img">
-                                    <img src="{{ image.image.url }}" alt="Product">
+                            {% if image.is_approved %}
+                                <div class="product-col col-xxl-3 col-xl-4 col-lg-6 col-md-4 col-6">
+                                    <div class="single-product-card">
+                                        <div class="part-img">
+                                            <img src="{{ image.image.url }}" alt="Product">
+                                        </div>
+                                        <div class="part-txt">
+                                            <h4 class="product-name"><b>{{ image.user.username }}   -   {{ image.description }}</b></h4>
+                                        </div>
+                                        <div>
+                                            <h5>Comments:</h5>
+                                            <ul>
+                                                {% for comment in image.image_comments.all %}
+                                                    <li>{{ comment.user.username }} - {{ comment.text }}</li>
+                                                {% endfor %}
+                                            </ul>
+                                            <form class="login-form" method="post" action="{% url 'core:projects' %}">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="image_id" value="{{ image.id }}">
+                                                <div>
+                                                    {{ comment_form.text.label_tag }}
+                                                    {{ comment_form.text }}
+                                                </div>
+                                                <button class="def-btn" type="submit">Add Comment</button>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="part-txt">
-                                    <h4 class="product-name">{{ image.description }}</h4>
-                                    
-                                    {% comment %} <!-- Display existing comments for the current image -->
-                                    <ul>
-                                        {% for comment in image_comments.image.id %}
-                                            <li>{{ comment.text }} - {{ comment.user.username }}</li>
-                                        {% endfor %}
-                                    </ul>
-                    
-                                    <!-- Form to add a new comment -->
-                                    <form method="post" action="{% url 'core:projects' %}">
-                                        {% csrf_token %}
-                                        {{ comment_form.as_p }}
-                                        <input type="hidden" name="image_id" value="{{ image.id }}">
-                                        <button type="submit">Add Comment</button>
-                                    </form> {% endcomment %}
-                                </div>
-                                <div>
-                                    <h5>Comments:</h5>
-                                    <ul>
-                                        {% for comment in image.comments.all %}
-                                            <li>{{ comment.user.username }} - {{ comment.text }}</li>
-                                        {% endfor %}
-                                    </ul>
-                            
-                                    <form method="post" action="{% url 'core:projects' %}">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="image_id" value="{{ image.id }}">
-                                        {{ comment_form }}
-                                        <button type="submit">Add Comment</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+                            {% endif %}
                         {% endfor %}
                     </div>
                     
