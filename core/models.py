@@ -214,11 +214,12 @@ class Quotation(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     quotation_number = models.CharField(max_length=20, unique=True)
     file = models.FileField(upload_to='quotations/')
-    quotation_date = models.DateField(auto_now_add=True)
+    quotation_date = models.DateField(auto_now_add=True, null=True)
     email_subject = models.CharField(max_length=255)
     email_body = models.TextField()
     sent = models.BooleanField(default=False)
     is_approved = models.BooleanField(default=False)
+    wallet_usage =  models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
     
     class Meta:
         verbose_name_plural = "Quotations"

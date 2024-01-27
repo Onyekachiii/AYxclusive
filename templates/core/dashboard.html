@@ -511,12 +511,11 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                    
                         <div class="invoice-wrap">
                             <div class="invoice-top d-flex justify-content-between align-items-center">
                                 <div class="left">
                                     <div class="logo"><img src="{% static 'assets/images/logos/AY11.png' %}" alt="LOGO"></div>
-                                    </br>
+                                    <br>
                                     <p>Would you like to use part of the money in your wallet?</p>
                                     <p><b>Your Wallet Balance: Rs {{ user_wallet.balance }}</b></p>
                                 </div>
@@ -525,18 +524,17 @@
                                 <div class="items" id="quotation-details">
                                     {% if quotation.id %}
                                         <p>Quotation ID: {{ quotation.id }}</p>
-                                        {% if wallet_usage_form %}
-                                            <form method="post" action="{% url 'core:approve_quotation' quotation.id %}">
-                                                {% csrf_token %}
-                                                <div class="mb-3">
-                                                    {{ wallet_usage_form.amount_used.label_tag }}
-                                                    {{ wallet_usage_form.amount_used }}
-                                                </div>
-                                                <button class="def-btn" type="submit">Approve</button>
-                                            </form>
-                                        {% else %}
-                                            <p>Wallet Usage Form is not available</p>
-                                        {% endif %}
+                                        <form id="walletUsageForm" data-quotation-id="${data.quotation_id}" action="/approve-quotation/${quotationId}/" method="POST">
+                                            {% csrf_token %}
+                                            <!-- Add your form fields here -->
+                                            <div>
+                                                <label for="id_amount_used">Amount to use from wallet:</label>
+                                                <input type="text" name="amount_used" id="id_amount_used">
+                                            </div>
+                                            </br>
+                                            <button class="def-btn" type="submit">Submit</button>
+                                        </form>
+                                        
                                     {% else %}
                                         <p>No Quotation selected</p>
                                     {% endif %}
@@ -544,10 +542,10 @@
                             </div>
                         </div>
                     </div>
-                    
                 </div>
             </div>
         </div>
+        
         
         
         {% comment %} <!--------------------------------- QUOTATION MODAL END ---------------------------------> {% endcomment %}
