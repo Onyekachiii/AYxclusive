@@ -489,6 +489,7 @@ def add_to_cart(request):
 def clean_price_string(price_string):
     return ''.join(char for char in price_string if char.isdigit() or char == '.')
 
+
 @login_required
 def cart_view(request):
     cart_total_amount = 0

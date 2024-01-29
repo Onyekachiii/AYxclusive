@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.conf import settings
 from verify_email.email_handler import send_verification_email
 # from core.utils import send_custom_email
+from core.models import Wallet
 from userauths.models import ContactUs, Profile
 from verify_email.email_handler import send_verification_email
 from django.template.loader import render_to_string
@@ -186,7 +187,14 @@ def custom_furniture_request(request):
 @login_required
 def site_visit_request(request):
     
+    # Retrieve the user's wallet object
+    user_wallet = Wallet.objects.get(user=request.user)
+    
     if request.method == 'POST':
+        # Check if the user has sufficient balance
+        if user_wallet.balance < 1000:
+            messages.error(request, 'You need at least Rs 1000 in your wallet balance to submit a site visit request.')
+            return redirect('core:dashboard')  # Adjust the redirect URL as needed
         form = SiteVisitRequestForm(request.POST)
         if form.is_valid():
             form.instance.user = request.user

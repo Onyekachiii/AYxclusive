@@ -84,7 +84,7 @@
                                                 <td>
                                                     <button class="update-product" id="update-product" data-product="{{ product_id }}" ><i class="fa-light fa-refresh"></i></button>
                                                 </td>
-                                                <td><span class="price-txt">Rs <span class="total-price">{% widthratio item.price 1 item.qty %}</span></span></td>
+                                                <td><div class="price-txt">Rs <span class="total-price">{% widthratio item.price 1 item.qty %}</span></div></td>
                                                 <td><button class="delete-product" id="delete-product" data-product="{{ product_id }}" ><i class="fa-light fa-trash-can"></i></button></td>
                                             </tr>
                                             {% endfor %}
@@ -92,10 +92,7 @@
                                     </table>
                                 </div>
                             </div>
-                            {% comment %} <div class="btn-box"> {% endcomment %}
-                                
-                                {% comment %} <button class="def-btn" id="cartUpdate" disabled>Update Cart</button> {% endcomment %}
-                            {% comment %} </div> {% endcomment %}
+                            
                             <div class="cart-total-panel">
                                 <h3 class="title" style="text-align: center;">Cart Total</h3>
                                 <div class="panel-body">

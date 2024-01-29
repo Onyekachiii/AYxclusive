@@ -40,6 +40,11 @@
                                 <strong>{{ form.errors }}</strong>
                             </div>
                         {% endif %}
+                        <script>
+                            setTimeout(function () {
+                                $('.alert').fadeOut('fast');
+                            }, 4000);
+                        </script>
                         <h2>Register</h2>
                         <p>Have access to exclusive deals as a member of the family</p>
                         <form class="login-form" method="POST">

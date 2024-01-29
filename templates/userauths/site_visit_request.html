@@ -40,6 +40,11 @@
                             <strong>{{ form.errors }}</strong>
                         </div>
                         {% endif %}
+                        <script>
+                            setTimeout(function () {
+                                $('.alert').fadeOut('fast');
+                            }, 4000);
+                        </script>
                         <h2>Request Site Visit</h2>
                         </br>
                         <p>Need us to come take measurements and discuss your new furniture?</p>
