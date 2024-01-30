@@ -53,8 +53,9 @@
                                         <div class="middle">
                                             <h3>Rs {{ overall_balance }}</h3>
                                         </div>
-                                        
-                                        
+                                        {% if overall_balance > 0 %}
+                                            <button type="button" class="def-btn btn-primary" data-bs-toggle="modal" data-bs-target="#paymentModal">Make Outstanding Payments</button>
+                                        {% endif %}
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -502,6 +503,68 @@
         {% comment %} <!--------------------------------- INVOICE MODAL END ---------------------------------> {% endcomment %}
 
         
+        {% comment %} <!--------------------------------- Outstanding Payment MODAL START ---------------------------------> {% endcomment %}
+        <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="account-title mb-0" id="invoiceModalLabel">Approve Quotation</h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="invoice-wrap">
+                            <div class="invoice-top d-flex justify-content-between align-items-center">
+                                <div class="left">
+                                    <div class="logo"><img src="{% static 'assets/images/logos/AY11.png' %}" alt="LOGO"></div>
+                                    <br>
+                                    <p>Would you like to make outstanding payments?</p>
+                                    <p><b>Your Overall Outstanding Balance: Rs {{ overall_balance }}</b></p>
+                                </div>
+                            </div>
+                            <div class="">
+                                <div class="items" id="quotation-details">
+                                    <div class="invoice-body">
+                                        <div class="items">
+                                            <div id="invoiceDetails">
+                                                <!-- Invoice details will be dynamically inserted here -->
+                                                <p>Account name: <b>{{ invoice.account_name }}</b></p>
+                                                <p>Account number: <b>{{ invoice.account_number}}</b></p>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <form method="POST" action="{% url 'core:submit_payment' %}" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        
+                                        <!-- Add field for payment amount -->
+                                        <div class="mb-3">
+                                            <label for="paymentAmount" class="form-label">Payment Amount (Rs)</label>
+                                            <input type="number" class="form-control" id="paymentAmount" name="payment_amount">
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="proof_of_payment">Proof of Payment:</label>
+                                            <input type="file" name="proof_of_payment" id="proof_of_payment" required><br>
+                                        </div>
+                                        <!-- Add submit button -->
+                                        <button type="submit" class="def-btn btn-primary">Submit Payment</button>
+                                    </form>
+                                        
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        {% comment %} <!--------------------------------- QUOTATION MODAL END ---------------------------------> {% endcomment %}
+        
+
+
         {% comment %} <!--------------------------------- QUOTATION MODAL START ---------------------------------> {% endcomment %}
         <div class="modal fade" id="quotationModal{{ quotation.id }}" tabindex="-1" aria-labelledby="quotationModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-xl">
@@ -549,7 +612,6 @@
         
         
         {% comment %} <!--------------------------------- QUOTATION MODAL END ---------------------------------> {% endcomment %}
-        
     {% comment %} <!--------------------------------- ACCOUNT END ---------------------------------> {% endcomment %}
 
 

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from core.models import CartOrderRequest, Comment, PrivacyPolicy, Product, ProductImages, Category, CartOrder, CartOrderProducts, RefundPolicy, ReturnsAndCancellations, TermsAndConditions, WalletUsage, WarrantyPolicy, WishList, Address, Quotation, Invoice, Receipts, ProjectImage, Wallet, WalletTransaction, BalanceStatement, Document
+from core.models import CartOrderRequest, Comment, OutstandingPayment, PrivacyPolicy, Product, ProductImages, Category, CartOrder, CartOrderProducts, RefundPolicy, ReturnsAndCancellations, TermsAndConditions, WalletUsage, WarrantyPolicy, WishList, Address, Quotation, Invoice, Receipts, ProjectImage, Wallet, WalletTransaction, BalanceStatement, Document
 # from .utils import send_custom_email
 from django import forms
 from django.shortcuts import HttpResponseRedirect
@@ -57,7 +57,10 @@ class QuotationAdmin(admin.ModelAdmin):
     is_approved.boolean = True
     is_approved.short_description = 'Approved'
     
-    
+class OutstandingPaymentAdmin(admin.ModelAdmin):
+    list_display =['user', 'payment_amount', 'timestamp', 'proof_of_payment']
+    fields = ['user', 'payment_amount', 'timestamp', 'proof_of_payment']
+
     
 @admin.register(WalletUsage)
 class WalletUsageAdmin(admin.ModelAdmin):
@@ -203,7 +206,7 @@ admin.site.register(Receipts, ReceiptAdmin)
 admin.site.register(ProjectImage)
 admin.site.register(BalanceStatement, BalanceStatementAdmin)
 admin.site.register(Document, DocumentAdmin)
-
+admin.site.register(OutstandingPayment, OutstandingPaymentAdmin)
 admin.site.register(TermsAndConditions)
 admin.site.register(RefundPolicy)
 admin.site.register(WarrantyPolicy)

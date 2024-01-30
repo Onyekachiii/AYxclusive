@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.template.loader import render_to_string
 from core.forms import CartOrderRequestForm, CommentForm, PaymentConfirmationForm, ProductReviewForm, ProjectImageForm, WalletUsageForm
-from core.models import Comment, PrivacyPolicy, Product, Category, ProductImages, ProductReview, Quotation, Invoice,Receipts, ProjectImage, RefundPolicy, ReturnsAndCancellations, TermsAndConditions, Wallet, WalletTransaction, BalanceStatement, Document, WalletUsage, WarrantyPolicy, WishList, CartOrder, CartOrderProducts
+from core.models import Comment, OutstandingPayment, PrivacyPolicy, Product, Category, ProductImages, ProductReview, Quotation, Invoice,Receipts, ProjectImage, RefundPolicy, ReturnsAndCancellations, TermsAndConditions, Wallet, WalletTransaction, BalanceStatement, Document, WalletUsage, WarrantyPolicy, WishList, CartOrder, CartOrderProducts
 from django.contrib.auth.decorators import login_required
 from userauths.models import Profile, ContactUs
 from userauths.forms import ProfileForm
@@ -179,6 +179,7 @@ def customer_dashboard(request):
         payment_confirmation_form = PaymentConfirmationForm()
         receipts = Receipts.objects.filter(user=request.user)
         
+        invoice = None
         if invoices.exists():
             invoice = invoices.first()
             
@@ -189,8 +190,8 @@ def customer_dashboard(request):
             'profile': profile,
             'quotations' : quotations,
             'quotation': None,
-            'invoices': invoices,
             'invoice': invoice,
+            'invoices': invoices,
             'receipts': receipts,
             'image_form': image_form,
             'user_wallet': user_wallet,
@@ -217,14 +218,14 @@ def customer_dashboard(request):
         
         print("context:", context)  # Debugging line
         
-        invoice_id = request.GET.get('invoice_id')
-        if invoice_id:
-            try:
-                invoice = Invoice.objects.get(id=invoice_id, user=request.user)
-                context['invoice'] = invoice
-            except Invoice.DoesNotExist:
-            # Handle the case where the invoice doesn't exist
-                pass
+        # invoice_id = request.GET.get('invoice_id')
+        # if invoice_id:
+        #     try:
+        #         invoice = Invoice.objects.get(id=invoice_id, user=request.user)
+        #         context['invoice'] = invoice
+        #     except Invoice.DoesNotExist:
+        #     # Handle the case where the invoice doesn't exist
+        #         pass
         return render (request, "core/dashboard.html", context)
     
     else: 
@@ -364,6 +365,38 @@ def submit_wallet_usage(request, quotation_id):
 
     # Return a JSON response indicating success
     return JsonResponse({'success': True})
+
+
+def submit_payment(request):
+    if request.method == 'POST':
+        # Retrieve form data
+        payment_amount = request.POST.get('payment_amount')
+        proof_of_payment = request.FILES.get('proof_of_payment')
+
+
+        outstanding_payment = OutstandingPayment.objects.create(
+            user=request.user,
+            payment_amount=payment_amount,
+            proof_of_payment=proof_of_payment
+        )
+        outstanding_payment.save()
+
+        # Send email to admin
+        subject = 'New Outstanding Payment Submission'
+        user_name = request.user.get_full_name()
+        message = render_to_string('email/outstanding_payment_email.html', {'outstanding_payment': outstanding_payment, 'user_name': user_name})
+        plain_message = strip_tags(message)
+        from_email = 'testingexclusive123@gmail.com'
+        to_email = 'stanleyonyekachiii@yahoo.com'
+
+        send_mail(subject, plain_message, from_email, [to_email], html_message=message)
+
+                
+
+        messages.success(request, 'We will confirm payment and get back to you!')
+        return redirect('core:dashboard')  # Adjust the redirect URL as needed
+    else:
+        return redirect('core:dashboard')  # Redirect to dashboard if not a POST request
 
 @login_required
 def upload_image(request):

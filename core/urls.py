@@ -1,5 +1,5 @@
 from django.urls import path
-from core.views import checkout_view, invoice_details, index, about_us, category_list_view, order_completed_view, payment_confirmation, product_list_view, product_detail_view, category_product_list_view, customer_dashboard, quotation_details, search_view, filter_product, upload_image, projects, approve_quotation, wishlist_view, add_to_wishlist, remove_from_wishlist, add_to_cart, cart_view, delete_item_from_cart, update_cart, warranty_policy, refund_policy, returns_and_cancellations, privacy_policy, terms_and_conditions, faq_view
+from core.views import checkout_view, invoice_details, index, about_us, category_list_view, order_completed_view, payment_confirmation, product_list_view, product_detail_view, category_product_list_view, customer_dashboard, quotation_details, search_view, filter_product, submit_payment, upload_image, projects, approve_quotation, wishlist_view, add_to_wishlist, remove_from_wishlist, add_to_cart, cart_view, delete_item_from_cart, update_cart, warranty_policy, refund_policy, returns_and_cancellations, privacy_policy, terms_and_conditions, faq_view
 
 
 app_name = 'core'
@@ -31,6 +31,8 @@ urlpatterns = [
     
     path('approve-quotation/<int:quotation_id>/', approve_quotation, name='approve-quotation'),
      
+    #For outstanding payments
+    path('submit-payment/', submit_payment, name='submit_payment'),
     
     # Search
     path('search/', search_view, name='search'),
