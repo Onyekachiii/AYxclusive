@@ -298,6 +298,9 @@
                                         <div class="middle">
                                             <h3>Rs {{ user_wallet.balance }}</h3>
                                         </div>
+                                        <div>
+                                            <button type="button" class="def-btn btn-primary" data-bs-toggle="modal" data-bs-target="#addFundsModal">Add Funds to Wallet</button>
+                                        </div>
                                         
                                     </div>
                                 </div>
@@ -478,13 +481,16 @@
                             </div>
                             <div class="invoice-body">
                                 <div class="mb-3">
+                                    {% if invoice %}
                                     <form method="POST" action="{% url 'core:payment-confirmation' invoice_id=invoice.id %}" enctype="multipart/form-data">
                                         {% csrf_token %}
+                                        <input type="hidden" name="invoice_id" value="{{ invoice.id }}">
                                         <label for="id_proof_of_invoice" class="form-label">Upload Proof of Payment</label>
                                         {{ payment_confirmation_form.proof_of_invoice }}
                                         
                                         <button class="def-btn paymentMadeBtn" type="submit" id="paymentMadeBtn" disabled>Payment made</button>
                                     </form>
+                                    {% endif %}
                                 </div>
                             </div>
                             
@@ -503,12 +509,12 @@
         {% comment %} <!--------------------------------- INVOICE MODAL END ---------------------------------> {% endcomment %}
 
         
-        {% comment %} <!--------------------------------- Outstanding Payment MODAL START ---------------------------------> {% endcomment %}
+        {% comment %} <!--------------------------------- OUTSTANDING PAYMENT MODAL START ---------------------------------> {% endcomment %}
         <div class="modal fade" id="paymentModal" tabindex="-1" aria-labelledby="paymentModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-xl">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h2 class="account-title mb-0" id="invoiceModalLabel">Approve Quotation</h2>
+                        <h2 class="account-title mb-0" id="invoiceModalLabel">Make Outstanding Payments</h2>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -527,8 +533,8 @@
                                         <div class="items">
                                             <div id="invoiceDetails">
                                                 <!-- Invoice details will be dynamically inserted here -->
-                                                <p>Account name: <b>{{ invoice.account_name }}</b></p>
-                                                <p>Account number: <b>{{ invoice.account_number}}</b></p>
+                                                <p>Account name: <b>Assemble Yourself Exclusive furnitures ltd</b></p>
+                                                <p>Account number: <b>MCB Acct: 000449502171</b></p>
                                                 
                                             </div>
                                         </div>
@@ -561,7 +567,7 @@
         
         
         
-        {% comment %} <!--------------------------------- QUOTATION MODAL END ---------------------------------> {% endcomment %}
+        {% comment %} <!--------------------------------- OUTSTANDING PAYMENT MODAL END ---------------------------------> {% endcomment %}
         
 
 
@@ -612,6 +618,68 @@
         
         
         {% comment %} <!--------------------------------- QUOTATION MODAL END ---------------------------------> {% endcomment %}
+
+
+        {% comment %} <!--------------------------------- ADD FUNDS MODAL START ---------------------------------> {% endcomment %}
+        <div class="modal fade" id="addFundsModal" tabindex="-1" aria-labelledby="addFundsModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="account-title mb-0" id="invoiceModalLabel">Add Funds To Wallet </h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="invoice-wrap">
+                            <div class="invoice-top d-flex justify-content-between align-items-center">
+                                <div class="left">
+                                    <div class="logo"><img src="{% static 'assets/images/logos/AY11.png' %}" alt="LOGO"></div>
+                                    <br>
+                                    <p>Would you like to add funds to your wallet?</p>
+                                    <p><b>Your Wallet Balance: Rs {{ user_wallet.balance }}</b></p>
+                                </div>
+                            </div>
+                            <div class="">
+                                <div class="items" id="quotation-details">
+                                    <div class="invoice-body">
+                                        <div class="items">
+                                            <div id="invoiceDetails">
+                                                <!-- Invoice details will be dynamically inserted here -->
+                                                <p>Account name: <b>Assemble Yourself Exclusive furnitures ltd</b></p>
+                                                <p>Account number: <b>MCB Acct: 000449502171</b></p>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <form id="addFundsForm"  method="POST" action="{% url 'core:add_funds' %}" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        
+                                        <!-- Add field for payment amount -->
+                                        <div class="mb-3">
+                                            <label for="paymentAmount" class="form-label">Payment Amount (Rs)</label>
+                                            <input type="number" class="form-control" id="paymentAmount" name="payment_amount">
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="proof_of_transfer" class="form-label">Proof of Transfer</label>
+                                            <input type="file" class="form-control" id="proof_of_transfer" name="proof_of_transfer" required>
+                                        </div>
+                                        <!-- Add submit button -->
+                                        <button type="submit" class="def-btn btn-primary">Submit</button>
+                                    </form>
+                                        
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        {% comment %} <!--------------------------------- ADD FUNDS MODAL END ---------------------------------> {% endcomment %}
+
     {% comment %} <!--------------------------------- ACCOUNT END ---------------------------------> {% endcomment %}
 
 

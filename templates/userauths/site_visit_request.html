@@ -42,8 +42,8 @@
                         {% endif %}
                         <script>
                             setTimeout(function () {
-                                $('.alert').fadeOut('fast');
-                            }, 5000);
+                                $('.alert').fadeOut('slow');
+                            }, 8000);
                         </script>
                         <h2>Request Site Visit</h2>
                         </br>
@@ -56,7 +56,8 @@
 
                             </div>
                                 
-                            <button class="def-btn btn-border" type="submit">Submit Request</button>
+                            <button id= "submitBtn" class="def-btn btn-border" type="submit">Submit Request</button>
+                            <div id="balanceWarning" style="display:none; color:red;">You need at least Rs 1000 in your wallet balance to submit a site visit request.</div>
                         </form>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from core.models import CartOrderRequest, Comment, OutstandingPayment, PrivacyPolicy, Product, ProductImages, Category, CartOrder, CartOrderProducts, RefundPolicy, ReturnsAndCancellations, TermsAndConditions, WalletUsage, WarrantyPolicy, WishList, Address, Quotation, Invoice, Receipts, ProjectImage, Wallet, WalletTransaction, BalanceStatement, Document
+from core.models import CartOrderRequest, Comment, OutstandingPayment, PrivacyPolicy, Product, ProductImages, Category, CartOrder, CartOrderProducts, RefundPolicy, ReturnsAndCancellations, TermsAndConditions, WalletUsage, WarrantyPolicy, WishList, Address, Quotation, Invoice, Receipts, ProjectImage, Wallet, WalletTransaction, BalanceStatement, Document, WalletFundsTransfer
 # from .utils import send_custom_email
 from django import forms
 from django.shortcuts import HttpResponseRedirect
@@ -37,7 +37,7 @@ class CartOrderAdmin(admin.ModelAdmin):
     
     
 class CartOrderRequestAdmin(admin.ModelAdmin):
-    list_display = ['user', 'email', 'phone', 'delivery_address', 'delivery_floor_level']
+    list_display = ['user', 'email', 'phone', 'delivery_address', 'delivery_floor_level', 'description']
 
 
 class WishListAdmin(admin.ModelAdmin):
@@ -50,7 +50,7 @@ class AddressAdmin(admin.ModelAdmin):
 
 class QuotationAdmin(admin.ModelAdmin):
     
-    list_display = ['user', 'quotation_number', 'is_approved', 'wallet_usage']
+    list_display = ['user', 'quotation_number', 'is_approved', 'wallet_usage', 'quotation_date']
 
     def is_approved(self, obj):
         return obj.approved  # Assuming your Quotation model has an 'approved' field
@@ -59,17 +59,22 @@ class QuotationAdmin(admin.ModelAdmin):
     
 class OutstandingPaymentAdmin(admin.ModelAdmin):
     list_display =['user', 'payment_amount', 'timestamp', 'proof_of_payment']
-    fields = ['user', 'payment_amount', 'timestamp', 'proof_of_payment']
+    fields = ['user', 'payment_amount', 'proof_of_payment']
+    
+    
+class WalletFundsTransferAdmin(admin.ModelAdmin):
+    list_display =['user', 'funds_amount', 'timestamp', 'proof_of_transfer']
+    fields = ['user', 'funds_amount', 'proof_of_transfer']
 
     
-@admin.register(WalletUsage)
+
 class WalletUsageAdmin(admin.ModelAdmin):
     list_display = ['user', 'quotation', 'amount_used']
 
 
 class InvoiceAdmin(admin.ModelAdmin):
     
-    list_display = ('user', 'invoice_number', 'amount_to_be_paid', 'payment_status', 'proof_of_invoice_display')
+    list_display = ('user', 'invoice_number', 'amount_to_be_paid', 'payment_status', 'proof_of_invoice_display', 'invoice_date')
     
     def proof_of_invoice_display(self, obj):
         if obj.proof_of_invoice:
@@ -190,7 +195,9 @@ class BalanceStatementAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Wallet, WalletAdmin)
+admin.site.register(WalletUsage, WalletUsageAdmin)
 admin.site.register(WalletTransaction, WalletTransactionAdmin)
+admin.site.register(WalletFundsTransfer, WalletFundsTransferAdmin)
 
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Category, CategoryAdmin)

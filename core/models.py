@@ -146,10 +146,10 @@ class CartOrderRequest(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     email = models.EmailField()
-    # invoice_no = models.ForeignKey(CartOrderProducts, on_delete=models.CASCADE)
     phone = models.CharField(max_length=15)
     delivery_address = models.TextField()
     delivery_floor_level = models.CharField(max_length=50)
+    description = models.TextField(default=None, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -329,6 +329,16 @@ class WalletTransaction(models.Model):
 
     def __str__(self):
         return f'{self.user.username} - {self.transaction_type} - {self.amount} - {self.timestamp}'
+    
+
+class WalletFundsTransfer(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    funds_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    proof_of_transfer = models.FileField(upload_to='proof_of_payments/', blank=True, null=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f"Wallet Funds Transfer - {self.user.username}"
     
 
 @receiver(post_save, sender=User)

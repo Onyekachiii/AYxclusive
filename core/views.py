@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
 from django.template.loader import render_to_string
 from core.forms import CartOrderRequestForm, CommentForm, PaymentConfirmationForm, ProductReviewForm, ProjectImageForm, WalletUsageForm
-from core.models import Comment, OutstandingPayment, PrivacyPolicy, Product, Category, ProductImages, ProductReview, Quotation, Invoice,Receipts, ProjectImage, RefundPolicy, ReturnsAndCancellations, TermsAndConditions, Wallet, WalletTransaction, BalanceStatement, Document, WalletUsage, WarrantyPolicy, WishList, CartOrder, CartOrderProducts
+from core.models import Comment, OutstandingPayment, PrivacyPolicy, Product, Category, ProductImages, ProductReview, Quotation, Invoice,Receipts, ProjectImage, RefundPolicy, ReturnsAndCancellations, TermsAndConditions, Wallet, WalletFundsTransfer, WalletTransaction, BalanceStatement, Document, WalletUsage, WarrantyPolicy, WishList, CartOrder, CartOrderProducts
 from django.contrib.auth.decorators import login_required
 from userauths.models import Profile, ContactUs
 from userauths.forms import ProfileForm
@@ -174,15 +174,17 @@ def customer_dashboard(request):
         
   
         quotations = Quotation.objects.filter(user=request.user)
-        
+        # invoice_id = request.GET.get('invoice_id')
         invoices = Invoice.objects.filter(user=request.user)
         payment_confirmation_form = PaymentConfirmationForm()
         receipts = Receipts.objects.filter(user=request.user)
         
-        invoice = None
-        if invoices.exists():
-            invoice = invoices.first()
-            
+        # invoice = None
+        # if invoices.exists():
+        
+        invoice = Invoice.objects.filter(user=request.user, payment_status='unpaid').first()
+
+        
     
         context = {
             'user': current_user,
@@ -192,6 +194,7 @@ def customer_dashboard(request):
             'quotation': None,
             'invoice': invoice,
             'invoices': invoices,
+            # 'invoice_id': invoice_id,
             'receipts': receipts,
             'image_form': image_form,
             'user_wallet': user_wallet,
@@ -199,7 +202,7 @@ def customer_dashboard(request):
             'statements': statements,
             'overall_balance': overall_balance,
             'documents': documents,
-            'payment_confirmation_form': payment_confirmation_form,
+            'payment_confirmation_form': payment_confirmation_form,  
         
         }
         
@@ -218,14 +221,6 @@ def customer_dashboard(request):
         
         print("context:", context)  # Debugging line
         
-        # invoice_id = request.GET.get('invoice_id')
-        # if invoice_id:
-        #     try:
-        #         invoice = Invoice.objects.get(id=invoice_id, user=request.user)
-        #         context['invoice'] = invoice
-        #     except Invoice.DoesNotExist:
-        #     # Handle the case where the invoice doesn't exist
-        #         pass
         return render (request, "core/dashboard.html", context)
     
     else: 
@@ -246,8 +241,9 @@ def invoice_details(request, invoice_id):
 
 
 def payment_confirmation(request, invoice_id):
+    
     try:
-        invoice = Invoice.objects.get(id=invoice_id, user=request.user)
+        invoice = get_object_or_404(Invoice, id=invoice_id, user=request.user)
 
         if request.method == 'POST':
             payment_confirmation_form = PaymentConfirmationForm(request.POST, request.FILES)
@@ -288,6 +284,45 @@ def payment_confirmation(request, invoice_id):
         return JsonResponse({'status': 'error', 'message': 'Invoice not found or you do not have permission to pay for it.'})
 
 
+def get_wallet_balance(request):
+    if request.user.is_authenticated:
+        user_wallet = Wallet.objects.get(user=request.user)
+        balance = user_wallet.balance
+        return JsonResponse({'balance': balance})
+    else:
+        return JsonResponse({'error': 'User not authenticated'})
+    
+
+def add_funds(request):
+    if request.method == 'POST':
+        
+        # Process the form data
+        funds_amount = request.POST.get('payment_amount')
+        proof_of_transfer = request.FILES.get('proof_of_transfer')
+        
+        # Save the details in Django admin or your database model
+        wallet_funds_transfer = WalletFundsTransfer.objects.create(
+            user=request.user,
+            funds_amount=funds_amount,
+            proof_of_transfer=proof_of_transfer
+        )
+        wallet_funds_transfer.save()
+        
+        # Send email to admin
+        subject = 'New Wallet Funds transfer'
+        user_name = request.user.get_full_name()
+        message = render_to_string('email/wallet_funds_transfer.html', {'wallet_funds_transfer': wallet_funds_transfer, 'user_name': user_name})
+        plain_message = strip_tags(message)
+        from_email = 'testingexclusive123@gmail.com'
+        to_email = 'stanleyonyekachiii@yahoo.com'
+
+        send_mail(subject, plain_message, from_email, [to_email], html_message=message)
+        # Return a JSON response indicating success
+        messages.success(request, 'We will confirm payment and get back to you!')
+        return redirect('core:dashboard')  # Adjust the redirect URL as needed
+    else:
+        return redirect('core:dashboard')  # Redirect to dashboard if not a POST request
+    
 
 @login_required
 def approve_quotation(request, quotation_id):

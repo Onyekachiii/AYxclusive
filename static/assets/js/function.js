@@ -334,7 +334,22 @@ $(document).ready(function() {
     }
 
 
+    $(document).ready(function(){
+        $("#submitBtn").click(function(){
+            // Check if the user's wallet balance is less than 1000
+            $.get("/get_wallet_balance/", function(data){
+                if (parseInt(data.balance) < 1000) {
+                    $("#balanceWarning").show();
+                } else {
+                    // Submit the form if the balance is sufficient
+                    $("#siteVisitForm").submit();
+                }
+            });
+        });
+    });
     
-        
+    setTimeout(function () {
+        $('.alert').fadeOut('slow');
+    }, 8000);
 
 });
