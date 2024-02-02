@@ -211,6 +211,8 @@
                                                 <td>
                                                     {% if invoice.payment_status == "paid" %}
                                                         <span class="invoice"><b>Paid</b></span>
+                                                    {% elif invoice.payment_status == "part_paid"%}
+                                                        <span class="invoice"><b>Part Paid</b></span>
                                                     {% else %}
                                                         <button class="def-btn approve" type="button" data-bs-toggle="modal" data-bs-target="#invoiceModal" data-invoice-id="{{ invoice.id }}" data-invoice-url="{% url 'core:invoice-details' invoice.id %}">Approve</button>
                                                     {% endif %}
