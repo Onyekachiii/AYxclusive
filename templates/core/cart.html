@@ -71,7 +71,13 @@
                                                         <img src="{{ item.image }}" alt="Image">
                                                     </div>
                                                 </td>
-                                                <td><a href="{% url 'core:product-detail' item.pid %}" class="product-name">{{ item.title }}</a></td>
+                                                <td>
+                                                    {% if item.pid %}
+                                                        <a href="{% url 'core:product-detail' pid=item.pid %}" class="product-name">{{ item.title }}</a>
+                                                    {% else %}
+                                                        {{ item.title }}
+                                                    {% endif %}
+                                                    </td>
                                                 <td><span class="price-txt">Rs <span class="main-price">{{ item.price }}</span></span></td>
                                                 <td>
                                                     <div class="product-count cart-product-count">

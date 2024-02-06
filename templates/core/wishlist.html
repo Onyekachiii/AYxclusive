@@ -37,7 +37,7 @@
                                         <th>Image</th>
                                         <th>Product Name</th>
                                         <th>Price</th>
-                                        <th>Action</th>
+                                        {% comment %} <th>Action</th> {% endcomment %}
                                         <th></th>
                                         <th>Remove</th>
                                     </tr>
@@ -52,8 +52,17 @@
                                         </td>
                                         <td><a href="{% url 'core:product-detail' w.product.pid %}" class="product-name"><b>{{ w.product.title|truncatechars:20 }}</b></a></td>
                                         <td><span class="price-txt">Rs <span class="current-product-price-{{ w.product.id }}">{{ w.product.price }}</span></span></td>
-                                       
-                                        <td><button class="add-to-cart-btn"><i class="fa-light fa-cart-shopping"></i></button><td>
+                                       <td></td>
+                                        {% comment %} <td>
+                                            <span>
+                                                <input type="hidden" value="1" name="" id="product-quantity" class="w-25 mb-20 product-quantity-{{w.product.id}}">
+                                                <input type="hidden" class="product-pid-{{w.product.id}}" value="{{w.product.pid}}">
+                                                <input type="hidden" class="product-image-{{w.product.id}}" value="{{w.product.image.url}}">
+                                                <input type="hidden" class="product-id-{{w.product.id}}" value="{{ w.product.id }}">
+                                                <input type="hidden" class="product-title-{{w.product.id}}" value="{{ w.product.title }}">
+                                                <button class="add-to-cart-btn" data-index="{{ w.product.id }}"><i class="fa-light fa-cart-shopping"></i></button>
+                                            </span>
+                                        <td> {% endcomment %}
                                         <td><button class="cart-delete delete-wishlist-product" data-wishlist-product="{{ w.id }}" title="Remove From List"><i class="fa-light fa-trash-can"></i></button></td>
                                     </tr>
                                     {% endfor %}

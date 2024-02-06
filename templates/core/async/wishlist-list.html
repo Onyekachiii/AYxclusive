@@ -27,7 +27,16 @@
                                     <td><a href="{% url 'core:product-detail' w.product.pid %}" class="product-name"><b>{{ w.product.title|truncatechars:20 }}</b></a></td>
                                     <td><span class="price-txt">Rs <span class="current-product-price-{{ w.product.id }}">{{ w.product.price }}</span></span></td>
                                    
-                                    <td><button class="add-to-cart-btn"><i class="fa-light fa-cart-shopping"></i></button><td>
+                                    <td>
+                                        <span>
+                                            <input type="hidden" value="1" name="" id="product-quantity" class="w-25 mb-20 product-quantity-{{p.id}}">
+                                            <input type="hidden" class="product-pid-{{p.id}}" value="{{p.pid}}">
+                                            <input type="hidden" class="product-image-{{p.id}}" value="{{p.image.url}}">
+                                            <input type="hidden" class="product-id-{{p.id}}" value="{{ p.id }}">
+                                            <input type="hidden" class="product-title-{{p.id}}" value="{{ p.title }}">
+                                            <button type="submit" class="add-to-cart-btn" data-index="{{ p.id }}"><i class="fa-light fa-cart-shopping"></i></button>
+                                        </span>
+                                    <td>
                                     <td><button class="cart-delete delete-wishlist-product" data-wishlist-product="{{ w.id }}" title="Remove From List"><i class="fa-light fa-trash-can"></i></button></td>
                                 </tr>
                                 {% endfor %}
@@ -35,7 +44,7 @@
                         </table>
                     </div>
                 </div>
-                <a href="shop.html" class="def-btn btn-border">CONTINUE SHOPPING</a>
+                <a href="{% url 'core:product-list' %}" class="def-btn btn-border">CONTINUE SHOPPING</a>
             </div>
         </div>
     </div>

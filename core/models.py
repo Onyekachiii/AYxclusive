@@ -298,7 +298,7 @@ class ProjectImage(models.Model):
 # For Wallet 
 class Wallet(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
+    balance = models.DecimalField(max_digits=10, decimal_places=2, default=250.00)
    
 
     def __str__(self):

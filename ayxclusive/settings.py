@@ -27,9 +27,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-u8x-5#6ucoh^)+33yfzx*@mcp5+nk)^@3f=06^5y5#gi3_+r16'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ayexclusive.com', 'localhost']
 
 
 # Application definition
@@ -178,15 +178,15 @@ AUTH_USER_MODEL = 'userauths.User'
 load_dotenv()
 
 # Django Email Settings
-EMAIL_FROM_USER = 'ayexclusive1@outlook.com'
+EMAIL_FROM_USER = 'ay.exclusive@outlook.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'testingexclusive123@gmail.com'
-EMAIL_HOST_PASSWORD = 'gdjl rmrj jokz axrc'
+EMAIL_HOST_USER = 'ayexclusive123@gmail.com'
+EMAIL_HOST_PASSWORD = 'rmjb anwq zbzo zhuw'
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
-DEBUG_EMAIL = True
+DEBUG_EMAIL = False
 
 DEFAULT_FROM_EMAIL = 'noreply<no_reply@domain.com>'
 

@@ -262,8 +262,8 @@ def payment_confirmation(request, invoice_id):
                 user_name = request.user.get_full_name()
                 message = render_to_string('email/payment_made_admin_notification.txt', {'invoice': invoice, 'user_name': user_name})
                 plain_message = strip_tags(message)
-                from_email = 'testingexclusive123@gmail.com'
-                to_email = 'stanleyonyekachiii@yahoo.com'
+                from_email = 'ayexclusive123@gmail.com'  # Use your own email here
+                to_email = 'ay.exclusive@outlook.com'  # Use your admin's email here
 
                 send_mail(subject, plain_message, from_email, [to_email], html_message=message)
 
@@ -313,8 +313,8 @@ def add_funds(request):
         user_name = request.user.get_full_name()
         message = render_to_string('email/wallet_funds_transfer.html', {'wallet_funds_transfer': wallet_funds_transfer, 'user_name': user_name})
         plain_message = strip_tags(message)
-        from_email = 'testingexclusive123@gmail.com'
-        to_email = 'stanleyonyekachiii@yahoo.com'
+        from_email = 'ayexclusive123@gmail.com'  # Use your own email here
+        to_email = 'ay.exclusive@outlook.com'  # Use your admin's email here
 
         send_mail(subject, plain_message, from_email, [to_email], html_message=message)
         # Return a JSON response indicating success
@@ -349,8 +349,8 @@ def approve_quotation(request, quotation_id):
                 user_name = request.user.get_full_name()
                 message = render_to_string('email/admin_notification_email.html', {'quotation': quotation, 'user_name': user_name})
                 plain_message = strip_tags(message)
-                from_email = 'testingexclusive123@gmail.com'
-                to_email = 'stanleyonyekachiii@yahoo.com'
+                from_email = 'ayexclusive123@gmail.com'  # Use your own email here
+                to_email = 'ay.exclusive@outlook.com'  # Use your admin's email here
 
                 send_mail(subject, plain_message, from_email, [to_email], html_message=message)
 
@@ -421,8 +421,8 @@ def submit_payment(request):
         user_name = request.user.get_full_name()
         message = render_to_string('email/outstanding_payment_email.html', {'outstanding_payment': outstanding_payment, 'user_name': user_name})
         plain_message = strip_tags(message)
-        from_email = 'testingexclusive123@gmail.com'
-        to_email = 'stanleyonyekachiii@yahoo.com'
+        from_email = 'ayexclusive123@gmail.com'  # Use your own email here
+        to_email = 'ay.exclusive@outlook.com'  # Use your admin's email here
 
         send_mail(subject, plain_message, from_email, [to_email], html_message=message)
 
@@ -674,8 +674,8 @@ def checkout_view(request):
             user_name = request.user.get_full_name()  # Assuming your User model has a get_full_name method
             message = render_to_string('email/new_cart_order.html', {'order': order, 'user_name': user_name})
             plain_message = strip_tags(message)  # Strip HTML tags for a plain text version
-            from_email = 'testingexclusive123@gmail.com'  # Use your own email here
-            to_email = 'stanleyonyekachiii@yahoo.com'  # Use your admin's email here
+            from_email = 'ayexclusive123@gmail.com'  # Use your own email here
+            to_email = 'ay.exclusive@outlook.com'  # Use your admin's email here
 
             send_mail(subject, plain_message, from_email, [to_email], html_message=message)
             

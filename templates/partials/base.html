@@ -410,7 +410,13 @@
                                 <li><a href="{% url "core:dashboard" %}">My Orders</a></li>
                                 <li><a href="{% url "core:dashboard" %}">My Credit</a></li>
                                 <li><a href="{% url "core:wishlist" %}">Wishlist</a></li>
-                                <li><a href="{% url "userauths:sign-in" %}">Login</a></li>
+                                <li>
+                                    {% if request.user.is_authenticated %}
+                                        <a href="{% url 'core:dashboard' %}" class="nav-link">Account</a>
+                                    {% else %}
+                                        <a href="{% url "userauths:sign-in" %}" class="nav-link">Login</a>
+                                    {% endif %}
+                                </li>
                                 <li><a href="{% url "core:dashboard" %}">Personal Info</a></li>
                                 <li><a href="{% url "core:warranty-policy" %}" target="_blank">Warranty Policy</a></li>
                                 <li><a href="{% url "core:refund-policy" %}" target="_blank">Refund Policy</a></li>
@@ -445,7 +451,7 @@
                         </p>
                         
                         <input type="" name="" placeholder="Click here">
-                        <button><a href="{% url 'userauths:custom_furniture_request' %}"><i class="fa-solid fa-paper-plane"></i></a></button>
+                        <button><a href="{% url 'userauths:site_visit_request' %}"><i class="fa-solid fa-paper-plane"></i></a></button>
                         
                     </div>
                 </div>
