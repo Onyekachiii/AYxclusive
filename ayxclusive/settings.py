@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-u8x-5#6ucoh^)+33yfzx*@mcp5+nk)^@3f=06^5y5#gi3_+r16
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['ayexclusive.com', 'localhost']
+ALLOWED_HOSTS = ['ayxclusive.com', 'localhost']
 
 
 # Application definition
@@ -67,6 +67,7 @@ MIDDLEWARE = [
     'django_otp.middleware.OTPMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'ayxclusive.urls'
@@ -98,7 +99,13 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    },
+    # 'users': {
+    #     'NAME': 'user_data',
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'USER' : 'mysql_user',
+    #     'PASSWORD': 'priv4te'
+    # }
 }
 
 
@@ -182,7 +189,7 @@ EMAIL_FROM_USER = 'ay.exclusive@outlook.com'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'ayexclusive123@gmail.com'
+EMAIL_HOST_USER = 'ayexclsv@gmail.com'
 EMAIL_HOST_PASSWORD = 'rmjb anwq zbzo zhuw'
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False

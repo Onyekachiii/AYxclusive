@@ -159,7 +159,7 @@ def custom_furniture_request(request):
             user_name = request.user.get_full_name()  # Assuming your User model has a get_full_name method
             message = render_to_string('email/custom_furniture_request_email.html', {'custom_furniture_request': custom_furniture_request, 'user_name': user_name})
             plain_message = strip_tags(message)  # Strip HTML tags for a plain text version
-            from_email = 'ayexclusive123@gmail.com'  # Use your own email here
+            from_email = 'ayexclsv@gmail.com'  # Use your own email here
             to_email = 'ay.exclusive@outlook.com'  # Use your admin's email here
 
             send_mail(subject, plain_message, from_email, [to_email], html_message=message)
@@ -205,7 +205,7 @@ def site_visit_request(request):
             user_name = request.user.get_full_name()  # Assuming your User model has a get_full_name method
             message = render_to_string('email/site_visit_request_email.html', {'custom_furniture_request': custom_furniture_request, 'user_name': user_name})
             plain_message = strip_tags(message)  # Strip HTML tags for a plain text version
-            from_email = 'ayexclusive123@gmail.com'  # Use your own email here
+            from_email = 'ayexclsv@gmail.com'  # Use your own email here
             to_email = 'ay.exclusive@outlook.com'  # Use your admin's email here
 
             send_mail(subject, plain_message, from_email, [to_email], html_message=message)

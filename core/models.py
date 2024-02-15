@@ -435,3 +435,8 @@ class PrivacyPolicy(models.Model):
 
     def __str__(self):
         return "Privacy Policy"
+
+# objlist = ModelObject.objects.using('sqlite').all()
+
+# for obj in objlist:
+#     obj.save(using='mysql')
