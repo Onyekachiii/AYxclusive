@@ -1,0 +1,55 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block content %} 
+
+{% comment %} <!--------------------------------- BANNER SECTION START ---------------------------------> {% endcomment %}
+    <div class="banner banner-inner">
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-lg-6 col-md-9 col-8">
+                    <div class="breadcrumb-txt">
+                        <h1>Lockout</h1>
+                        <ul>
+                            <li><a href="{% url 'core:index'%}"><i class="fa-regular fa-house"></i></a></li>
+                            <li>/</li>
+                            <li>From Log In</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-3 col-4">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    {% comment %} <!--------------------------------- BANNER SECTION END ---------------------------------> {% endcomment %}
+
+
+
+    {% comment %} <!--------------------------------- CART SECTION START ---------------------------------> {% endcomment %}
+    <div class="tab-section py-120">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    
+                    <div class="tab-contents">
+                        <div class="single-tab active" id="orderCompletedTab">
+                            <div class="check-icon">
+                                <svg class="x-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+                                    <circle class="x-icon__circle" cx="16" cy="16" r="15" fill="none" stroke="#ff0000" stroke-width="2"/>
+                                    <path class="x-icon__cross" fill="none" stroke="#ff0000" stroke-width="2" d="M9 9, 23 23, M23 9, 9 23"/>
+                                </svg>
+                            </div>
+                            <div class="order-complete-msg">
+                                <h2>Sorry you've been locked out of your account. Try again after 3 hours</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% comment %} <!--------------------------------- CART SECTION END ---------------------------------> {% endcomment %}
+
+
+{% endblock content %}

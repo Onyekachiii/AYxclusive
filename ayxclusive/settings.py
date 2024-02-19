@@ -27,9 +27,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-u8x-5#6ucoh^)+33yfzx*@mcp5+nk)^@3f=06^5y5#gi3_+r16'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['ayxclusive.com', 'localhost']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -50,11 +50,8 @@ INSTALLED_APPS = [
     'core',
     'userauths',
     
-    'django_otp',
+    'axes',
     
-    'django_otp.plugins.otp_totp',
-    
-    # To verify emails
     "verify_email.apps.VerifyEmailConfig",
 ]
 
@@ -63,8 +60,8 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'axes.middleware.AxesMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django_otp.middleware.OTPMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     
@@ -140,6 +137,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -171,6 +170,17 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+AXES_FAILURE_LIMIT = 3 
+AXES_COOLOFF_TIME = 180
+
+
+AUTHENTICATION_BACKENDS = [
+    'axes.backends.AxesBackend',  # You can keep this one
+    'django.contrib.auth.backends.ModelBackend',  # This should be retained
+    'axes.backends.AxesStandaloneBackend',  # Replace AxesModelBackend with AxesStandaloneBackend
+]
+
+AXES_LOCKOUT_TEMPLATE = 'core/custom_lockout.html' #path to your custom template
 
 
 JAZZMIN_SETTINGS = {

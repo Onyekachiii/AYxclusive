@@ -24,17 +24,19 @@ from django.contrib.auth import views as auth_views
 
 from django.contrib.auth.models import User
 
-from django_otp.admin import OTPAdminSite
-from django_otp.plugins.otp_totp.models import TOTPDevice
-from django_otp.plugins.otp_totp.admin import TOTPDeviceAdmin
+# from django_otp.admin import OTPAdminSite
+# from django_otp.plugins.otp_totp.models import TOTPDevice
+# from django_otp.plugins.otp_totp.admin import TOTPDeviceAdmin
 
 
-class OTPAdmin(OTPAdminSite):
-   pass
+# class OTPAdmin(OTPAdminSite):
+#    pass
 
-admin_site = OTPAdmin(name='OTPAdmin')
+# admin_site = OTPAdmin(name='OTPAdmin')
+admin_site = admin.site
+
 admin_site.register(User)
-admin_site.register(TOTPDevice, TOTPDeviceAdmin)
+# admin_site.register(TOTPDevice, TOTPDeviceAdmin)
 
 
 urlpatterns = [

@@ -143,14 +143,25 @@ def customer_dashboard(request):
         if request.method == "POST":
             form = ProfileForm(request.POST, request.FILES, instance=profile)
             if form.is_valid():
-                new_profile = form.save(commit=False)
+                new_profile = form.save(commit=True)
                 new_profile.user = request.user
                 new_profile.save()
                 messages.success(request, "Profile updated successfully")
                 return redirect("core:dashboard")
         
-        else:
-            form = ProfileForm(instance=profile)
+        else:            
+            form_data = {
+            'first_name': profile.first_name,
+            'last_name': profile.last_name,
+            'email': profile.user.email,
+            'bio': profile.bio,
+            'phone': profile.phone,  # Assuming phone is a field in your Profile model
+            'house_address' : profile.house_address,
+            'city' : profile.city,
+            'country' : profile.country
+            
+        }
+        form = ProfileForm(initial=form_data)
     
         
         image_form = ProjectImageForm()

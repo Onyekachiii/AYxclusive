@@ -67,7 +67,11 @@ class Product(models.Model):
     
     price = models.DecimalField(max_digits=10, decimal_places=2, default=1.99, null=True, blank=True)
     old_price = models.DecimalField(max_digits=10, decimal_places=2, default=2.99, null=True, blank=True)
-    specifications = models.TextField(null=True, blank=True, default="This is the product specifications")
+    # specifications = models.TextField(null=True, blank=True, default="This is the product specifications")
+    dimensions = models.TextField(null=True, blank=True, default="This is the product dimensions")
+    materials = models.TextField(null=True, blank=True, default="This is the product materials")
+    structure = models.TextField(null=True, blank=True, default="This is the product structure")
+    delivery_time_frame = models.TextField(null=True, blank=True, default="This is the delivery time frame")
     # tags = models.ForeignKey(Tags, on_delete=models.SET_NULL, null=True)
     
     product_status = models.CharField(choices=STATUS, max_length=20, default="in_review")

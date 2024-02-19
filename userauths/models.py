@@ -12,9 +12,9 @@ class User(AbstractUser):
     first_name = models.CharField(max_length=100, default="Firstname")
     last_name = models.CharField(max_length=100, default="Lastname")
     bio = models.CharField(max_length=100, blank=True, null=True)
-    house_address = models.CharField(max_length=100, blank=True, null=True)
-    phone = models.CharField(max_length=100, default="+230 1234 5678")
-    city = models.CharField(max_length=100, default="Port Louis")
+    house_address = models.CharField(max_length=100, default=" ")
+    phone = models.CharField(max_length=100, default=" ")
+    city = models.CharField(max_length=100, default=" ")
     country = models.CharField(max_length=100, default="Mauritius")
     is_email_verified=models.BooleanField(default=False)
     
@@ -34,9 +34,9 @@ class Profile(models.Model):
     first_name = models.CharField(max_length=200, default="")
     last_name = models.CharField(max_length=200, default="")
     bio = models.CharField(max_length=200, null=True, blank=True)
-    phone = models.CharField(max_length=200, null=True, blank=True, default="+230 1234 5678")
-    house_address = models.CharField(max_length=500, null=True, blank=True)
-    city = models.CharField(max_length=500, null=True, blank=True, default="Port Louis")
+    phone = models.CharField(max_length=200, default=" ")
+    house_address = models.CharField(max_length=500, default=" ")
+    city = models.CharField(max_length=500, default=" ")
     country = models.CharField(max_length=500, null=True, blank=True, default="Mauritius")
     
     verified = models.BooleanField(default=False)
@@ -85,6 +85,7 @@ class CustomFurnitureRequest(models.Model):
     delivery_floor_level = models.CharField(max_length=50)
     timestamp = models.DateTimeField(auto_now_add=True)
     uploads = models.ImageField(upload_to="images", null=True, blank=True)
+    description = models.TextField(default=" ")
     
 
     def __str__(self):
