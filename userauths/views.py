@@ -188,9 +188,9 @@ def site_visit_request(request):
     
     if request.method == 'POST':
         # Check if the user has sufficient balance
-        if user_wallet.balance < 1000:
-            messages.error(request, 'You need at least Rs 1000 in your wallet balance to submit a site visit request.')
-            return redirect('core:dashboard')  # Adjust the redirect URL as needed
+        # if user_wallet.balance < 1000:
+        #     messages.error(request, 'You need at least Rs 1000 in your wallet balance to submit a site visit request.')
+        #     return redirect('core:dashboard')  # Adjust the redirect URL as needed
         form = SiteVisitRequestForm(request.POST)
         if form.is_valid():
             form.instance.user = request.user
