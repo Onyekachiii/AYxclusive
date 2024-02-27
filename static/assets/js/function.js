@@ -227,7 +227,7 @@ $(document).ready(function() {
     });
     
 
-        // Define the getCookie function
+       // Define the getCookie function
     function getCookie(name) {
         const value = `; ${document.cookie}`;
         const parts = value.split(`; ${name}=`);
@@ -235,50 +235,56 @@ $(document).ready(function() {
     }
 
 
-    var modalQuotation = new bootstrap.Modal(document.getElementById('quotationModal'));
+   // Attach event listener to approve buttons for quotations
+   $('.def-btn.approve2').on('click', function () {
+    var quotationId = $(this).data('quotation-id');
+    console.log('Button clicked. Quotation ID:', quotationId);
 
-    // Attach event listener to approve buttons for quotations
-    $('.def-btn.approve2').on('click', function () {
-        
+    // Assign modal ID to the global variable
+    var modalId = '#quotationModal' + quotationId;
 
-        var quotationId = $(this).data('quotation-id');
-        console.log('Button clicked. Quotation ID:', quotationId);
+    console.log('Quotation modal ID:', modalId);
 
-        // Fetch and display quotation details
-        console.log('Fetching quotation details...');
-        fetchQuotationDetails(quotationId);
-    });
+    // Open the modal
+    $(modalId).modal('show');
 
-    function fetchQuotationDetails(quotationId) {
-        // Fetch details using quotationId
-        $.ajax({
-            url: '/quotation-details/' + quotationId,
-            type: 'GET',
-            success: function (data) {
-                console.log('Fetched quotation details:', data);
+    // Log the quotation ID before calling fetchQuotationDetails
+    console.log('Quotation ID passed to fetchQuotationDetails:', quotationId);
 
-                // Update the modal content with the fetched details
-                $('#quotation-details').html(`
-                    
+    // Fetch quotation details and update modal content
+    fetchQuotationDetails(quotationId);
+});
+
+function fetchQuotationDetails(quotationId) {
+    // Fetch details using quotationId
+    $.ajax({
+        url: '/quotation-details/' + quotationId,
+        type: 'GET',
+        success: function (data) {
+            console.log('Fetched quotation details:', data);
+
+            // Update the modal content with the fetched details
+            var quotationDetailsElement = $('#quotation-details-' + quotationId);
+            console.log($('#quotation-details-' + quotationId).length);
+            console.log('Quotation details element:', quotationDetailsElement);
+            if (quotationDetailsElement.length > 0) {
+                quotationDetailsElement.html(`
                     <p>Quotation Number: <b>${data.quotation_number}</b></p>
-
-                    <!-- Include the WalletUsageForm HTML here -->
-                    <form id="walletUsageForm" data-quotation-id="${data.quotation_id}">
-                        <!-- Add your form fields here -->
+                    <form id="walletUsageForm${quotationId}" action="/approve-quotation/${data.quotation_id}/" method="POST">
                         <div>
                             <label for="id_amount_used">Amount to use from wallet:</label>
-                            <input type="text" name="amount_used" id="id_amount_used">
+                            <input type="text" name="amount_used" id="id_amount_used${quotationId}">
                         </div>
-                        </br>
+                        <br>
                         <button class="def-btn" type="submit">Submit</button>
                     </form>
                 `);
 
                 // Add event listener for form submission
-                $('#walletUsageForm').submit(function (event) {
+                $(`#walletUsageForm${quotationId}`).submit(function (event) {
                     event.preventDefault();
 
-                    var amountUsed = $('#id_amount_used').val();
+                    var amountUsed = $(`#id_amount_used${quotationId}`).val();
                     var walletBalance = data.balance;
 
                     if (parseFloat(amountUsed) > parseFloat(walletBalance)) {
@@ -287,6 +293,7 @@ $(document).ready(function() {
                         return;
                     }
 
+                    // Proceed with form submission if validation passes
                     $.ajax({
                         url: `/approve-quotation/${quotationId}/`,
                         type: 'POST',
@@ -297,24 +304,31 @@ $(document).ready(function() {
                             'amount_used': amountUsed
                         },
                         success: function (response) {
-                            modalQuotation.hide();
+                            // Hide the modal
+                            $(`#quotationModal${quotationId}`).modal('hide');
                             // Reload the page to reflect the changes
                             location.reload();
                             // Display a success message
                             showMessage('Thank you for approving your quotation. We will send you a payment receipt soon.');
-                        
                         },
                         error: function (xhr, status, error) {
                             console.error('Error:', error);
                         }
                     });
                 });
-            },
-            error: function (xhr, status, error) {
-                console.error('Error fetching quotation details:', error);
+            } else {
+                console.error('Quotation details element not found');
             }
-        });
-    }
+        },
+        error: function (xhr, status, error) {
+            console.error('Error fetching quotation details:', error);
+        }
+    });
+}
+
+
+
+    
 
     // Function to get CSRF token from cookies
     function getCookie(name) {

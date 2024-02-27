@@ -574,7 +574,7 @@
 
 
         {% comment %} <!--------------------------------- QUOTATION MODAL START ---------------------------------> {% endcomment %}
-        <div class="modal fade" id="quotationModal{{ quotation.id }}" tabindex="-1" aria-labelledby="quotationModalLabel" aria-hidden="true">
+        <div class="modal fade" id="quotationModal{{ quotation_id }}" tabindex="-1" aria-labelledby="quotationModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-xl">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -591,24 +591,28 @@
                                     <p><b>Your Wallet Balance: Rs {{ user_wallet.balance }}</b></p>
                                 </div>
                             </div>
-                            <div class="">
-                                <div class="items" id="quotation-details">
-                                    {% if quotation.id %}
-                                        <p>Quotation ID: {{ quotation.id }}</p>
-                                        <form id="walletUsageForm" data-quotation-id="${data.quotation_id}" action="/approve-quotation/${quotationId}/" method="POST">
-                                            {% csrf_token %}
-                                            <!-- Add your form fields here -->
-                                            <div>
-                                                <label for="id_amount_used">Amount to use from wallet:</label>
-                                                <input type="text" name="amount_used" id="id_amount_used">
-                                            </div>
-                                            </br>
-                                            <button class="def-btn" type="submit">Submit</button>
-                                        </form>
+                            
+                            <div id="quotation-details-{{ quotation.id }}">
+                                <div id="quotation-details-{{ quotation.id }}" data-quotation-id="{{ quotation.id }}" class="items">
+
+                                    {% comment %} {% if quotation_id %} {% endcomment %}
+                                    {% comment %} <p>Quotation ID: {{ quotation.id }}</p> {% endcomment %}
+                                    {% comment %} <p>Quotation Number: {{ quotation.quotation_number }}</p> {% endcomment %}
+                                    <form id="walletUsageForm" data-quotation-id="{{ quotation.id }}" action="/approve-quotation/{{ quotation.id }}/" method="POST">
+
+                                        {% csrf_token %}
+                                        <!-- Add your form fields here -->
+                                        <div>
+                                            <label for="id_amount_used">Amount to use from wallet:</label>
+                                            <input type="text" name="amount_used" id="id_amount_used">
+                                        </div>
+                                        </br>
+                                        <button class="def-btn" type="submit">Submit</button>
+                                    </form>
                                         
-                                    {% else %}
+                                    {% comment %} {% else %}
                                         <p>No Quotation selected</p>
-                                    {% endif %}
+                                    {% endif %}  {% endcomment %}
                                 </div>
                             </div>
                         </div>

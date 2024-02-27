@@ -190,8 +190,6 @@ def customer_dashboard(request):
         payment_confirmation_form = PaymentConfirmationForm()
         receipts = Receipts.objects.filter(user=request.user)
         
-        # invoice = None
-        # if invoices.exists():
         
         invoice = Invoice.objects.filter(user=request.user, payment_status='unpaid').first()
 
@@ -202,10 +200,8 @@ def customer_dashboard(request):
             'form': form,
             'profile': profile,
             'quotations' : quotations,
-            'quotation': None,
             'invoice': invoice,
             'invoices': invoices,
-            # 'invoice_id': invoice_id,
             'receipts': receipts,
             'image_form': image_form,
             'user_wallet': user_wallet,
@@ -217,20 +213,21 @@ def customer_dashboard(request):
         
         }
         
-        quotation_id = request.GET.get('quotation_id')
+        # print(request.GET)
+        # quotation_id = request.GET.get('quotation_id')
 
         # Move this block after defining 'quotation_id'
-        quotation_id = request.GET.get('quotation_id')
-        print("quotation_id:", quotation_id)  # Debugging line
-        if quotation_id:
-            try:
-                quotation = Quotation.objects.get(id=quotation_id, user=request.user)
-                context['quotation'] = quotation
-            except Quotation.DoesNotExist:
-                # Handle the case where the quotation doesn't exist
-                pass
+        # quotation_id = request.GET.get('quotation_id')
+        # print("quotation_id:", quotation_id)  # Debugging line
+        # if quotation_id:
+        #     try:
+        #         quotation = Quotation.objects.get(id=quotation_id, user=request.user)
+        #         context['quotation'] = quotation
+        #     except Quotation.DoesNotExist:
+        #         # Handle the case where the quotation doesn't exist
+        #         pass
         
-        print("context:", context)  # Debugging line
+        # print("context:", context)  # Debugging line
         
         return render (request, "core/dashboard.html", context)
     
@@ -335,6 +332,20 @@ def add_funds(request):
         return redirect('core:dashboard')  # Redirect to dashboard if not a POST request
     
 
+def quotation_details(request, quotation_id):
+    try:
+        quotation = get_object_or_404(Quotation, pk=quotation_id)
+        # Modify this based on your actual Quotation model structure
+        data = {
+            'quotation_id': quotation.id,
+            'quotation_number': quotation.quotation_number,
+            # Add other details as needed
+        }
+        return JsonResponse(data)
+    except Quotation.DoesNotExist:
+        return JsonResponse({'error': 'Quotation not found'}, status=404)
+    
+
 @login_required
 def approve_quotation(request, quotation_id):
     quotation = get_object_or_404(Quotation, id=quotation_id, user=request.user)
@@ -379,18 +390,7 @@ def approve_quotation(request, quotation_id):
 
 
 
-def quotation_details(request, quotation_id):
-    try:
-        quotation = get_object_or_404(Quotation, id=quotation_id)
-        # Modify this based on your actual Quotation model structure
-        data = {
-            'quotation_id': quotation.id,
-            'quotation_number': quotation.quotation_number,
-            # Add other details as needed
-        }
-        return JsonResponse(data)
-    except Quotation.DoesNotExist:
-        return JsonResponse({'error': 'Quotation not found'}, status=404)
+
     
 
 def submit_wallet_usage(request, quotation_id):

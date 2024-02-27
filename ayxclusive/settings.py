@@ -50,7 +50,7 @@ INSTALLED_APPS = [
     'core',
     'userauths',
     
-    'axes',
+    # 'axes',
     
     "verify_email.apps.VerifyEmailConfig",
 ]
@@ -60,7 +60,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'axes.middleware.AxesMiddleware',
+    # 'axes.middleware.AxesMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -170,17 +170,17 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-AXES_FAILURE_LIMIT = 3 
-AXES_COOLOFF_TIME = 180
+# AXES_FAILURE_LIMIT = 5 
+# AXES_COOLOFF_TIME = 180
 
 
-AUTHENTICATION_BACKENDS = [
-    'axes.backends.AxesBackend',  # You can keep this one
-    'django.contrib.auth.backends.ModelBackend',  # This should be retained
-    'axes.backends.AxesStandaloneBackend',  # Replace AxesModelBackend with AxesStandaloneBackend
-]
+# AUTHENTICATION_BACKENDS = [
+#     'axes.backends.AxesBackend',  # You can keep this one
+#     'django.contrib.auth.backends.ModelBackend',  # This should be retained
+#     'axes.backends.AxesStandaloneBackend',  # Replace AxesModelBackend with AxesStandaloneBackend
+# ]
 
-AXES_LOCKOUT_TEMPLATE = 'core/custom_lockout.html' #path to your custom template
+# AXES_LOCKOUT_TEMPLATE = 'core/custom_lockout.html' #path to your custom template
 
 
 JAZZMIN_SETTINGS = {
