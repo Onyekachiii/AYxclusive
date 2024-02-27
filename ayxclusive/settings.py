@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     
     'django_advanced_password_validation',
     
+    'debug_toolbar',
     
     # custom apps
     'core',

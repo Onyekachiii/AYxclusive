@@ -254,12 +254,12 @@ def payment_confirmation(request, invoice_id):
         invoice = get_object_or_404(Invoice, id=invoice_id, user=request.user)
 
         if request.method == 'POST':
-            payment_confirmation_form = PaymentConfirmationForm(request.POST, request.FILES)
+            form = PaymentConfirmationForm(request.POST, request.FILES)
             
             
-            if payment_confirmation_form.is_valid():
+            if form.is_valid():
                 # Save proof of invoice file to the invoice
-                invoice.proof_of_invoice = payment_confirmation_form.cleaned_data['proof_of_invoice']
+                invoice.proof_of_invoice = form.cleaned_data['proof_of_invoice']
                 invoice.save()
 
                 # Optionally, send a message to the Django admin
@@ -275,10 +275,10 @@ def payment_confirmation(request, invoice_id):
 
                 send_mail(subject, plain_message, from_email, [to_email], html_message=message)
 
-                
+                # return JsonResponse({'status': 'success'})
 
                 # Render the payment confirmation page
-                return render(request, 'core/payment-confirmation.html', {'invoice': invoice, 'payment_confirmation_form': payment_confirmation_form})
+                return render(request, 'core/payment-confirmation.html', {'invoice': invoice, 'form': form})
                 
             else:
                 messages.error(request, "Invalid form submission.")
@@ -350,6 +350,7 @@ def quotation_details(request, quotation_id):
 def approve_quotation(request, quotation_id):
     quotation = get_object_or_404(Quotation, id=quotation_id, user=request.user)
 
+    # Check if the Quotation is not approved and is associated with the user
     if not quotation.is_approved and quotation.user == request.user:
         if request.method == 'POST':
             wallet_usage_form = WalletUsageForm(request.POST)
@@ -371,26 +372,39 @@ def approve_quotation(request, quotation_id):
                 user_name = request.user.get_full_name()
                 message = render_to_string('email/admin_notification_email.html', {'quotation': quotation, 'user_name': user_name})
                 plain_message = strip_tags(message)
-                from_email = 'ayexclsv@gmail.com '  # Use your own email here
-                to_email = 'ay.exclusive@outlook.com'  # Use your admin's email here
+                from_email = 'testingexclusive123@gmail.com'
+                to_email = 'stanleyonyekachiii@yahoo.com'
 
-                send_mail(subject, plain_message, from_email, [to_email], html_message=message)
+            send_mail(subject, plain_message, from_email, [to_email], html_message=message)
 
-                messages.info(request, f"Quotation {quotation.quotation_number} has been approved with wallet usage.")
+            # Redirect or return a response
+            print(quotation.id)
+            return redirect('core:dashboard')
+    
+        context = {
+            'quotation': quotation,
+            'wallet_usage_form': wallet_usage_form,
+        }
+        return render(request, 'core/dashboard.html', context)
 
-                return redirect('core:dashboard')
 
-        else:
-            wallet_usage_form = WalletUsageForm()
-
-        return render(request, 'core/dashboard.html', {'quotation': quotation, 'wallet_usage_form': wallet_usage_form})
     else:
         return HttpResponse("Quotation not found or you don't have permission to approve it.")
 
 
 
-
-
+def quotation_details(request, quotation_id):
+    try:
+        quotation = get_object_or_404(Quotation, id=quotation_id)
+        # Modify this based on your actual Quotation model structure
+        data = {
+            'quotation_id': quotation.id,
+            'quotation_number': quotation.quotation_number,
+            # Add other details as needed
+        }
+        return JsonResponse(data)
+    except Quotation.DoesNotExist:
+        return JsonResponse({'error': 'Quotation not found'}, status=404)
     
 
 def submit_wallet_usage(request, quotation_id):
@@ -411,38 +425,6 @@ def submit_wallet_usage(request, quotation_id):
 
     # Return a JSON response indicating success
     return JsonResponse({'success': True})
-
-
-def submit_payment(request):
-    if request.method == 'POST':
-        # Retrieve form data
-        payment_amount = request.POST.get('payment_amount')
-        proof_of_payment = request.FILES.get('proof_of_payment')
-
-
-        outstanding_payment = OutstandingPayment.objects.create(
-            user=request.user,
-            payment_amount=payment_amount,
-            proof_of_payment=proof_of_payment
-        )
-        outstanding_payment.save()
-
-        # Send email to admin
-        subject = 'New Outstanding Payment Submission'
-        user_name = request.user.get_full_name()
-        message = render_to_string('email/outstanding_payment_email.html', {'outstanding_payment': outstanding_payment, 'user_name': user_name})
-        plain_message = strip_tags(message)
-        from_email = 'ayexclsv@gmail.com'  # Use your own email here
-        to_email = 'ay.exclusive@outlook.com'  # Use your admin's email here
-
-        send_mail(subject, plain_message, from_email, [to_email], html_message=message)
-
-                
-
-        messages.success(request, 'We will confirm payment and get back to you!')
-        return redirect('core:dashboard')  # Adjust the redirect URL as needed
-    else:
-        return redirect('core:dashboard')  # Redirect to dashboard if not a POST request
 
 @login_required
 def upload_image(request):

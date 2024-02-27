@@ -29,7 +29,7 @@ urlpatterns = [
     # To approve quotations
     path('quotation-details/<int:quotation_id>/', quotation_details, name='quotation-details'),
     
-    path('approve-quotation/<int:quotation_id>/', approve_quotation, name='approve-quotation'),
+    path('approve-quotation/<int:quotation_id>/', approve_quotation, name='approve_quotation'),
      
     #For outstanding payments
     path('submit-payment/', submit_payment, name='submit_payment'),
