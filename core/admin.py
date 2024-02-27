@@ -50,7 +50,7 @@ class AddressAdmin(admin.ModelAdmin):
 
 class QuotationAdmin(admin.ModelAdmin):
     
-    list_display = ['user', 'quotation_number', 'is_approved', 'wallet_usage']
+    list_display = ['user', 'quotation_number', 'is_approved']
 
     def is_approved(self, obj):
         return obj.approved  # Assuming your Quotation model has an 'approved' field
